@@ -1,0 +1,19 @@
+# CONTRIBUTE file
+CONTRIBUTE.md
+
+# Source files
+src/
+
+# Github actions
+.github/
+
+# config files
+.editorconfig
+.eslintrc.js
+.eslintcache
+.neutrinorc.js
+.prettierrc.json
+.whitesource
+jest.config.js
+test-setup.js
+webpack.config.js
