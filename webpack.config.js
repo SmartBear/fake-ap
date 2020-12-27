@@ -1,4 +1,5 @@
 const path = require('path')
+const TerserPlugin = require('terser-webpack-plugin')
 
 module.exports = {
   entry: './index.js',
@@ -32,5 +33,21 @@ module.exports = {
       crypto: require.resolve('crypto-browserify'),
       stream: require.resolve('stream-browserify')
     }
+  },
+  externals: {
+    react: 'react',
+    'react-dom': 'react-dom'
+  },
+  optimization: {
+    minimizer: [
+      new TerserPlugin({
+        terserOptions: {
+          format: {
+            comments: false
+          }
+        },
+        extractComments: false
+      })
+    ]
   }
 }
