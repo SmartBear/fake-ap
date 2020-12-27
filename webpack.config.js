@@ -1,7 +1,9 @@
 const path = require('path')
 const TerserPlugin = require('terser-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { DefinePlugin, ProvidePlugin } = require('webpack')
 
-module.exports = {
+const config = {
   entry: './index.js',
   output: {
     filename: 'fake-ap.js',
@@ -50,5 +52,23 @@ module.exports = {
         extractComments: false
       })
     ]
+  },
+  plugins: [
+    new ProvidePlugin({
+      process: 'process/browser'
+    })
+  ]
+}
+
+module.exports = (_env, argv) => {
+  if (argv.mode === 'development') {
+    config.entry = './dev/index.jsx'
+
+    config.externals = {}
+
+    config.plugins.push(new HtmlWebpackPlugin({ title: 'Fake AP' }))
+    config.plugins.push(new DefinePlugin({ __REACT_DEVTOOLS_GLOBAL_HOOK__: '({ isDisabled: true })' }))
   }
+
+  return config
 }
