@@ -6,15 +6,31 @@ module.exports = {
     filename: 'fake-ap.js',
     path: path.resolve(__dirname, 'dist')
   },
+  devServer: {
+    publicPath: '/',
+    port: 5000,
+    stats: {
+      preset: 'minimal',
+      colors: true
+    }
+  },
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader'
         }
       }
     ]
+  },
+  resolve: {
+    extensions: ['.js', '.jsx'],
+    fallback: {
+      buffer: require.resolve('buffer'),
+      crypto: require.resolve('crypto-browserify'),
+      stream: require.resolve('stream-browserify')
+    }
   }
 }
