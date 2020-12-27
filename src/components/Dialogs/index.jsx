@@ -1,14 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react'
+import { DialogsContainer } from './styled'
 import { events } from 'utils'
 
 const styles = {
-  dialogs: {
-    position: 'fixed',
-    top: '0',
-    width: '100%',
-    height: '100%',
-    zIndex: '3000'
-  },
   iframe: {
     border: '0',
     width: '100%',
@@ -93,9 +87,9 @@ const Dialogs = () => {
   }
 
   return (
-    <div style={styles.dialogs}>
+    <DialogsContainer>
       <iframe src={dialog.url} style={styles.iframe} ref={iframeRef} data-testid='ap-dialog' />
-    </div>
+    </DialogsContainer>
   )
 }
 

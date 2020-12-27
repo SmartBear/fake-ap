@@ -10,7 +10,8 @@ const TestPage = () => {
   const createFlag = () => {
     AP.flag.create({
       title: 'Flag title',
-      body: 'Flag body'
+      body: 'Flag body',
+      type: 'success'
     })
   }
 
