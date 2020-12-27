@@ -6,7 +6,7 @@ import WarningIcon from '@atlaskit/icon/glyph/warning'
 import ErrorIcon from '@atlaskit/icon/glyph/error'
 import CloseIcon from '@atlaskit/icon/glyph/cross'
 import Button from '@atlaskit/button/standard-button'
-import { events } from '../../utils'
+import { events } from 'utils'
 
 const styles = {
   flags: {

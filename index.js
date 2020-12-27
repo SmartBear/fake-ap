@@ -1,3 +1,3 @@
-import FakeAP from './src/fake-ap'
+import FakeAP from 'fake-ap'
 
 export default FakeAP

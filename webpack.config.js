@@ -28,6 +28,7 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.jsx'],
+    modules: [path.resolve(__dirname, 'src'), 'node_modules'],
     fallback: {
       buffer: require.resolve('buffer'),
       crypto: require.resolve('crypto-browserify'),

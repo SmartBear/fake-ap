@@ -1,6 +1,6 @@
 import React from 'react'
-import { events, mountComponentWhenDocumentIsReady } from '../utils'
-import Dialogs from '../components/Dialogs'
+import { events, mountComponentWhenDocumentIsReady } from 'utils'
+import Dialogs from 'components/Dialogs'
 
 class Dialog {
   constructor(ap) {

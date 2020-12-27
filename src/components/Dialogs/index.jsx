@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { events } from '../../utils'
+import { events } from 'utils'
 
 const styles = {
   dialogs: {
