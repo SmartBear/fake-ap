@@ -13,7 +13,6 @@
     "test": "jest"
   },
   "devDependencies": {
-    "@atlaskit/button": "^15.1.4",
     "@babel/core": "^7.12.10",
     "@babel/eslint-parser": "^7.12.1",
     "@babel/eslint-plugin": "^7.12.1",
@@ -45,7 +44,6 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
-    "@atlaskit/icon": "^21.1.4",
     "atlassian-jwt": "^1.0.3",
     "axios": "^0.21.1",
     "http-status-codes": "^2.1.4",
