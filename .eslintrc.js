@@ -8,7 +8,7 @@ module.exports = {
       version: 'detect'
     }
   },
-  extends: ['standard', 'plugin:react/recommended', 'plugin:jest/recommended'],
+  extends: ['standard', 'plugin:react/recommended'],
   parser: '@babel/eslint-parser',
   parserOptions: {
     ecmaFeatures: {
@@ -17,17 +17,11 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module'
   },
-  plugins: ['@babel', 'react', 'jest'],
+  plugins: ['@babel', 'react'],
   rules: {
     'arrow-parens': ['error', 'as-needed'],
     camelcase: 'warn',
     'id-length': ['error', { exceptions: ['i'] }],
-    'jest/expect-expect': [
-      'error',
-      {
-        assertFunctionNames: ['expect', '*.expect']
-      }
-    ],
     'jsx-quotes': ['error', 'prefer-single'],
     'multiline-ternary': 'off',
     'no-case-declarations': 'off',
