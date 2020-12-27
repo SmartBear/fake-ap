@@ -5,17 +5,10 @@ module.exports = {
   },
   settings: {
     react: {
-      version: '16.0'
+      version: 'detect'
     }
   },
   extends: ['standard', 'plugin:react/recommended', 'plugin:jest/recommended'],
-  globals: {
-    Atomics: 'readonly',
-    SharedArrayBuffer: 'readonly',
-    I18n: 'readonly',
-    analytics: 'readonly',
-    wait: 'readonly'
-  },
   parser: '@babel/eslint-parser',
   parserOptions: {
     ecmaFeatures: {
