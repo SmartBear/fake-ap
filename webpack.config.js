@@ -39,7 +39,8 @@ const config = {
   },
   externals: {
     react: 'react',
-    'react-dom': 'react-dom'
+    'react-dom': 'react-dom',
+    'styled-components': 'styled-components'
   },
   optimization: {
     minimizer: [
@@ -52,6 +53,9 @@ const config = {
         extractComments: false
       })
     ]
+  },
+  performance: {
+    hints: false
   },
   plugins: [
     new ProvidePlugin({
