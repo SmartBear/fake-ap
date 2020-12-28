@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { getReasonPhrase } from 'http-status-codes'
-import RequestAdapter from '.'
+import RequestAdapter from 'request-adapter'
 
 class BackendRequestAdapter extends RequestAdapter {
   constructor(url) {
