@@ -1,4 +1,4 @@
-import { events } from 'utils'
+import { events } from 'utils/events'
 
 class Events {
   constructor(ap) {

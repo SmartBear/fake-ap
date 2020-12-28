@@ -17,7 +17,7 @@ import {
   ActionButton,
   ActionText
 } from './styled'
-import { events } from 'utils'
+import { events } from 'utils/events'
 
 const Flag = ({ title, body, type, actions, closeFlag }) => {
   const onActionClick = actionIdentifier => {

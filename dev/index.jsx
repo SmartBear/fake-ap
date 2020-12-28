@@ -1,6 +1,6 @@
 import React from 'react'
 import FakeAP from 'fake-ap'
-import { mountComponentWhenDocumentIsReady } from 'utils'
+import { mountComponentWhenDocumentIsReady } from 'utils/mount-component'
 
 const AP = new FakeAP({
   notImplementedAction: console.log
