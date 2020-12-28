@@ -1,0 +1,21 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": "defaults and not IE 11"
+      }
+    ],
+    "@babel/preset-react"
+  ],
+  "plugins": [
+    "@babel/plugin-syntax-dynamic-import",
+    "@babel/plugin-transform-destructuring",
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-proposal-object-rest-spread",
+    "@babel/plugin-transform-parameters",
+    "@babel/plugin-transform-spread",
+    "@babel/plugin-transform-shorthand-properties",
+    "@babel/plugin-proposal-optional-catch-binding"
+  ]
+}
