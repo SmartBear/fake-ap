@@ -28,7 +28,6 @@ module.exports = {
     extensions: ['.js', '.jsx'],
     modules: [path.resolve(__dirname, 'src'), 'node_modules'],
     fallback: {
-      buffer: require.resolve('buffer'),
       crypto: require.resolve('crypto-browserify'),
       stream: require.resolve('stream-browserify')
     }
@@ -51,6 +50,9 @@ module.exports = {
   plugins: [
     new ProvidePlugin({
       process: 'process/browser'
+    }),
+    new ProvidePlugin({
+      Buffer: ['buffer', 'Buffer']
     }),
     new HtmlWebpackPlugin({
       title: 'Fake AP'
