@@ -1,18 +1,16 @@
-class Navigator {
-  constructor(ap) {
-    this._ap = ap
-  }
+import Logger from 'utils/logger'
 
+class Navigator {
   getLocation = (...args) => {
-    return this._ap._notImplemented('AP.navigator.getLocation', ...args)
+    return Logger.notImplemented('AP.navigator.getLocation', ...args)
   }
 
   go = (...args) => {
-    return this._ap._notImplemented('AP.navigator.go', ...args)
+    return Logger.notImplemented('AP.navigator.go', ...args)
   }
 
   reload = (...args) => {
-    return this._ap._notImplemented('AP.navigator.reload', ...args)
+    return Logger.notImplemented('AP.navigator.reload', ...args)
   }
 }
 

@@ -6,9 +6,7 @@ import Flags from 'components/Flags'
 class Flag {
   _nextId = 1
 
-  constructor(ap) {
-    this._ap = ap
-
+  constructor() {
     mountComponentWhenDocumentIsReady(<Flags />, 'ap_flags')
   }
 

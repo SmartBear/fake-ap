@@ -3,13 +3,22 @@ import { render } from '@testing-library/react'
 import * as jwt from 'atlassian-jwt'
 import moment from 'moment'
 import _get from 'lodash/get'
+import Logger from 'utils/logger'
 import FakeAP from 'fake-ap'
+
+const notImplemented = Logger.notImplemented
+const missingConfiguration = Logger.missingConfiguration
 
 const date = new Date()
 moment.now = () => date
 
 let AP = null
 let config = null
+
+beforeEach(() => {
+  Logger.notImplemented = notImplemented
+  Logger.missingConfiguration = missingConfiguration
+})
 
 describe('context', () => {
   describe('getToken', () => {

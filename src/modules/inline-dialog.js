@@ -1,10 +1,8 @@
-class InlineDialog {
-  constructor(ap) {
-    this._ap = ap
-  }
+import Logger from 'utils/logger'
 
+class InlineDialog {
   hide = (...args) => {
-    return this._ap._notImplemented('AP.inlineDialog.hide', ...args)
+    return Logger.notImplemented('AP.inlineDialog.hide', ...args)
   }
 }
 

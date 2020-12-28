@@ -1,6 +1,6 @@
 class Request {
-  constructor(ap) {
-    this._ap = ap
+  constructor(requestAdapter) {
+    this._requestAdapter = requestAdapter
   }
 
   request = async (url, options = {}) => {
@@ -10,7 +10,7 @@ class Request {
       data: options.data || {}
     }
 
-    return await this._ap._config.requestAdapter.request(requestInformation)
+    return await this._requestAdapter.request(requestInformation)
   }
 }
 

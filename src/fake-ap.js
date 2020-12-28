@@ -12,46 +12,40 @@ import Navigator from 'modules/navigator'
 import Request from 'modules/request'
 import User from 'modules/user'
 import RequestAdapter from 'request-adapter'
+import Logger from 'utils/logger'
 
 class AP {
   constructor(config = {}) {
     this._configure(config)
 
-    const iframe = new Iframe(this)
-    const request = new Request(this)
+    const iframe = new Iframe()
+    const request = new Request(this._config.requestAdapter)
 
-    this.events = new Events(this)
-
-    this.context = new Context(this)
-    this.cookie = new Cookie(this)
-    this.dialog = new Dialog(this)
-    this.flag = new Flag(this)
-    this.history = new History(this)
-    this.host = new Host(this)
-    this.inlineDialog = new InlineDialog(this)
-    this.jira = new Jira(this)
-    this.navigator = new Navigator(this)
+    this.context = new Context(this._config.tenant.clientKey, this._config.tenant.sharedSecret, this._config.user.id)
+    this.cookie = new Cookie()
+    this.dialog = new Dialog(this._config.dialogUrls)
+    this.events = new Events()
+    this.flag = new Flag()
+    this.history = new History()
+    this.host = new Host()
+    this.inlineDialog = new InlineDialog()
+    this.jira = new Jira()
+    this.navigator = new Navigator()
     this.request = (...args) => request.request(...args)
     this.resize = (...args) => iframe.resize(...args)
     this.sizeToParent = (...args) => iframe.sizeToParent(...args)
-    this.user = new User(this)
+    this.user = new User(this._config.locale)
   }
 
   _configure(config) {
     this._config = {}
 
     if (typeof config.notImplementedAction === 'function') {
-      this._notImplemented = config.notImplementedAction
-    } else {
-      this._notImplemented = () => {}
+      Logger.notImplemented = config.notImplementedAction
     }
 
     if (typeof config.missingConfigurationAction === 'function') {
-      this._missingConfiguration = config.missingConfigurationAction
-    } else {
-      this._missingConfiguration = (method, configuration) => {
-        throw new Error(`Missing configuration for ${method}: ${configuration}`)
-      }
+      Logger.missingConfiguration = config.missingConfigurationAction
     }
 
     this._config.tenant = {
@@ -68,7 +62,7 @@ class AP {
     if (config.requestAdapter instanceof RequestAdapter) {
       this._config.requestAdapter = config.requestAdapter
     } else {
-      this._config.requestAdapter = new RequestAdapter((...args) => this._notImplemented('AP.request', ...args))
+      this._config.requestAdapter = new RequestAdapter((...args) => Logger.notImplemented('AP.request', ...args))
     }
 
     this._config.locale = config.locale

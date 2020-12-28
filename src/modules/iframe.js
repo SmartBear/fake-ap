@@ -1,14 +1,12 @@
-class Iframe {
-  constructor(ap) {
-    this._ap = ap
-  }
+import Logger from 'utils/logger'
 
+class Iframe {
   resize = (...args) => {
-    return this._ap._notImplemented('AP.resize', ...args)
+    return Logger.notImplemented('AP.resize', ...args)
   }
 
   sizeToParent = (...args) => {
-    return this._ap._notImplemented('AP.sizeToParent', ...args)
+    return Logger.notImplemented('AP.sizeToParent', ...args)
   }
 }
 

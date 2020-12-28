@@ -1,10 +1,8 @@
-class Host {
-  constructor(ap) {
-    this._ap = ap
-  }
+import Logger from 'utils/logger'
 
+class Host {
   getSelectedText = (...args) => {
-    return this._ap._notImplemented('AP.host.getSelectedText', ...args)
+    return Logger.notImplemented('AP.host.getSelectedText', ...args)
   }
 }
 
