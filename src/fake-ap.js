@@ -12,7 +12,6 @@ import Navigator from 'modules/navigator'
 import Request from 'modules/request'
 import User from 'modules/user'
 import RequestAdapter from 'request-adapter'
-import BackendRequestAdapter from 'request-adapter/backend'
 
 class AP {
   constructor(config = {}) {
@@ -74,11 +73,6 @@ class AP {
 
     this._config.locale = config.locale
   }
-}
-
-export {
-  RequestAdapter,
-  BackendRequestAdapter
 }
 
 export default AP
