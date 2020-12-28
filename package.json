@@ -2,16 +2,21 @@
   "name": "@smartbear/fake-ap",
   "version": "1.0.0",
   "description": "A fake AP module to help develop and test Atlassian Connect applications",
-  "main": "index.js",
+  "main": "lib/fake-ap.js",
   "author": "SmartBear Software",
   "license": "MIT",
   "private": true,
+  "files": [
+    "lib"
+  ],
   "scripts": {
+    "build": "babel src --out-dir lib",
     "start": "webpack serve --mode development --client-log-level silent",
     "lint": "eslint --ext js,jsx .",
     "test": "jest"
   },
   "devDependencies": {
+    "@babel/cli": "^7.12.10",
     "@babel/core": "^7.12.10",
     "@babel/eslint-parser": "^7.12.1",
     "@babel/eslint-plugin": "^7.12.1",
@@ -20,6 +25,7 @@
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.2",
     "babel-loader": "^8.2.2",
+    "babel-plugin-module-resolver": "^4.1.0",
     "buffer": "^6.0.3",
     "crypto-browserify": "^3.12.0",
     "eslint": "^7.16.0",

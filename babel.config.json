@@ -16,6 +16,12 @@
     "@babel/plugin-transform-parameters",
     "@babel/plugin-transform-spread",
     "@babel/plugin-transform-shorthand-properties",
-    "@babel/plugin-proposal-optional-catch-binding"
+    "@babel/plugin-proposal-optional-catch-binding",
+    [
+      "module-resolver",
+      {
+        "root": "./lib"
+      }
+    ]
   ]
 }
