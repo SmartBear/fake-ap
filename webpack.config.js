@@ -3,12 +3,8 @@ const TerserPlugin = require('terser-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { DefinePlugin, ProvidePlugin } = require('webpack')
 
-const config = {
-  entry: './index.js',
-  output: {
-    filename: 'fake-ap.js',
-    path: path.resolve(__dirname, 'dist')
-  },
+module.exports = {
+  entry: './dev/index.jsx',
   devServer: {
     publicPath: '/',
     port: 5000,
@@ -37,11 +33,6 @@ const config = {
       stream: require.resolve('stream-browserify')
     }
   },
-  externals: {
-    react: 'react',
-    'react-dom': 'react-dom',
-    'styled-components': 'styled-components'
-  },
   optimization: {
     minimizer: [
       new TerserPlugin({
@@ -60,19 +51,12 @@ const config = {
   plugins: [
     new ProvidePlugin({
       process: 'process/browser'
+    }),
+    new HtmlWebpackPlugin({
+      title: 'Fake AP'
+    }),
+    new DefinePlugin({
+      __REACT_DEVTOOLS_GLOBAL_HOOK__: '({ isDisabled: true })'
     })
   ]
-}
-
-module.exports = (_env, argv) => {
-  if (argv.mode === 'development') {
-    config.entry = './dev/index.jsx'
-
-    config.externals = {}
-
-    config.plugins.push(new HtmlWebpackPlugin({ title: 'Fake AP' }))
-    config.plugins.push(new DefinePlugin({ __REACT_DEVTOOLS_GLOBAL_HOOK__: '({ isDisabled: true })' }))
-  }
-
-  return config
 }

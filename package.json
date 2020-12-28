@@ -7,7 +7,6 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "webpack --mode production",
     "start": "webpack serve --mode development --client-log-level silent",
     "lint": "eslint --ext js,jsx .",
     "test": "jest"
