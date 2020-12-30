@@ -11,7 +11,7 @@
   ],
   "scripts": {
     "build": "babel src --out-dir lib",
-    "start": "webpack serve --mode development --client-log-level silent",
+    "start": "webpack serve --client-log-level silent",
     "lint": "eslint --ext js,jsx .",
     "test": "jest"
   },

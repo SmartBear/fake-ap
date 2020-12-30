@@ -4,7 +4,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { DefinePlugin, ProvidePlugin } = require('webpack')
 
 module.exports = {
-  entry: './dev/index.jsx',
+  mode: 'development',
+  context: path.resolve(__dirname, 'dev'),
+  entry: {
+    main: './index.js',
+    dialog: './dialog.js'
+  },
   devServer: {
     publicPath: '/',
     port: 5000,
@@ -48,17 +53,23 @@ module.exports = {
     hints: false
   },
   plugins: [
+    new HtmlWebpackPlugin({
+      title: 'Fake AP',
+      chunks: ['main']
+    }),
+    new HtmlWebpackPlugin({
+      title: 'Dialog',
+      filename: 'dialog.html',
+      chunks: ['dialog']
+    }),
+    new DefinePlugin({
+      __REACT_DEVTOOLS_GLOBAL_HOOK__: '({ isDisabled: true })'
+    }),
     new ProvidePlugin({
       process: 'process/browser'
     }),
     new ProvidePlugin({
       Buffer: ['buffer', 'Buffer']
-    }),
-    new HtmlWebpackPlugin({
-      title: 'Fake AP'
-    }),
-    new DefinePlugin({
-      __REACT_DEVTOOLS_GLOBAL_HOOK__: '({ isDisabled: true })'
     })
   ]
 }
