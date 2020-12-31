@@ -1,5 +1,5 @@
 import React from 'react'
-import { events } from 'utils/events'
+import events from 'modules/events'
 import { mountComponentWhenDocumentIsReady } from 'utils/mount-component'
 import Flags from 'components/Flags'
 
@@ -42,4 +42,6 @@ class Flag {
   }
 }
 
-export default Flag
+const flag = new Flag()
+
+export default flag

@@ -1,9 +1,11 @@
-import Logger from 'utils/logger'
+import config from 'config'
 
 class InlineDialog {
   hide = (...args) => {
-    return Logger.notImplemented('AP.inlineDialog.hide', ...args)
+    return config.notImplemented('AP.inlineDialog.hide', ...args)
   }
 }
 
-export default InlineDialog
+const inlineDialog = new InlineDialog()
+
+export default inlineDialog

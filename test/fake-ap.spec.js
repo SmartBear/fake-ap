@@ -3,21 +3,17 @@ import { render } from '@testing-library/react'
 import * as jwt from 'atlassian-jwt'
 import moment from 'moment'
 import _get from 'lodash/get'
-import Logger from 'utils/logger'
+import config from 'config'
 import FakeAP from 'fake-ap'
-
-const notImplemented = Logger.notImplemented
-const missingConfiguration = Logger.missingConfiguration
 
 const date = new Date()
 moment.now = () => date
 
 let AP = null
-let config = null
+let options = null
 
 beforeEach(() => {
-  Logger.notImplemented = notImplemented
-  Logger.missingConfiguration = missingConfiguration
+  config.setConfig(config.defaultConfig)
 })
 
 describe('context', () => {
@@ -27,12 +23,12 @@ describe('context', () => {
     const userId = 'user'
 
     beforeEach(() => {
-      config = { clientKey, sharedSecret, userId }
+      options = { clientKey, sharedSecret, userId }
     })
 
     describe('when a client key, a shared secret and a user ID are provided', () => {
       beforeEach(() => {
-        AP = new FakeAP(config)
+        AP = new FakeAP(options)
       })
 
       it('includes the client key and user ID', async () => {
@@ -67,9 +63,9 @@ describe('context', () => {
         const missingConfigurationAction = jest.fn(() => 'result')
 
         beforeEach(() => {
-          const { clientKey, ...missingConfigurationConfig } = config
+          const { clientKey, ...missingConfigurationOptions } = options
 
-          AP = new FakeAP({ ...missingConfigurationConfig, missingConfigurationAction })
+          AP = new FakeAP({ ...missingConfigurationOptions, missingConfigurationAction })
 
           missingConfigurationAction.mockClear()
         })
@@ -89,9 +85,9 @@ describe('context', () => {
 
       describe('when no missingConfigurationAction method is provided', () => {
         beforeEach(() => {
-          const { clientKey, ...missingConfigurationConfig } = config
+          const { clientKey, ...missingConfigurationOptions } = options
 
-          AP = new FakeAP(missingConfigurationConfig)
+          AP = new FakeAP(missingConfigurationOptions)
         })
 
         it('throws an error', async () => {
@@ -109,9 +105,9 @@ describe('context', () => {
         const missingConfigurationAction = jest.fn(() => 'result')
 
         beforeEach(() => {
-          const { sharedSecret, ...missingConfigurationConfig } = config
+          const { sharedSecret, ...missingConfigurationOptions } = options
 
-          AP = new FakeAP({ ...missingConfigurationConfig, missingConfigurationAction })
+          AP = new FakeAP({ ...missingConfigurationOptions, missingConfigurationAction })
 
           missingConfigurationAction.mockClear()
         })
@@ -131,9 +127,9 @@ describe('context', () => {
 
       describe('when no missingConfigurationAction method is provided', () => {
         beforeEach(() => {
-          const { sharedSecret, ...missingConfigurationConfig } = config
+          const { sharedSecret, ...missingConfigurationOptions } = options
 
-          AP = new FakeAP(missingConfigurationConfig)
+          AP = new FakeAP(missingConfigurationOptions)
         })
 
         it('throws an error', async () => {
@@ -151,9 +147,9 @@ describe('context', () => {
         const missingConfigurationAction = jest.fn(() => 'result')
 
         beforeEach(() => {
-          const { userId, ...missingConfigurationConfig } = config
+          const { userId, ...missingConfigurationOptions } = options
 
-          AP = new FakeAP({ ...missingConfigurationConfig, missingConfigurationAction })
+          AP = new FakeAP({ ...missingConfigurationOptions, missingConfigurationAction })
 
           missingConfigurationAction.mockClear()
         })
@@ -173,9 +169,9 @@ describe('context', () => {
 
       describe('when no missingConfigurationAction method is provided', () => {
         beforeEach(() => {
-          const { userId, ...missingConfigurationConfig } = config
+          const { userId, ...missingConfigurationOptions } = options
 
-          AP = new FakeAP(missingConfigurationConfig)
+          AP = new FakeAP(missingConfigurationOptions)
         })
 
         it('throws an error', async () => {

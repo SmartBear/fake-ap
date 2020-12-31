@@ -1,41 +1,43 @@
-import Logger from 'utils/logger'
+import config from 'config'
 
 class Jira {
   refreshIssuePage = (...args) => {
-    return Logger.notImplemented('AP.jira.refreshIssuePage', ...args)
+    return config.notImplemented('AP.jira.refreshIssuePage', ...args)
   }
 
   getWorkflowConfiguration = (...args) => {
-    return Logger.notImplemented('AP.jira.getWorkflowConfiguration', ...args)
+    return config.notImplemented('AP.jira.getWorkflowConfiguration', ...args)
   }
 
   isDashboardItemEditable = (...args) => {
-    return Logger.notImplemented('AP.jira.isDashboardItemEditable', ...args)
+    return config.notImplemented('AP.jira.isDashboardItemEditable', ...args)
   }
 
   openCreateIssueDialog = (...args) => {
-    return Logger.notImplemented('AP.jira.openCreateIssueDialog', ...args)
+    return config.notImplemented('AP.jira.openCreateIssueDialog', ...args)
   }
 
   setDashboardItemTitle = (...args) => {
-    return Logger.notImplemented('AP.jira.setDashboardItemTitle', ...args)
+    return config.notImplemented('AP.jira.setDashboardItemTitle', ...args)
   }
 
   openDatePicker = (...args) => {
-    return Logger.notImplemented('AP.jira.openDatePicker', ...args)
+    return config.notImplemented('AP.jira.openDatePicker', ...args)
   }
 
   initJQLEditor = (...args) => {
-    return Logger.notImplemented('AP.jira.initJQLEditor', ...args)
+    return config.notImplemented('AP.jira.initJQLEditor', ...args)
   }
 
   showJQLEditor = (...args) => {
-    return Logger.notImplemented('AP.jira.showJQLEditor', ...args)
+    return config.notImplemented('AP.jira.showJQLEditor', ...args)
   }
 
   isNativeApp = (...args) => {
-    return Logger.notImplemented('AP.jira.isNativeApp', ...args)
+    return config.notImplemented('AP.jira.isNativeApp', ...args)
   }
 }
 
-export default Jira
+const jira = new Jira()
+
+export default jira

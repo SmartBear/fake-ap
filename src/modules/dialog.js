@@ -1,18 +1,16 @@
 import React from 'react'
-import { events } from 'utils/events'
+import events from 'modules/events'
 import { mountComponentWhenDocumentIsReady } from 'utils/mount-component'
-import Logger from 'utils/logger'
+import config from 'config'
 import Dialogs from 'components/Dialogs'
 
 class Dialog {
-  constructor(dialogUrls) {
-    this._dialogUrls = dialogUrls
-
+  constructor() {
     mountComponentWhenDocumentIsReady(<Dialogs />, 'ap_dialogs')
   }
 
   create = options => {
-    options.url = this._dialogUrls[options.key]
+    options.url = config.dialogUrls[options.key]
 
     events.emit('dialog.create', options)
   }
@@ -38,20 +36,22 @@ class Dialog {
   }
 
   getButton = (...args) => {
-    return Logger.notImplemented('AP.dialog.getButton', ...args)
+    return config.notImplemented('AP.dialog.getButton', ...args)
   }
 
   disableCloseOnSubmit = (...args) => {
-    return Logger.notImplemented('AP.dialog.disableCloseOnSubmit', ...args)
+    return config.notImplemented('AP.dialog.disableCloseOnSubmit', ...args)
   }
 
   createButton = (...args) => {
-    return Logger.notImplemented('AP.dialog.createButton', ...args)
+    return config.notImplemented('AP.dialog.createButton', ...args)
   }
 
   isCloseOnEscape = (...args) => {
-    return Logger.notImplemented('AP.dialog.isCloseOnEscape', ...args)
+    return config.notImplemented('AP.dialog.isCloseOnEscape', ...args)
   }
 }
 
-export default Dialog
+const dialog = new Dialog()
+
+export default dialog

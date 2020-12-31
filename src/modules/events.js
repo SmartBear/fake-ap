@@ -1,54 +1,76 @@
-import { events } from 'utils/events'
-import Logger from 'utils/logger'
+import Signal from 'signals'
+import config from 'config'
 
 class Events {
-  on = events.on
+  _eventNames = {}
 
-  onPublic = (...args) => {
-    return Logger.notImplemented('AP.events.onPublic', ...args)
+  on = (name, listener) => {
+    if (this._eventNames[name] === undefined) {
+      this._eventNames[name] = new Signal()
+    }
+    this._eventNames[name].add(listener)
   }
 
-  once = events.once
+  onPublic = (...args) => {
+    return config.notImplemented('AP.events.onPublic', ...args)
+  }
+
+  once = (name, listener) => {
+    if (this._eventNames[name] === undefined) {
+      this._eventNames[name] = new Signal()
+    }
+    this._eventNames[name].addOnce(listener)
+  }
 
   oncePublic = (...args) => {
-    return Logger.notImplemented('AP.events.oncePublic', ...args)
+    return config.notImplemented('AP.events.oncePublic', ...args)
   }
 
   onAny = (...args) => {
-    return Logger.notImplemented('AP.events.onAny', ...args)
+    return config.notImplemented('AP.events.onAny', ...args)
   }
 
   onAnyPublic = (...args) => {
-    return Logger.notImplemented('AP.events.onAnyPublic', ...args)
+    return config.notImplemented('AP.events.onAnyPublic', ...args)
   }
 
-  off = events.off
+  off = (name, listener) => {
+    if (this._eventNames[name] !== undefined) {
+      this._eventNames[name].remove(listener)
+    }
+  }
 
   offPublic = (...args) => {
-    return Logger.notImplemented('AP.events.offPublic', ...args)
+    return config.notImplemented('AP.events.offPublic', ...args)
   }
 
   offAll = (...args) => {
-    return Logger.notImplemented('AP.events.offAll', ...args)
+    return config.notImplemented('AP.events.offAll', ...args)
   }
 
   offAllPublic = (...args) => {
-    return Logger.notImplemented('AP.events.offAllPublic', ...args)
+    return config.notImplemented('AP.events.offAllPublic', ...args)
   }
 
   offAny = (...args) => {
-    return Logger.notImplemented('AP.events.offAny', ...args)
+    return config.notImplemented('AP.events.offAny', ...args)
   }
 
   offAnyPublic = (...args) => {
-    return Logger.notImplemented('AP.events.offAnyPublic', ...args)
+    return config.notImplemented('AP.events.offAnyPublic', ...args)
   }
 
-  emit = events.emit
+  emit = (name, args) => {
+    if (this._eventNames[name] !== undefined) {
+      this._eventNames[name].dispatch(args)
+    }
+  }
 
   emitPublic = (...args) => {
-    return Logger.notImplemented('AP.events.emitPublic', ...args)
+    return config.notImplemented('AP.events.emitPublic', ...args)
   }
 }
 
-export default Events
+const events = new Events()
+
+export default events

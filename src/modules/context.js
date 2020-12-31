@@ -1,42 +1,38 @@
 import * as jwt from 'atlassian-jwt'
 import moment from 'moment'
-import Logger from 'utils/logger'
+import config from 'config'
 
 class Context {
-  constructor(clientKey, sharedSecret, userId) {
-    this._clientKey = clientKey
-    this._sharedSecret = sharedSecret
-    this._userId = userId
-  }
-
   getToken = async () => {
-    if (!this._clientKey) {
-      return Logger.missingConfiguration('AP.context.getToken', 'clientKey')
+    if (!config.clientKey) {
+      return config.missingConfiguration('AP.context.getToken', 'clientKey')
     }
 
-    if (!this._sharedSecret) {
-      return Logger.missingConfiguration('AP.context.getToken', 'sharedSecret')
+    if (!config.sharedSecret) {
+      return config.missingConfiguration('AP.context.getToken', 'sharedSecret')
     }
 
-    if (!this._userId) {
-      return Logger.missingConfiguration('AP.context.getToken', 'userId')
+    if (!config.userId) {
+      return config.missingConfiguration('AP.context.getToken', 'userId')
     }
 
     const now = moment().utc()
 
     const payload = {
-      iss: this._clientKey,
-      sub: this._userId,
+      iss: config.clientKey,
+      sub: config.userId,
       iat: now.unix(),
       exp: now.add(5, 'minutes').unix()
     }
 
-    return jwt.encode(payload, this._sharedSecret)
+    return jwt.encode(payload, config.sharedSecret)
   }
 
   getContext = async (...args) => {
-    return Logger.notImplemented('AP.context.getContext', ...args)
+    return config.notImplemented('AP.context.getContext', ...args)
   }
 }
 
-export default Context
+const context = new Context()
+
+export default context

@@ -1,13 +1,15 @@
-import Logger from 'utils/logger'
+import config from 'config'
 
 class Iframe {
   resize = (...args) => {
-    return Logger.notImplemented('AP.resize', ...args)
+    return config.notImplemented('AP.resize', ...args)
   }
 
   sizeToParent = (...args) => {
-    return Logger.notImplemented('AP.sizeToParent', ...args)
+    return config.notImplemented('AP.sizeToParent', ...args)
   }
 }
 
-export default Iframe
+const iframe = new Iframe()
+
+export default iframe

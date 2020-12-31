@@ -1,8 +1,6 @@
-class Request {
-  constructor(requestAdapter) {
-    this._requestAdapter = requestAdapter
-  }
+import config from 'config'
 
+class Request {
   request = async (url, options = {}) => {
     const requestInformation = {
       method: options.type?.toUpperCase() || 'GET',
@@ -10,8 +8,10 @@ class Request {
       data: options.data || {}
     }
 
-    return await this._requestAdapter.request(requestInformation)
+    return await config.requestAdapter.request(requestInformation)
   }
 }
 
-export default Request
+const request = new Request()
+
+export default request

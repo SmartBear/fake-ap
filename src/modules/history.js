@@ -1,20 +1,20 @@
 import Signal from 'signals'
-import Logger from 'utils/logger'
+import config from 'config'
 
 class History {
   _state = ''
   _stateSignal = new Signal()
 
   back = (...args) => {
-    return Logger.notImplemented('AP.history.back', ...args)
+    return config.notImplemented('AP.history.back', ...args)
   }
 
   forward = (...args) => {
-    return Logger.notImplemented('AP.history.forward', ...args)
+    return config.notImplemented('AP.history.forward', ...args)
   }
 
   go = (...args) => {
-    return Logger.notImplemented('AP.history.go', ...args)
+    return config.notImplemented('AP.history.go', ...args)
   }
 
   getState = () => {
@@ -33,7 +33,7 @@ class History {
   }
 
   replaceState = (...args) => {
-    return Logger.notImplemented('AP.history.replaceState', ...args)
+    return config.notImplemented('AP.history.replaceState', ...args)
   }
 
   _clearHistory = () => {
@@ -44,4 +44,6 @@ class History {
   }
 }
 
-export default History
+const history = new History()
+
+export default history

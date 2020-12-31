@@ -1,9 +1,11 @@
-import Logger from 'utils/logger'
+import config from 'config'
 
 class Host {
   getSelectedText = (...args) => {
-    return Logger.notImplemented('AP.host.getSelectedText', ...args)
+    return config.notImplemented('AP.host.getSelectedText', ...args)
   }
 }
 
-export default Host
+const host = new Host()
+
+export default host

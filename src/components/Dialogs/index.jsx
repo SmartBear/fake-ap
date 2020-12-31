@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { DialogsContainer } from './styled'
-import { events } from 'utils/events'
+import events from 'modules/events'
 
 const styles = {
   iframe: {

@@ -1,21 +1,19 @@
-import Logger from 'utils/logger'
+import config from 'config'
 
 class User {
-  constructor(locale) {
-    this._locale = locale
-  }
-
   getCurrentUser = (...args) => {
-    return Logger.notImplemented('AP.user.getCurrentUser', ...args)
+    return config.notImplemented('AP.user.getCurrentUser', ...args)
   }
 
   getTimeZone = (...args) => {
-    return Logger.notImplemented('AP.user.getTimeZone', ...args)
+    return config.notImplemented('AP.user.getTimeZone', ...args)
   }
 
   getLocale = callback => {
-    callback(this._locale || 'en_US')
+    callback(config.locale || 'en_US')
   }
 }
 
-export default User
+const user = new User()
+
+export default user

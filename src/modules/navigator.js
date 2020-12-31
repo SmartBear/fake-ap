@@ -1,17 +1,19 @@
-import Logger from 'utils/logger'
+import config from 'config'
 
 class Navigator {
   getLocation = (...args) => {
-    return Logger.notImplemented('AP.navigator.getLocation', ...args)
+    return config.notImplemented('AP.navigator.getLocation', ...args)
   }
 
   go = (...args) => {
-    return Logger.notImplemented('AP.navigator.go', ...args)
+    return config.notImplemented('AP.navigator.go', ...args)
   }
 
   reload = (...args) => {
-    return Logger.notImplemented('AP.navigator.reload', ...args)
+    return config.notImplemented('AP.navigator.reload', ...args)
   }
 }
 
-export default Navigator
+const navigator = new Navigator()
+
+export default navigator
