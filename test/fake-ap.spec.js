@@ -9,11 +9,11 @@ import FakeAP from 'fake-ap'
 const date = new Date()
 moment.now = () => date
 
-let AP = null
+const AP = new FakeAP()
 let options = null
 
 beforeEach(() => {
-  config.setConfig(config.defaultConfig)
+  config.resetConfig()
 })
 
 describe('context', () => {
@@ -28,7 +28,7 @@ describe('context', () => {
 
     describe('when a client key, a shared secret and a user ID are provided', () => {
       beforeEach(() => {
-        AP = new FakeAP(options)
+        AP.configure(options)
       })
 
       it('includes the client key and user ID', async () => {
@@ -65,7 +65,7 @@ describe('context', () => {
         beforeEach(() => {
           const { clientKey, ...missingConfigurationOptions } = options
 
-          AP = new FakeAP({ ...missingConfigurationOptions, missingConfigurationAction })
+          AP.configure({ ...missingConfigurationOptions, missingConfigurationAction })
 
           missingConfigurationAction.mockClear()
         })
@@ -87,7 +87,7 @@ describe('context', () => {
         beforeEach(() => {
           const { clientKey, ...missingConfigurationOptions } = options
 
-          AP = new FakeAP(missingConfigurationOptions)
+          AP.configure(missingConfigurationOptions)
         })
 
         it('throws an error', async () => {
@@ -107,7 +107,7 @@ describe('context', () => {
         beforeEach(() => {
           const { sharedSecret, ...missingConfigurationOptions } = options
 
-          AP = new FakeAP({ ...missingConfigurationOptions, missingConfigurationAction })
+          AP.configure({ ...missingConfigurationOptions, missingConfigurationAction })
 
           missingConfigurationAction.mockClear()
         })
@@ -129,7 +129,7 @@ describe('context', () => {
         beforeEach(() => {
           const { sharedSecret, ...missingConfigurationOptions } = options
 
-          AP = new FakeAP(missingConfigurationOptions)
+          AP.configure(missingConfigurationOptions)
         })
 
         it('throws an error', async () => {
@@ -149,7 +149,7 @@ describe('context', () => {
         beforeEach(() => {
           const { userId, ...missingConfigurationOptions } = options
 
-          AP = new FakeAP({ ...missingConfigurationOptions, missingConfigurationAction })
+          AP.configure({ ...missingConfigurationOptions, missingConfigurationAction })
 
           missingConfigurationAction.mockClear()
         })
@@ -171,7 +171,7 @@ describe('context', () => {
         beforeEach(() => {
           const { userId, ...missingConfigurationOptions } = options
 
-          AP = new FakeAP(missingConfigurationOptions)
+          AP.configure(missingConfigurationOptions)
         })
 
         it('throws an error', async () => {
@@ -191,8 +191,6 @@ describe('dialog', () => {
 
   beforeEach(() => {
     component = render(<div />)
-
-    AP = new FakeAP()
   })
 
   describe('when the Dialogs component is not already mounted', () => {
@@ -203,8 +201,8 @@ describe('dialog', () => {
 
   describe('when the Dialogs component is already mounted', () => {
     beforeEach(() => {
-      AP = new FakeAP()
-      AP = new FakeAP()
+      // eslint-disable-next-line no-new
+      new FakeAP()
     })
 
     it('does not mount another Dialogs component', () => {
@@ -214,10 +212,6 @@ describe('dialog', () => {
 })
 
 describe('events', () => {
-  beforeEach(() => {
-    AP = new FakeAP()
-  })
-
   describe('on', () => {
     it('registers a listener to be called every time the provided event is emitted', () => {
       const listener = jest.fn()
@@ -310,8 +304,6 @@ describe('flag', () => {
 
   beforeEach(() => {
     component = render(<div />)
-
-    AP = new FakeAP()
   })
 
   describe('when the Flags component is not already mounted', () => {
@@ -322,8 +314,8 @@ describe('flag', () => {
 
   describe('when the Flags component is already mounted', () => {
     beforeEach(() => {
-      AP = new FakeAP()
-      AP = new FakeAP()
+      // eslint-disable-next-line no-new
+      new FakeAP()
     })
 
     it('does not mount another Flags component', () => {
@@ -333,10 +325,6 @@ describe('flag', () => {
 })
 
 describe('history', () => {
-  beforeEach(() => {
-    AP = new FakeAP()
-  })
-
   afterEach(() => {
     window.location.hash = ''
   })
@@ -415,7 +403,7 @@ describe('user', () => {
   describe('getLocale', () => {
     describe('when a locale is provided in configuration', () => {
       beforeEach(() => {
-        AP = new FakeAP({ locale: 'fr_FR' })
+        AP.configure({ locale: 'fr_FR' })
       })
 
       it('calls the provided callback with the configuration locale', () => {
@@ -428,10 +416,6 @@ describe('user', () => {
     })
 
     describe('when no locale is provided in configuration', () => {
-      beforeEach(() => {
-        AP = new FakeAP()
-      })
-
       it('calls the provided callback with english set as the locale', () => {
         const callback = jest.fn()
 
@@ -492,7 +476,7 @@ describe('Not implemented methods', () => {
       const notImplementedAction = jest.fn(() => 'result')
 
       beforeEach(() => {
-        AP = new FakeAP({ notImplementedAction })
+        AP.configure({ notImplementedAction })
 
         notImplementedAction.mockClear()
       })
@@ -513,10 +497,6 @@ describe('Not implemented methods', () => {
     })
 
     describe('when no notImplementedAction method is provided', () => {
-      beforeEach(() => {
-        AP = new FakeAP()
-      })
-
       it('does not return anything', async () => {
         const result = await _get(AP, method)()
 

@@ -1,21 +1,8 @@
 import RequestAdapter from 'request-adapter'
 
 class Config {
-  defaultConfig = {
-    notImplementedAction: () => {},
-    missingConfigurationAction: (method, configuration) => {
-      throw new Error(`Missing configuration for ${method}: ${configuration}`)
-    },
-    requestAdapter: new RequestAdapter((...args) => this.notImplemented('AP.request', ...args)),
-    clientKey: null,
-    sharedSecret: null,
-    userId: null,
-    dialogUrls: {},
-    locale: null
-  }
-
   constructor() {
-    this.setConfig(this.defaultConfig)
+    this.resetConfig()
   }
 
   setConfig = config => {
@@ -31,11 +18,26 @@ class Config {
       this.requestAdapter = config.requestAdapter
     }
 
-    this.clientKey = config.clientKey !== undefined ? config.clientKey : this.clientKey
-    this.sharedSecret = config.sharedSecret !== undefined ? config.sharedSecret : this.sharedSecret
-    this.userId = config.userId !== undefined ? config.userId : this.userId
-    this.dialogUrls = config.dialogUrls !== undefined ? config.dialogUrls : this.dialogUrls
-    this.locale = config.locale !== undefined ? config.locale : this.locale
+    this.clientKey = config.clientKey ?? this.clientKey
+    this.sharedSecret = config.sharedSecret ?? this.sharedSecret
+    this.userId = config.userId ?? this.userId
+    this.dialogUrls = config.dialogUrls ?? this.dialogUrls
+    this.locale = config.locale ?? this.locale
+  }
+
+  resetConfig = () => {
+    this.notImplemented = () => {}
+    this.missingConfiguration = (method, configuration) => {
+      throw new Error(`Missing configuration for ${method}: ${configuration}`)
+    }
+
+    this.requestAdapter = new RequestAdapter((...args) => this.notImplemented('AP.request', ...args))
+
+    this.clientKey = null
+    this.sharedSecret = null
+    this.userId = null
+    this.dialogUrls = {}
+    this.locale = null
   }
 }
 
