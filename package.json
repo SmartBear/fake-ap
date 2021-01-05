@@ -1,6 +1,6 @@
 {
   "name": "@smartbear/fake-ap",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "A fake AP module to help develop and test Atlassian Connect applications",
   "main": "lib/index.js",
   "author": "SmartBear Software",
