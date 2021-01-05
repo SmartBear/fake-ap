@@ -5,15 +5,17 @@
   "main": "lib/index.js",
   "author": "SmartBear Software",
   "license": "MIT",
-  "private": true,
   "files": [
     "lib"
   ],
   "scripts": {
-    "build": "babel src --out-dir lib",
     "start": "webpack serve --client-log-level silent",
     "lint": "eslint --ext js,jsx .",
-    "test": "jest"
+    "test": "jest",
+    "release:build": "rm -rf lib && babel src --out-dir lib",
+    "release:commit": "git add lib && git commit -m \"Update release files\"",
+    "release:push": "git push --tags && git push",
+    "prepublishOnly": "yarn release:build && yarn release:commit"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.10",
