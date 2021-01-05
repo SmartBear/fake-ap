@@ -3,14 +3,15 @@ import { getReasonPhrase } from 'http-status-codes'
 import RequestAdapter from 'request-adapter'
 
 class BackendRequestAdapter extends RequestAdapter {
+  client = axios.create()
+
   constructor(url) {
     super()
 
     this.url = url
-    this.client = axios.create()
   }
 
-  async request(options) {
+  request = async options => {
     const response = await this.client.post(this.url, options)
 
     const { status, body } = response.data
