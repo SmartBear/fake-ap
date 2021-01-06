@@ -130,6 +130,8 @@ describe('Flags', () => {
       fireEvent.click(flags.getByTestId('ap-flag-action'))
 
       expect(listener).toHaveBeenCalledWith({ actionIdentifier: 'identifier' })
+
+      events.off('flag.action', listener)
     })
   })
 
