@@ -1,8 +1,11 @@
-# CONTRIBUTE file
-CONTRIBUTE.md
+# CONTRIBUTING.md file
+CONTRIBUTING.md
 
 # Source files
 src/
+
+# Development files
+dev/
 
 # Github actions
 .github/
@@ -10,10 +13,10 @@ src/
 # config files
 .editorconfig
 .eslintrc.js
-.eslintcache
-.neutrinorc.js
 .prettierrc.json
 .whitesource
+babel.config.js
 jest.config.js
-test-setup.js
+jest.setup.js
 webpack.config.js
+yarn.lock
