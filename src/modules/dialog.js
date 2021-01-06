@@ -16,7 +16,7 @@ class Dialog {
   }
 
   close = data => {
-    window.top.postMessage({ type: 'AP.dialog.close', data })
+    window.top.postMessage({ type: 'AP.dialog.close', data }, '*')
   }
 
   getCustomData = callback => {
@@ -32,7 +32,7 @@ class Dialog {
       callback(event.data.customData)
     })
 
-    window.top.postMessage({ type: 'AP.dialog.getCustomData' })
+    window.top.postMessage({ type: 'AP.dialog.getCustomData' }, '*')
   }
 
   getButton = (...args) => {

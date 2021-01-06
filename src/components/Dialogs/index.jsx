@@ -65,7 +65,7 @@ const Dialogs = () => {
 
     window.removeEventListener('message', onGetCustomDataMessage)
 
-    event.source.postMessage({ type: 'AP.dialog.customData', customData: dialog.customData })
+    event.source.postMessage({ type: 'AP.dialog.customData', customData: dialog.customData }, '*')
   }
 
   const onCloseMessage = event => {
