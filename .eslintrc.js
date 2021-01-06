@@ -17,6 +17,9 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module'
   },
+  globals: {
+    mockPostMessage: 'readonly'
+  },
   plugins: ['@babel', 'react', 'jest'],
   rules: {
     'arrow-parens': ['error', 'as-needed'],
