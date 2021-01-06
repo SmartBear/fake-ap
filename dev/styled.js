@@ -25,19 +25,35 @@ export const GlobalStyle = createGlobalStyle`
 
 export const TestPageContainer = styled.div`
   display: flex;
+  flex-wrap: wrap;
 `
 
-export const MethodContainer = styled.div`
+export const Section = styled.div`
   width: 442px;
+  height: 220px;
   border: 1px solid black;
   padding: 20px;
   margin-top: 10px;
   margin-left: 10px;
 `
 
-export const MethodName = styled.div`
+export const SectionName = styled.div`
   font-family: monospace;
   font-size: 16px;
+`
+
+export const OptionsContent = styled.div`
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: start;
+  align-items: center;
+  column-gap: 10px;
+
+  & > * {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
 `
 
 export const MethodContent = styled.div`
@@ -58,6 +74,16 @@ export const Token = styled.div`
   background-color: #EEEEEE;
   width: 100%;
   height: 80px;
+  padding: 10px;
+  overflow-y: auto;
+`
+
+export const Locale = styled.div`
+  font-family: monospace;
+  word-break: break-all;
+  background-color: #EEEEEE;
+  width: 100%;
+  height: 36px;
   padding: 10px;
   overflow-y: auto;
 `
