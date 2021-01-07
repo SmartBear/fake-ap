@@ -55,10 +55,6 @@ const Dialogs = () => {
   }
 
   const onGetCustomDataMessage = event => {
-    if (!iframeRef.current || event.source !== iframeRef.current.contentWindow) {
-      return
-    }
-
     if (typeof event.data !== 'object' || event.data.type !== 'AP.dialog.getCustomData') {
       return
     }
