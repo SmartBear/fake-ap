@@ -1,14 +1,7 @@
-import React from 'react'
 import events from 'modules/events'
-import { mountComponentWhenDocumentIsReady } from 'utils/mount-component'
 import config from 'config'
-import Dialogs from 'components/Dialogs'
 
 class Dialog {
-  constructor() {
-    mountComponentWhenDocumentIsReady(<Dialogs />, 'ap_dialogs')
-  }
-
   create = options => {
     options.url = config.dialogUrls[options.key]
 

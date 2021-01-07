@@ -1,14 +1,7 @@
-import React from 'react'
 import events from 'modules/events'
-import { mountComponentWhenDocumentIsReady } from 'utils/mount-component'
-import Flags from 'components/Flags'
 
 class Flag {
   _nextId = 1
-
-  constructor() {
-    mountComponentWhenDocumentIsReady(<Flags />, 'ap_flags')
-  }
 
   create = options => {
     const id = this._nextId
