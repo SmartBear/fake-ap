@@ -4,6 +4,7 @@ import * as jwt from 'atlassian-jwt'
 import moment from 'moment'
 import _get from 'lodash/get'
 import config from 'config'
+import RequestAdapter from 'request-adapter'
 import FakeAP from 'fake-ap'
 
 const date = new Date()
@@ -532,6 +533,83 @@ describe('user', () => {
         AP.user.getLocale(callback)
 
         expect(callback).toHaveBeenCalledWith('en_US')
+      })
+    })
+  })
+})
+
+describe('request', () => {
+  describe('when no request adapter is provided in configuration', () => {
+    const notImplementedAction = jest.fn()
+
+    beforeEach(() => {
+      AP.configure({ notImplementedAction })
+
+      notImplementedAction.mockClear()
+    })
+
+    it('calls the not implemented action', async () => {
+      await AP.request('localhost', { type: 'POST' })
+
+      expect(notImplementedAction).toHaveBeenCalledWith('AP.request', { data: {}, method: 'POST', path: 'localhost' })
+    })
+
+    it('returns a response with empty data', async () => {
+      const response = await AP.request('localhost', { type: 'POST' })
+
+      expect(response).toEqual({
+        body: JSON.stringify({})
+      })
+    })
+  })
+
+  describe('when a request adapter is provided in configuration', () => {
+    const requestAdapter = new RequestAdapter()
+    requestAdapter.request = jest.fn()
+
+    beforeEach(() => {
+      AP.configure({ requestAdapter })
+
+      requestAdapter.request.mockClear()
+    })
+
+    it('calls the adapter request with the method set as an uppercase string based on the provided type', async () => {
+      await AP.request('localhost', { type: 'post' })
+
+      expect(requestAdapter.request).toHaveBeenCalledWith(expect.objectContaining({ method: 'POST' }))
+    })
+
+    it('sets the default method to GET', async () => {
+      await AP.request('localhost')
+
+      expect(requestAdapter.request).toHaveBeenCalledWith(expect.objectContaining({ method: 'GET' }))
+    })
+
+    it('calls the adapter request with the path based on the provided URL', async () => {
+      await AP.request('localhost')
+
+      expect(requestAdapter.request).toHaveBeenCalledWith(expect.objectContaining({ path: 'localhost' }))
+    })
+
+    it('calls the adapter request with the data based on the provided data', async () => {
+      await AP.request('localhost', { data: { name: 'value' } })
+
+      expect(requestAdapter.request).toHaveBeenCalledWith(expect.objectContaining({ data: { name: 'value' } }))
+    })
+
+    it('sets the default data to an empty object', async () => {
+      await AP.request('localhost')
+
+      expect(requestAdapter.request).toHaveBeenCalledWith(expect.objectContaining({ data: {} }))
+    })
+
+    it('returns the response from the adapter', async () => {
+      requestAdapter.request.mockResolvedValueOnce({ body: 'response' })
+
+      const response = await AP.request('localhost')
+
+      expect(response).toEqual({
+        body: 'response'
       })
     })
   })
