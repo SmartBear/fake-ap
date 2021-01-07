@@ -15,7 +15,8 @@
     "release:build": "rm -rf lib && babel src --out-dir lib",
     "release:commit": "git add lib && git commit -m \"Update release files\"",
     "release:push": "git push --tags && git push",
-    "prepublishOnly": "yarn release:build && yarn release:commit"
+    "prepublishOnly": "yarn release:build && yarn release:commit",
+    "postpublish": "echo The new package has been released! Run \\\"yarn release:push\\\" to push the new commits."
   },
   "devDependencies": {
     "@babel/cli": "^7.12.10",
