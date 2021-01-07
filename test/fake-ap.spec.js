@@ -1,5 +1,5 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { render, act, waitFor } from '@testing-library/react'
 import * as jwt from 'atlassian-jwt'
 import moment from 'moment'
 import _get from 'lodash/get'
@@ -187,10 +187,35 @@ describe('context', () => {
 })
 
 describe('dialog', () => {
+  const windowListener = jest.fn()
   let component = null
+
+  beforeAll(() => {
+    window.addEventListener('message', windowListener)
+  })
+
+  afterAll(() => {
+    window.removeEventListener('message', windowListener)
+  })
 
   beforeEach(() => {
     component = render(<div />)
+
+    AP.configure({ dialogUrls: { dialog: 'localhost' } })
+
+    windowListener.mockClear()
+  })
+
+  afterEach(async () => {
+    windowListener.mockClear()
+
+    act(() => {
+      AP.dialog.close()
+    })
+
+    await waitFor(() => {
+      expect(windowListener).toHaveBeenCalled()
+    })
   })
 
   describe('when the Dialogs component is not already mounted', () => {
@@ -207,6 +232,59 @@ describe('dialog', () => {
 
     it('does not mount another Dialogs component', () => {
       expect(component.baseElement.querySelectorAll('#ap_dialogs')).toHaveLength(1)
+    })
+  })
+
+  describe('create', () => {
+    it('opens a dialog', () => {
+      act(() => {
+        AP.dialog.create({ key: 'dialog' })
+      })
+
+      expect(component.baseElement.querySelector('iframe')).toBeInTheDocument()
+    })
+  })
+
+  describe('close', () => {
+    it('closes the current dialog', async () => {
+      act(() => {
+        AP.dialog.create({ key: 'dialog' })
+        AP.dialog.close()
+      })
+
+      await waitFor(() => {
+        expect(windowListener).toHaveBeenCalled()
+      })
+
+      expect(component.baseElement.querySelector('iframe')).not.toBeInTheDocument()
+    })
+  })
+
+  describe('getCustomData', () => {
+    let unmockWindowPostMessage = null
+
+    beforeEach(() => {
+      act(() => {
+        AP.dialog.create({ key: 'dialog', customData: { name: 'value' } })
+      })
+
+      unmockWindowPostMessage = mockPostMessage(window, window)
+    })
+
+    afterEach(() => {
+      unmockWindowPostMessage()
+    })
+
+    it('calls the provided callback with the custom data provided on creation', async () => {
+      const callback = jest.fn()
+
+      AP.dialog.getCustomData(callback)
+
+      await waitFor(() => {
+        expect(callback).toHaveBeenCalled()
+      })
+
+      expect(callback).toHaveBeenCalledWith({ name: 'value' })
     })
   })
 })
@@ -320,6 +398,38 @@ describe('flag', () => {
 
     it('does not mount another Flags component', () => {
       expect(component.baseElement.querySelectorAll('#ap_flags')).toHaveLength(1)
+    })
+  })
+
+  describe('create', () => {
+    afterEach(() => {
+      act(() => {
+        for (let id = 1; id <= AP.flag._nextId; id++) {
+          AP.events.emit('flag.close', id)
+        }
+      })
+    })
+
+    it('creates flags', () => {
+      act(() => {
+        AP.flag.create({ title: 'Flag 1' })
+        AP.flag.create({ title: 'Flag 2' })
+      })
+
+      expect(component.queryByText('Flag 1')).toBeInTheDocument()
+      expect(component.queryByText('Flag 2')).toBeInTheDocument()
+    })
+
+    it('returns an object with a close method that closes the flag', () => {
+      act(() => {
+        const flag = AP.flag.create({ title: 'Flag 1' })
+        AP.flag.create({ title: 'Flag 2' })
+
+        flag.close()
+      })
+
+      expect(component.queryByText('Flag 1')).not.toBeInTheDocument()
+      expect(component.queryByText('Flag 2')).toBeInTheDocument()
     })
   })
 })

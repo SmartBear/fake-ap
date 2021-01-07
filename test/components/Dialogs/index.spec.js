@@ -8,17 +8,19 @@ describe('Dialogs', () => {
   const dialogMessageListener = jest.fn()
   let dialogs = null
 
+  beforeAll(() => {
+    window.addEventListener('message', windowMessageListener)
+  })
+
+  afterAll(() => {
+    window.removeEventListener('message', windowMessageListener)
+  })
+
   beforeEach(() => {
     dialogs = render(<Dialogs />)
 
     windowMessageListener.mockClear()
     dialogMessageListener.mockClear()
-
-    window.addEventListener('message', windowMessageListener)
-  })
-
-  afterEach(() => {
-    window.removeEventListener('message', windowMessageListener)
   })
 
   describe('when no dialog is set', () => {
