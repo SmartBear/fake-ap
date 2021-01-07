@@ -2,6 +2,7 @@ const path = require('path')
 const TerserPlugin = require('terser-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { DefinePlugin, ProvidePlugin } = require('webpack')
+const express = require('express')
 
 module.exports = {
   mode: 'development',
@@ -16,6 +17,18 @@ module.exports = {
     stats: {
       preset: 'minimal',
       colors: true
+    },
+    before: app => {
+      app.use(express.json())
+
+      app.post('/rest/api/request', (request, response) => {
+        const status = request.body.path === 'failure' ? 400 : 200
+
+        response.json({
+          status,
+          body: request.body
+        })
+      })
     }
   },
   module: {

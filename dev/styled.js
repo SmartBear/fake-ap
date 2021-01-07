@@ -44,16 +44,6 @@ export const SectionName = styled.div`
 
 export const OptionsContent = styled.div`
   margin-top: 10px;
-  display: grid;
-  grid-template-columns: auto auto;
-  justify-content: start;
-  align-items: center;
-  column-gap: 10px;
-
-  & > * {
-    margin-top: 5px;
-    margin-bottom: 5px;
-  }
 `
 
 export const MethodContent = styled.div`
@@ -68,22 +58,45 @@ export const MethodContent = styled.div`
   }
 `
 
-export const Token = styled.div`
-  font-family: monospace;
-  word-break: break-all;
-  background-color: #EEEEEE;
-  width: 100%;
-  height: 80px;
-  padding: 10px;
-  overflow-y: auto;
+export const Form = styled.div`
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: start;
+  align-items: center;
+  column-gap: 10px;
+
+  & > * {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  & > input {
+    min-width: 0;
+  }
 `
 
-export const Locale = styled.div`
+export const RequestInformation = styled.div`
+  display: flex;
+  justify-content: start;
+
+  & > * {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  & > :last-child {
+    width: 250px;
+    margin-left: 10px;
+  }
+`
+
+export const Code = styled.div`
   font-family: monospace;
   word-break: break-all;
+  white-space: pre-wrap;
   background-color: #EEEEEE;
   width: 100%;
-  height: 36px;
+  height: ${props => props.codeHeight};
   padding: 10px;
   overflow-y: auto;
 `
