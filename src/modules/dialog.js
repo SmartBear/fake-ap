@@ -25,7 +25,7 @@ class Dialog {
         return
       }
 
-      if (typeof event.data !== 'object' && event.data.type !== 'AP.dialog.customData') {
+      if (typeof event.data !== 'object' || event.data.type !== 'AP.dialog.customData') {
         return
       }
 
