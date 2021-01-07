@@ -28,98 +28,47 @@ describe('Dialogs', () => {
   })
 
   describe('when a dialog is created', () => {
-    describe('when the dialog URL is not empty', () => {
-      let iframe = null
-      let unmockWindowPostMessage = null
-      let unmockDialogPostMessage = null
-
-      beforeEach(() => {
-        act(() => {
-          events.emit('dialog.create', { url: 'localhost', customData: 'data' })
-        })
-
-        iframe = dialogs.container.querySelector('iframe')
-        iframe.contentWindow.addEventListener('message', dialogMessageListener)
-
-        unmockWindowPostMessage = mockPostMessage(window, iframe.contentWindow)
-        unmockDialogPostMessage = mockPostMessage(iframe.contentWindow, window)
-      })
-
-      afterEach(() => {
-        iframe.contentWindow.removeEventListener('message', dialogMessageListener)
-
-        unmockWindowPostMessage()
-        unmockDialogPostMessage()
-      })
-
-      it('renders an iframe with the provided URL', () => {
-        expect(iframe).toBeInTheDocument()
-        expect(iframe).toHaveAttribute('src', 'localhost')
-      })
-
-      describe('when a getCustomData message is sent', () => {
-        beforeEach(async () => {
+    const dialogStates = [
+      [
+        'when no dialog is set',
+        () => {}
+      ],
+      [
+        'when another dialog already exists',
+        () => {
           act(() => {
-            window.postMessage({ type: 'AP.dialog.getCustomData' }, '*')
+            events.emit('dialog.create', { url: 'previous_url', customData: 'previous data' })
           })
-
-          await waitFor(() => {
-            // eslint-disable-next-line jest/no-standalone-expect
-            expect(windowMessageListener).toHaveBeenCalled()
-          })
-        })
-        it('responds to the message with the provided custom data', () => {
-          expect(dialogMessageListener).toHaveBeenCalledWith(
-            expect.objectContaining({
-              data: {
-                type: 'AP.dialog.customData',
-                customData: 'data'
-              },
-              source: window
-            })
-          )
-        })
-      })
-
-      describe('when a close message is sent', () => {
-        const listener = jest.fn()
-
-        beforeEach(async () => {
-          events.on('dialog.close', listener)
-          listener.mockClear()
-
+        }
+      ],
+      [
+        'when another dialog was created then closed',
+        async () => {
           act(() => {
+            events.emit('dialog.create', { url: 'previous_url', customData: 'previous data' })
             window.postMessage({ type: 'AP.dialog.close', data: { name: 'value' } }, '*')
           })
 
           await waitFor(() => {
-            // eslint-disable-next-line jest/no-standalone-expect
             expect(windowMessageListener).toHaveBeenCalled()
           })
-        })
+        }
+      ]
+    ]
 
-        afterEach(() => {
-          events.off('dialog.close', listener)
-        })
+    describe.each(dialogStates)('%s', (_context, setState) => {
+      beforeEach(async () => {
+        await setState()
+      })
 
-        it('closes the dialog', () => {
-          expect(dialogs.container).toBeEmptyDOMElement()
-        })
+      describe('when the dialog URL is not empty', () => {
+        let iframe = null
+        let unmockWindowPostMessage = null
+        let unmockDialogPostMessage = null
 
-        it('emits a dialog.close event with the provided data', () => {
-          expect(listener).toHaveBeenCalledWith({ name: 'value' })
-        })
-
-        it('is possible to open a new dialog, get custom data then close it again', async () => {
-          listener.mockClear()
-
-          iframe.contentWindow.removeEventListener('message', dialogMessageListener)
-
-          unmockWindowPostMessage()
-          unmockDialogPostMessage()
-
+        beforeEach(() => {
           act(() => {
-            events.emit('dialog.create', { url: 'url', customData: 'other data' })
+            events.emit('dialog.create', { url: 'localhost', customData: 'data' })
           })
 
           iframe = dialogs.container.querySelector('iframe')
@@ -127,63 +76,95 @@ describe('Dialogs', () => {
 
           unmockWindowPostMessage = mockPostMessage(window, iframe.contentWindow)
           unmockDialogPostMessage = mockPostMessage(iframe.contentWindow, window)
+        })
 
+        afterEach(() => {
+          iframe.contentWindow.removeEventListener('message', dialogMessageListener)
+
+          unmockWindowPostMessage()
+          unmockDialogPostMessage()
+        })
+
+        it('renders an iframe with the provided URL', () => {
           expect(iframe).toBeInTheDocument()
-          expect(iframe).toHaveAttribute('src', 'url')
+          expect(iframe).toHaveAttribute('src', 'localhost')
+        })
 
-          act(() => {
-            window.postMessage({ type: 'AP.dialog.getCustomData' }, '*')
-          })
-
-          await waitFor(() => {
-            expect(windowMessageListener).toHaveBeenCalled()
-          })
-
-          expect(dialogMessageListener).toHaveBeenCalledWith(
-            expect.objectContaining({
-              data: {
-                type: 'AP.dialog.customData',
-                customData: 'other data'
-              },
-              source: window
+        describe('when a getCustomData message is sent', () => {
+          beforeEach(async () => {
+            act(() => {
+              window.postMessage({ type: 'AP.dialog.getCustomData' }, '*')
             })
-          )
 
+            await waitFor(() => {
+              expect(windowMessageListener).toHaveBeenCalled()
+            })
+          })
+          it('responds to the message with the provided custom data', () => {
+            expect(dialogMessageListener).toHaveBeenCalledWith(
+              expect.objectContaining({
+                data: {
+                  type: 'AP.dialog.customData',
+                  customData: 'data'
+                },
+                source: window
+              })
+            )
+          })
+        })
+
+        describe('when a close message is sent', () => {
+          const listener = jest.fn()
+
+          beforeEach(async () => {
+            events.on('dialog.close', listener)
+            listener.mockClear()
+
+            act(() => {
+              window.postMessage({ type: 'AP.dialog.close', data: { name: 'value' } }, '*')
+            })
+
+            await waitFor(() => {
+              expect(windowMessageListener).toHaveBeenCalled()
+            })
+          })
+
+          afterEach(() => {
+            events.off('dialog.close', listener)
+          })
+
+          it('closes the dialog', () => {
+            expect(dialogs.container).toBeEmptyDOMElement()
+          })
+
+          it('emits a dialog.close event with the provided data', () => {
+            expect(listener).toHaveBeenCalledWith({ name: 'value' })
+          })
+        })
+      })
+
+      describe('when the dialog URL is empty', () => {
+        beforeEach(() => {
           act(() => {
-            window.postMessage({ type: 'AP.dialog.close', data: { name: 'other value' } }, '*')
+            events.emit('dialog.create', { url: '', customData: 'data' })
           })
+        })
 
-          await waitFor(() => {
-            expect(windowMessageListener).toHaveBeenCalled()
-          })
-
+        it('renders nothing', () => {
           expect(dialogs.container).toBeEmptyDOMElement()
-          expect(listener).toHaveBeenCalledWith({ name: 'other value' })
-        })
-      })
-    })
-
-    describe('when the dialog URL is empty', () => {
-      beforeEach(() => {
-        act(() => {
-          events.emit('dialog.create', { url: '', customData: 'data' })
         })
       })
 
-      it('renders nothing', () => {
-        expect(dialogs.container).toBeEmptyDOMElement()
-      })
-    })
-
-    describe('when the dialog URL is not provided', () => {
-      beforeEach(() => {
-        act(() => {
-          events.emit('dialog.create', { customData: 'data' })
+      describe('when the dialog URL is not provided', () => {
+        beforeEach(() => {
+          act(() => {
+            events.emit('dialog.create', { customData: 'data' })
+          })
         })
-      })
 
-      it('renders nothing', () => {
-        expect(dialogs.container).toBeEmptyDOMElement()
+        it('renders nothing', () => {
+          expect(dialogs.container).toBeEmptyDOMElement()
+        })
       })
     })
   })

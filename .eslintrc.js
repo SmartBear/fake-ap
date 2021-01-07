@@ -31,6 +31,12 @@ module.exports = {
         assertFunctionNames: ['expect', '*.expect']
       }
     ],
+    'jest/no-standalone-expect': [
+      'error',
+      {
+        additionalTestBlockFunctions: ['waitFor']
+      }
+    ],
     'jsx-quotes': ['error', 'prefer-single'],
     'multiline-ternary': 'off',
     'no-case-declarations': 'off',
