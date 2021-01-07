@@ -1,13 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   GlobalStyle,
   TestPageContainer,
   Section,
   SectionName,
+  OptionsName,
+  MethodName,
   OptionsContent,
   MethodContent,
+  FormContainer,
   Form,
-  RequestInformation,
+  FlagAction,
+  RequestResponse,
   Code
 } from './styled'
 import FakeAP from 'fake-ap'
@@ -21,7 +25,15 @@ const defaultOptions = {
   locale: 'en_US'
 }
 
-const defaultRequestInformation = {
+const defaultFlagOptions = {
+  title: 'Flag title',
+  body: 'Flag body',
+  type: 'success',
+  close: '',
+  action: ''
+}
+
+const defaultRequestOptions = {
   method: 'GET',
   path: 'localhost',
   data: 'data'
@@ -38,26 +50,44 @@ const AP = new FakeAP({
 
 const Options = ({ children }) => (
   <Section>
-    <SectionName>Options</SectionName>
+    <SectionName>
+      <OptionsName>Options</OptionsName>
+    </SectionName>
     <OptionsContent>{children}</OptionsContent>
   </Section>
 )
 
-const Method = ({ name, children }) => (
+const Method = ({ name, onClick, children }) => (
   <Section>
-    <SectionName>{name}</SectionName>
+    <SectionName>
+      <MethodName onClick={onClick}>{name}</MethodName>
+    </SectionName>
     <MethodContent>{children}</MethodContent>
   </Section>
 )
 
 const TestPage = () => {
   const [options, setOptions] = useState(defaultOptions)
-  const [token, setToken] = useState()
+  const [token, setToken] = useState('')
   const [customData, setCustomData] = useState('')
-  const [lastDialogClose, setLastDialogClose] = useState()
-  const [requestInformation, setRequestInformation] = useState(defaultRequestInformation)
-  const [requestResponse, setRequestResponse] = useState()
-  const [userLocale, setUserLocale] = useState()
+  const [lastDialogClose, setLastDialogClose] = useState({})
+  const [flagOptions, setFlagOptions] = useState(defaultFlagOptions)
+  const [lastFlagAction, setLastFlagAction] = useState('')
+  const [requestOptions, setRequestOptions] = useState(defaultRequestOptions)
+  const [requestResponse, setRequestResponse] = useState('')
+  const [userLocale, setUserLocale] = useState('')
+
+  useEffect(() => {
+    AP.events.on('flag.action', onFlagAction)
+
+    return () => {
+      AP.events.off('flag.action', onFlagAction)
+    }
+  }, [])
+
+  const onFlagAction = event => {
+    setLastFlagAction(event.actionIdentifier)
+  }
 
   const setClientKey = clientKey => {
     AP.configure({ clientKey })
@@ -79,16 +109,36 @@ const TestPage = () => {
     setOptions({ ...options, locale })
   }
 
+  const setFlagTitle = title => {
+    setFlagOptions({ ...flagOptions, title })
+  }
+
+  const setFlagBody = body => {
+    setFlagOptions({ ...flagOptions, body })
+  }
+
+  const setFlagType = type => {
+    setFlagOptions({ ...flagOptions, type })
+  }
+
+  const setFlagClose = close => {
+    setFlagOptions({ ...flagOptions, close })
+  }
+
+  const setFlagAction = action => {
+    setFlagOptions({ ...flagOptions, action })
+  }
+
   const setRequestMethod = method => {
-    setRequestInformation({ ...requestInformation, method })
+    setRequestOptions({ ...requestOptions, method })
   }
 
   const setRequestPath = path => {
-    setRequestInformation({ ...requestInformation, path })
+    setRequestOptions({ ...requestOptions, path })
   }
 
   const setRequestData = data => {
-    setRequestInformation({ ...requestInformation, data })
+    setRequestOptions({ ...requestOptions, data })
   }
 
   const getToken = async () => {
@@ -109,20 +159,30 @@ const TestPage = () => {
   }
 
   const createFlag = () => {
+    const { title, body, type, close, action } = flagOptions
+
+    const actions = {}
+
+    if (action !== '') {
+      actions[action] = `Action (${action})`
+    }
+
     AP.flag.create({
-      title: 'Flag title',
-      body: 'Flag body',
-      type: 'success'
+      title,
+      body,
+      type,
+      close,
+      actions
     })
   }
 
   const request = async () => {
     try {
       const response = await AP.request(
-        requestInformation.path,
+        requestOptions.path,
         {
-          type: requestInformation.method,
-          data: requestInformation.data
+          type: requestOptions.method,
+          data: requestOptions.data
         }
       )
 
@@ -174,62 +234,94 @@ const TestPage = () => {
         </Form>
       </Options>
 
-      <Method name='AP.context.getToken'>
-        <button onClick={getToken}>Generate token</button>
-        <Code codeHeight='80px'>{token}</Code>
+      <Method name='AP.context.getToken' onClick={getToken}>
+        <Code>{token}</Code>
       </Method>
 
-      <Method name='AP.dialog.create'>
+      <Method name='AP.dialog.create' onClick={createDialog}>
         <input
           type='text'
           value={customData}
           placeholder='Custom data'
           onChange={event => setCustomData(event.target.value)}
         />
-        <button onClick={createDialog}>Open a dialog</button>
-        <span>Last close reason: {lastDialogClose?.reason && <code>{lastDialogClose.reason}</code>}</span>
-        <span>Last close data: {lastDialogClose?.data && <code>{lastDialogClose.data}</code>}</span>
+        <span>Last close reason: {lastDialogClose.reason && <code>{lastDialogClose.reason}</code>}</span>
+        <span>Last close data: {lastDialogClose.data && <code>{lastDialogClose.data}</code>}</span>
       </Method>
 
-      <Method name='AP.flag.create'>
-        <button onClick={createFlag}>Create a flag</button>
+      <Method name='AP.flag.create' onClick={createFlag}>
+        <FormContainer>
+          <Form>
+            <span>Title:</span>
+            <input
+              type='text'
+              value={flagOptions.title}
+              onChange={event => setFlagTitle(event.target.value)}
+            />
+            <span>Body:</span>
+            <input
+              type='text'
+              value={flagOptions.body}
+              onChange={event => setFlagBody(event.target.value)}
+            />
+            <span>Type:</span>
+            <input
+              type='text'
+              value={flagOptions.type}
+              onChange={event => setFlagType(event.target.value)}
+            />
+          </Form>
+          <Form>
+            <span>Close:</span>
+            <input
+              type='text'
+              value={flagOptions.close}
+              onChange={event => setFlagClose(event.target.value)}
+            />
+            <span>Action:</span>
+            <input
+              type='text'
+              value={flagOptions.action}
+              onChange={event => setFlagAction(event.target.value)}
+            />
+            <span>Last action:</span>
+            <FlagAction value={lastFlagAction} />
+          </Form>
+        </FormContainer>
       </Method>
 
-      <Method name='AP.request'>
-        <RequestInformation>
-          <div>
-            <button onClick={request}>Request</button>
-            <Form>
-              <span>Method:</span>
-              <input
-                type='text'
-                value={requestInformation.method}
-                onChange={event => setRequestMethod(event.target.value)}
-              />
-              <span>Path:</span>
-              <input
-                type='text'
-                value={requestInformation.path}
-                onChange={event => setRequestPath(event.target.value)}
-              />
-              <span>Data:</span>
-              <input
-                type='text'
-                value={requestInformation.data}
-                onChange={event => setRequestData(event.target.value)}
-              />
-              <button onClick={() => setRequestPath(defaultRequestInformation.path)}>Success</button>
-              <button onClick={() => setRequestPath('failure')}>Failure</button>
-            </Form>
-          </div>
-          <Code codeHeight='130px'>{requestResponse}</Code>
-        </RequestInformation>
+      <Method name='AP.request' onClick={request}>
+        <FormContainer>
+          <Form>
+            <span>Method:</span>
+            <input
+              type='text'
+              value={requestOptions.method}
+              onChange={event => setRequestMethod(event.target.value)}
+            />
+            <span>Path:</span>
+            <input
+              type='text'
+              value={requestOptions.path}
+              onChange={event => setRequestPath(event.target.value)}
+            />
+            <span>Data:</span>
+            <input
+              type='text'
+              value={requestOptions.data}
+              onChange={event => setRequestData(event.target.value)}
+            />
+            <button onClick={() => setRequestPath(defaultRequestOptions.path)}>Success</button>
+            <button onClick={() => setRequestPath('failure')}>Failure</button>
+          </Form>
+          <RequestResponse>
+            <Code codeHeight='136px'>{requestResponse}</Code>
+          </RequestResponse>
+        </FormContainer>
       </Method>
 
-      <Method name='AP.user.getLocale'>
-        <button onClick={getLocale}>Get locale</button>
-        <span>Current locale:</span>
-        <Code codeHeight='36px'>{userLocale}</Code>
+      <Method name='AP.user.getLocale' onClick={getLocale}>
+        <Code>{userLocale}</Code>
       </Method>
     </TestPageContainer>
   )

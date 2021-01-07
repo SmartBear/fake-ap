@@ -29,6 +29,8 @@ export const TestPageContainer = styled.div`
 `
 
 export const Section = styled.div`
+  display: flex;
+  flex-direction: column;
   width: 442px;
   height: 220px;
   border: 1px solid black;
@@ -38,23 +40,49 @@ export const Section = styled.div`
 `
 
 export const SectionName = styled.div`
+  margin: 0 auto;
+`
+
+export const MethodName = styled.button`
+  font-family: monospace;
+  font-size: 16px;
+`
+
+export const OptionsName = styled.div`
   font-family: monospace;
   font-size: 16px;
 `
 
 export const OptionsContent = styled.div`
-  margin-top: 10px;
+  flex-grow: 1;
+  margin-top: 20px;
 `
 
 export const MethodContent = styled.div`
-  margin-top: 10px;
+  flex-grow: 1;
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 
+  & > :not(:first-child) {
+    margin-top: 10px;
+  }
+`
+
+export const FormContainer = styled.div`
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  height: 100%;
+
   & > * {
-    margin-top: 5px;
-    margin-bottom: 5px;
+    flex-basis: 0;
+    flex-grow: 1;
+  }
+
+  & > :not(:first-child) {
+    margin-left: 10px;
   }
 `
 
@@ -65,9 +93,8 @@ export const Form = styled.div`
   align-items: center;
   column-gap: 10px;
 
-  & > * {
-    margin-top: 5px;
-    margin-bottom: 5px;
+  & > :nth-child(n+3) {
+    margin-top: 10px;
   }
 
   & > input {
@@ -75,19 +102,19 @@ export const Form = styled.div`
   }
 `
 
-export const RequestInformation = styled.div`
-  display: flex;
-  justify-content: start;
+export const FlagAction = styled.input.attrs(() => ({
+  type: 'text',
+  readOnly: true
+}))`
+  font-family: monospace;
+  background-color: #EEEEEE;
+  border: unset;
+  padding: 4px;
+`
 
-  & > * {
-    margin-top: 5px;
-    margin-bottom: 5px;
-  }
-
-  & > :last-child {
-    width: 250px;
-    margin-left: 10px;
-  }
+export const RequestResponse = styled.div`
+  min-width: 220px;
+  height: 100%;
 `
 
 export const Code = styled.div`
@@ -96,7 +123,7 @@ export const Code = styled.div`
   white-space: pre-wrap;
   background-color: #EEEEEE;
   width: 100%;
-  height: ${props => props.codeHeight};
+  height: ${props => props.codeHeight ?? '100%'};
   padding: 10px;
   overflow-y: auto;
 `
