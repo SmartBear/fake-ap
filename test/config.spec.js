@@ -29,6 +29,14 @@ describe('default configuration', () => {
   it('sets the locale to null', () => {
     expect(config.locale).toBeNull()
   })
+
+  it('sets the mount dialogs option to true', () => {
+    expect(config.mountDialogs).toEqual(true)
+  })
+
+  it('sets the mount flags option to true', () => {
+    expect(config.mountFlags).toEqual(true)
+  })
 })
 
 describe('setConfig', () => {
@@ -47,7 +55,9 @@ describe('setConfig', () => {
       dialogUrls: {
         dialog: 'url'
       },
-      locale: 'en_US'
+      locale: 'en_US',
+      mountDialogs: false,
+      mountFlags: false
     })
 
     notImplementedAction.mockClear()
@@ -79,6 +89,8 @@ describe('setConfig', () => {
         expect(config.userId).toEqual('user')
         expect(config.dialogUrls).toEqual({ dialog: 'url' })
         expect(config.locale).toEqual('en_US')
+        expect(config.mountDialogs).toEqual(false)
+        expect(config.mountFlags).toEqual(false)
       })
     })
 
@@ -103,6 +115,8 @@ describe('setConfig', () => {
         expect(config.userId).toEqual('user')
         expect(config.dialogUrls).toEqual({ dialog: 'url' })
         expect(config.locale).toEqual('en_US')
+        expect(config.mountDialogs).toEqual(false)
+        expect(config.mountFlags).toEqual(false)
       })
     })
   })
@@ -132,6 +146,8 @@ describe('setConfig', () => {
         expect(config.userId).toEqual('user')
         expect(config.dialogUrls).toEqual({ dialog: 'url' })
         expect(config.locale).toEqual('en_US')
+        expect(config.mountDialogs).toEqual(false)
+        expect(config.mountFlags).toEqual(false)
       })
     })
 
@@ -156,6 +172,8 @@ describe('setConfig', () => {
         expect(config.userId).toEqual('user')
         expect(config.dialogUrls).toEqual({ dialog: 'url' })
         expect(config.locale).toEqual('en_US')
+        expect(config.mountDialogs).toEqual(false)
+        expect(config.mountFlags).toEqual(false)
       })
     })
   })
@@ -180,6 +198,8 @@ describe('setConfig', () => {
         expect(config.userId).toEqual('user')
         expect(config.dialogUrls).toEqual({ dialog: 'url' })
         expect(config.locale).toEqual('en_US')
+        expect(config.mountDialogs).toEqual(false)
+        expect(config.mountFlags).toEqual(false)
       })
     })
 
@@ -202,6 +222,8 @@ describe('setConfig', () => {
         expect(config.userId).toEqual('user')
         expect(config.dialogUrls).toEqual({ dialog: 'url' })
         expect(config.locale).toEqual('en_US')
+        expect(config.mountDialogs).toEqual(false)
+        expect(config.mountFlags).toEqual(false)
       })
     })
   })
@@ -224,6 +246,8 @@ describe('setConfig', () => {
         expect(config.userId).toEqual('user')
         expect(config.dialogUrls).toEqual({ dialog: 'url' })
         expect(config.locale).toEqual('en_US')
+        expect(config.mountDialogs).toEqual(false)
+        expect(config.mountFlags).toEqual(false)
       })
     })
 
@@ -244,6 +268,8 @@ describe('setConfig', () => {
         expect(config.userId).toEqual('user')
         expect(config.dialogUrls).toEqual({ dialog: 'url' })
         expect(config.locale).toEqual('en_US')
+        expect(config.mountDialogs).toEqual(false)
+        expect(config.mountFlags).toEqual(false)
       })
     })
   })
@@ -266,6 +292,8 @@ describe('setConfig', () => {
         expect(config.userId).toEqual('user')
         expect(config.dialogUrls).toEqual({ dialog: 'url' })
         expect(config.locale).toEqual('en_US')
+        expect(config.mountDialogs).toEqual(false)
+        expect(config.mountFlags).toEqual(false)
       })
     })
 
@@ -286,6 +314,8 @@ describe('setConfig', () => {
         expect(config.userId).toEqual('user')
         expect(config.dialogUrls).toEqual({ dialog: 'url' })
         expect(config.locale).toEqual('en_US')
+        expect(config.mountDialogs).toEqual(false)
+        expect(config.mountFlags).toEqual(false)
       })
     })
   })
@@ -308,6 +338,8 @@ describe('setConfig', () => {
         expect(config.sharedSecret).toEqual('secret')
         expect(config.dialogUrls).toEqual({ dialog: 'url' })
         expect(config.locale).toEqual('en_US')
+        expect(config.mountDialogs).toEqual(false)
+        expect(config.mountFlags).toEqual(false)
       })
     })
 
@@ -328,6 +360,8 @@ describe('setConfig', () => {
         expect(config.sharedSecret).toEqual('secret')
         expect(config.dialogUrls).toEqual({ dialog: 'url' })
         expect(config.locale).toEqual('en_US')
+        expect(config.mountDialogs).toEqual(false)
+        expect(config.mountFlags).toEqual(false)
       })
     })
   })
@@ -350,6 +384,8 @@ describe('setConfig', () => {
         expect(config.sharedSecret).toEqual('secret')
         expect(config.userId).toEqual('user')
         expect(config.locale).toEqual('en_US')
+        expect(config.mountDialogs).toEqual(false)
+        expect(config.mountFlags).toEqual(false)
       })
     })
 
@@ -370,6 +406,8 @@ describe('setConfig', () => {
         expect(config.sharedSecret).toEqual('secret')
         expect(config.userId).toEqual('user')
         expect(config.locale).toEqual('en_US')
+        expect(config.mountDialogs).toEqual(false)
+        expect(config.mountFlags).toEqual(false)
       })
     })
   })
@@ -392,6 +430,8 @@ describe('setConfig', () => {
         expect(config.sharedSecret).toEqual('secret')
         expect(config.userId).toEqual('user')
         expect(config.dialogUrls).toEqual({ dialog: 'url' })
+        expect(config.mountDialogs).toEqual(false)
+        expect(config.mountFlags).toEqual(false)
       })
     })
 
@@ -412,6 +452,8 @@ describe('setConfig', () => {
         expect(config.sharedSecret).toEqual('secret')
         expect(config.userId).toEqual('user')
         expect(config.dialogUrls).toEqual({ dialog: 'url' })
+        expect(config.mountDialogs).toEqual(false)
+        expect(config.mountFlags).toEqual(false)
       })
     })
   })
@@ -423,7 +465,8 @@ describe('setConfig', () => {
         sharedSecret: 'new secret',
         dialogUrls: {
           other_dialog: 'other url'
-        }
+        },
+        mountDialogs: true
       })
     })
 
@@ -431,6 +474,7 @@ describe('setConfig', () => {
       expect(config.clientKey).toEqual('new key')
       expect(config.sharedSecret).toEqual('new secret')
       expect(config.dialogUrls).toEqual({ other_dialog: 'other url' })
+      expect(config.mountDialogs).toEqual(true)
     })
 
     it('does not change other options', () => {
@@ -439,6 +483,7 @@ describe('setConfig', () => {
       expect(config.requestAdapter).toBe(requestAdapter)
       expect(config.userId).toEqual('user')
       expect(config.locale).toEqual('en_US')
+      expect(config.mountFlags).toEqual(false)
     })
   })
 })
@@ -458,13 +503,15 @@ describe('resetConfig', () => {
       dialogUrls: {
         dialog: 'url'
       },
-      locale: 'fr_FR'
+      locale: 'fr_FR',
+      mountDialogs: false,
+      mountFlags: false
     })
 
     config.resetConfig()
   })
 
-  it('sets the not implmeented action to do nothing', () => {
+  it('sets the not implemented action to do nothing', () => {
     config.notImplemented('method')
 
     expect(notImplementedAction).not.toHaveBeenCalled()
@@ -501,5 +548,13 @@ describe('resetConfig', () => {
 
   it('sets the locale to null', () => {
     expect(config.locale).toBeNull()
+  })
+
+  it('sets the mount dialogs option to true', () => {
+    expect(config.mountDialogs).toEqual(true)
+  })
+
+  it('sets the mount flags option to true', () => {
+    expect(config.mountFlags).toEqual(true)
   })
 })

@@ -36,8 +36,13 @@ class AP {
   constructor(options = {}) {
     this.configure(options)
 
-    mountComponentWhenDocumentIsReady(<Dialogs />, 'ap_dialogs')
-    mountComponentWhenDocumentIsReady(<Flags />, 'ap_flags')
+    if (config.mountDialogs) {
+      mountComponentWhenDocumentIsReady(<Dialogs />, 'ap_dialogs')
+    }
+
+    if (config.mountFlags) {
+      mountComponentWhenDocumentIsReady(<Flags />, 'ap_flags')
+    }
   }
 
   configure(options) {
