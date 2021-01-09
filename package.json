@@ -12,11 +12,10 @@
     "start": "webpack serve --client-log-level silent",
     "lint": "eslint --ext js,jsx .",
     "test": "jest",
-    "release:build": "rm -rf lib && babel src --out-dir lib",
-    "release:commit": "git add lib && git commit -m \"Update release files\"",
-    "release:push": "git push --tags && git push",
-    "prepublishOnly": "yarn release:build && yarn release:commit",
-    "postpublish": "echo The new package has been released! Run \\\"yarn release:push\\\" to push the new commits."
+    "prepack": "rm -rf lib && babel src --out-dir lib",
+    "postpack": "rm -rf lib",
+    "push": "git push --follow-tags",
+    "postpublish": "echo The new package has been released! Run \\\"yarn push\\\" to push the release commit and tag."
   },
   "devDependencies": {
     "@babel/cli": "^7.12.10",

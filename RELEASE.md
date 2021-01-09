@@ -10,8 +10,8 @@
 - Run `yarn publish`
 - Enter the new version when asked
 - Enter your NPM account password when asked
-- If the operation is a success, two commits will be created (one for the updated `lib` folder and one for the new version and tag)
-- Push the commits using `yarn release:push`
+- If the operation is a success, a new commit and tag will be created for the new version
+- Push the commit and the tag using `yarn push` (or `git push --follow-tags`)
 - Make a release on GitHub using the new tag
 
 **Note:** you can skip entering the new version by using `yarn publish --major`, `yarn publish --minor` or `yarn publish --patch`. This will generate a new version based on the current version.
@@ -25,3 +25,10 @@ For instance with version `1.0.1`:
   - Release title: Release 1.0.1
   - Fill the release notes
 - Click on "Publish release"
+
+## Using the GitHub release
+If you want to try a version of the package using a GitHub release:
+- Download the source code of the release and extract it
+- Run `yarn` to install dependencies
+- Run `yarn pack` to create a package file
+- Use that package file as the source in your `package.json` file
