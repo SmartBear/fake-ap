@@ -15,6 +15,9 @@ pids
 *.seed
 *.pid.lock
 
+# Build output
+lib/
+
 # Dependency directories
 node_modules/
 
