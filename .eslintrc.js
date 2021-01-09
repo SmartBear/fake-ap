@@ -55,6 +55,15 @@ module.exports = {
       }
     ],
     'react/jsx-closing-tag-location': 'error',
+    'react/jsx-curly-brace-presence': ['error', 'never'],
+    'react/jsx-curly-spacing': [
+      'error',
+      {
+        when: 'never',
+        attributes: true,
+        children: true
+      }
+    ],
     'react/jsx-equals-spacing': 'error',
     'react/jsx-indent': ['error', 2],
     'react/jsx-indent-props': ['error', 2],
