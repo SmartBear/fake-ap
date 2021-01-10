@@ -10,10 +10,11 @@ import FakeAP from 'fake-ap'
 const date = new Date()
 moment.now = () => date
 
-const AP = new FakeAP()
+let AP = null
 let options = null
 
 beforeEach(() => {
+  AP = new FakeAP()
   config.resetConfig()
 })
 
@@ -619,6 +620,34 @@ describe('request', () => {
       expect(response).toEqual({
         body: 'response'
       })
+    })
+  })
+})
+
+describe('disabling Dialogs and Flags components', () => {
+  beforeEach(() => {
+    document.body.innerHTML = ''
+  })
+
+  describe('when mountDialogs is set to false', () => {
+    it('does not mount the Dialogs component', () => {
+      // eslint-disable-next-line no-new
+      new FakeAP({
+        mountDialogs: false
+      })
+
+      expect(document.querySelector('#ap_dialogs')).not.toBeInTheDocument()
+    })
+  })
+
+  describe('when mountFlags is set to false', () => {
+    it('does not mount the Flags component', () => {
+      // eslint-disable-next-line no-new
+      new FakeAP({
+        mountFlags: false
+      })
+
+      expect(document.querySelector('#ap_flags')).not.toBeInTheDocument()
     })
   })
 })
