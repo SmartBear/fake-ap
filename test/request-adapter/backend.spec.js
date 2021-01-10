@@ -20,50 +20,91 @@ describe('BackendRequestAdapter', () => {
     })
 
     describe('when the response status is not an error', () => {
-      beforeEach(() => {
-        backendRequestAdapter.client.post.mockReturnValueOnce(
-          {
-            data: {
-              status: 200,
-              body: {
-                message: 'value'
+      describe('when the response body is an object', () => {
+        it('returns an object containing the response body as a string', async () => {
+          backendRequestAdapter.client.post.mockReturnValueOnce(
+            {
+              data: {
+                status: 200,
+                body: {
+                  message: 'value'
+                }
               }
             }
-          }
-        )
+          )
+
+          const response = await backendRequestAdapter.request()
+
+          expect(response).toEqual({ body: JSON.stringify({ message: 'value' }) })
+        })
       })
 
-      it('returns an object containing the response body as a string', async () => {
-        const response = await backendRequestAdapter.request()
+      describe('when the response body is string', () => {
+        it('returns an object containing the response body as a string', async () => {
+          backendRequestAdapter.client.post.mockReturnValueOnce(
+            {
+              data: {
+                status: 200,
+                body: 'message'
+              }
+            }
+          )
 
-        expect(response).toEqual({ body: JSON.stringify({ message: 'value' }) })
+          const response = await backendRequestAdapter.request()
+
+          expect(response).toEqual({ body: 'message' })
+        })
       })
     })
 
     describe('when the response status is an error', () => {
-      beforeEach(() => {
-        backendRequestAdapter.client.post.mockReturnValueOnce(
-          {
-            data: {
-              status: 400,
-              body: {
-                message: 'value'
+      describe('when the response body is an object', () => {
+        it('rejects with an object containing the response body as a string and the status', async () => {
+          backendRequestAdapter.client.post.mockReturnValueOnce(
+            {
+              data: {
+                status: 400,
+                body: {
+                  message: 'value'
+                }
               }
             }
-          }
-        )
+          )
+
+          const request = backendRequestAdapter.request()
+
+          await expect(request).rejects.toEqual({
+            err: JSON.stringify({ message: 'value' }),
+            xhr: {
+              responseText: JSON.stringify({ message: 'value' }),
+              status: 400,
+              statusText: 'Bad Request'
+            }
+          })
+        })
       })
 
-      it('rejects with an object containing the response body as a string and the status of the response', async () => {
-        const request = backendRequestAdapter.request()
+      describe('when the response body is string', () => {
+        it('rejects with an object containing the response body and status', async () => {
+          backendRequestAdapter.client.post.mockReturnValueOnce(
+            {
+              data: {
+                status: 400,
+                body: 'message'
+              }
+            }
+          )
 
-        await expect(request).rejects.toEqual({
-          err: JSON.stringify({ message: 'value' }),
-          xhr: {
-            responseText: JSON.stringify({ message: 'value' }),
-            status: 400,
-            statusText: 'Bad Request'
-          }
+          const request = backendRequestAdapter.request()
+
+          await expect(request).rejects.toEqual({
+            err: 'message',
+            xhr: {
+              responseText: 'message',
+              status: 400,
+              statusText: 'Bad Request'
+            }
+          })
         })
       })
     })
