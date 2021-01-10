@@ -3,7 +3,7 @@ import moment from 'moment'
 import config from 'config'
 
 class Context {
-  getToken = async () => {
+  getToken = async (callback = () => {}) => {
     if (!config.clientKey) {
       return config.missingConfiguration('AP.context.getToken', 'clientKey')
     }
@@ -25,7 +25,11 @@ class Context {
       exp: now.add(5, 'minutes').unix()
     }
 
-    return jwt.encode(payload, config.sharedSecret)
+    const token = jwt.encode(payload, config.sharedSecret)
+
+    callback(token)
+
+    return token
   }
 
   getContext = async (...args) => {

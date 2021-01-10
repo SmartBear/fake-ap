@@ -32,6 +32,14 @@ describe('context', () => {
         AP.configure(options)
       })
 
+      it('returns a token as a promise and calls the provided callback with the token', async () => {
+        const callback = jest.fn()
+
+        const token = await AP.context.getToken(callback)
+
+        expect(callback).toHaveBeenCalledWith(token)
+      })
+
       it('includes the client key and user ID', async () => {
         const token = await AP.context.getToken()
 
