@@ -17,7 +17,7 @@ A fake AP module to help develop and test Atlassian Connect applications.
   - [Missing configuration](#missing-configuration)
   - [Disabling dialogs and flags](#disabling-dialogs-and-flags)
 - [Implemented methods](#missing-methods)
-- [Missing methods](#missing-methods)
+- [Not implemented methods](#not-implemented-methods)
 - [Custom methods](#custom-methods)
 
 ## Introduction
@@ -29,9 +29,9 @@ AP is typically included by calling the following script:
 <script src="https://connect-cdn.atl-paas.net/all.js"></script>
 ```
 
-However this script only work when in an ifram from an Atlassian page. It means that when developing or testing, it is not possible to directly call the page if it is using AP.
+However this script only work when in an iframe from an Atlassian page. It means that when developing or testing, it is not possible to directly call the page if it is using AP.
 
-This package provides a way to make a fake AP that can be used instead of the real one. It is still in development but includes the most commonly used features of AP, including:
+This package provides a way to make a fake AP that can be used instead of the real one. It includes the most commonly used features of AP, including:
 - Generating JWT tokens
 - Dialogs
 - Events
@@ -44,12 +44,12 @@ This package provides a way to make a fake AP that can be used instead of the re
 
 Using npm:
 ```
-npm install --save @smartbear/fake-ap
+npm install --save-dev @smartbear/fake-ap
 ```
 
 Using yarn:
 ```
-yarn add @smartbear/fake-ap
+yarn add -D @smartbear/fake-ap
 ```
 
 ## Usage
@@ -70,7 +70,7 @@ The fake AP creation should be done in a script included instead of the real one
 For instance, in for the project fake AP was originally created for, the script is available as a pack which is included when a flag is set.
 Here is an example using Rails and Webpacker:
 
-```html
+```erb
 <% if ENV['USE_FAKE_AP'] %>
   <%= javascript_pack_tag 'fake_ap' %>
 <% else %>
@@ -329,7 +329,7 @@ No error will be raised, but nothing will happen since the components will not e
 }
 ```
 
-## Missing methods
+## Not implemented methods
 
 Fake AP is still missing a lot of methods from the actual AP:
 - `AP.context.getContext`
