@@ -9,6 +9,16 @@ A fake AP module to help develop and test Atlassian Connect applications
 - [Installation](#installation)
 - [Usage](#usage)
 - [Configuration](#configuration)
+  - [AP.context.getToken](#ap.context.gettoken)
+  - [AP.dialog](#ap.dialog)
+  - [AP.user.getLocale](#ap.user.getlocale)
+  - [AP.request](#ap.request)
+  - [Not implemented methods](#not-implemented-methods)
+  - [Missing configuration](#missing-configuration)
+  - [Disabling dialogs and flags](#disabling-dialogs-and-flags)
+- [Implemented methods](#missing-methods)
+- [Missing methods](#missing-methods)
+- [Custom methods](#custom-methods)
 
 ## Introduction
 
@@ -82,6 +92,21 @@ AP.configure({
   locale: 'fr_FR'
 })
 ```
+
+Here is a list of all available configuration (refer to their own section for details):
+
+| Configuration                | Default value       | Description                                                   |
+| ---------------------------- | ------------------- | ------------------------------------------------------------- |
+| `clientKey`                  | `null`              | The client key for `AP.context.getToken`                      |
+| `sharedSecret`               | `null`              | The shared secret for `AP.context.getToken`                   |
+| `userId`                     | `null`              | The user ID for `AP.context.getToken`                         |
+| `dialogUrls`                 | `{}`                | URLs to call when using `AP.dialog.create`                    |
+| `locale`                     | `en_US`             | The user locale for `AP.user.getLocale`                       |
+| `requestAdapter`             | `RequestAdapter`    | The request adapter for `AP.request`                          |
+| `notImplementedAction`       | `() => {}`          | The method called when using a method that is not implemented |
+| `missingConfigurationAction` | `throw new Error()` | The method called when a configuration is missing             |
+| `mountDialogs`               | `true`              | `false` to prevent mounting the React component for dialogs   |
+| `mountFlags`                 | `true`              | `false` to prevent mounting the React component for flags     |
 
 **Note:** when using `AP.configure`, all previous configuration is kept, only conflicting configuration is replaced. All new configuration is added.
 
@@ -274,6 +299,78 @@ No error will be raised, but nothing will happen since the components will not e
 
 **Note: this can only be configured when creating the Fake AP. `AP.configure` will have no effect here since the components are already mounted.**
 
+## Implemented methods
+- `AP.context.getToken`
+- `AP.dialog`:
+  - `create`
+  - `close`
+  - `getCustomData`
+- `AP.event`:
+  - `on`
+  - `once`
+  - `off`
+  - `emit`
+- `AP.flag.create`
+- `AP.history`:
+  - `getState`
+  - `popState`
+  - `pushState`
+  - `replaceState`
+- `AP.request`
+- `AP.user.getLocale`
+
+**Note:** `AP.dialog.create` does not handle every options. It handles the `key` option properly, but will show a dialog as if the options were:
+
+```javascript
+{
+  width: '100%',
+  height: '100%',
+  chrome: false
+}
+```
+
+## Missing methods
+
+Fake AP is still missing a lot of methods from the actual AP:
+- `AP.context.getContext`
+- `AP.cookie`
+- `AP.dialog`:
+  - `getButton`
+  - `disableCloseOnSubmit`
+  - `createButton`
+  - `isCloseOnEscape`
+- `AP.event`: all **any** and **public** events
+- `AP.history`:
+  - `back`
+  - `forward`
+  - `go`
+- `AP.host`
+- `AP.iframe`: `AP.resize` and `AP.sizeToParent`
+- `AP.inlineDialog`
+- `AP.jira`
+- `AP.navigator`
+- `AP.user`:
+  - `getCurrentUser`
+  - `getTimeZone`
+
+Some methods like `AP.resize` do not really make sense in a development or testing environment, so they may not be implemented before a long time.
+
+## Custom methods
+
+Once Fake AP is created, it is possible to add any custom implementation that is specific to your application.
+
+The example below is a custom implementation of `AP.navigator.go`. It checks that you are on a specific page (`/normal_page`) and are trying to navigate to an issue. If it is the case it will check the correct issue ID using `AP.request`, then redirect to the correct page using that issue ID.
+
+```javascript
+AP.navigator.go = async (target, context) => {
+  if (target === 'issue' && window.location.pathname === '/normal_page') {
+    const response = await AP.request(`/rest/api/3/issue/${context.issueKey}`)
+    const issueId = JSON.parse(response.body).id
+
+    window.location = `/issue_page?issueId=${issueId}`
+  }
+}
+```
 
 [version-badge]: https://img.shields.io/npm/v/@smartbear/fake-ap.svg
 [package]: https://www.npmjs.com/package/@smartbear/fake-ap
