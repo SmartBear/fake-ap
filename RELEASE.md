@@ -17,14 +17,14 @@
 **Note:** you can skip entering the new version by using `yarn publish --major`, `yarn publish --minor` or `yarn publish --patch`. This will generate a new version based on the current version.
 
 ### GitHub release
-After executing the `yarn publish` command and pushing the commits, you can make a GitHub release.
-For instance with version `1.0.1`:
-- From the SmartBear/fake-ap repository in GitHub, go to releases and click "Draft new release"
-  - Tag: v1.0.1
+After executing the `yarn publish` command and pushing the commit, you can make a GitHub release.
+For instance with version `1.0.0`:
+- From the SmartBear/fake-ap repository in GitHub, go to releases, then draft a new release with the following information:
+  - Tag: v1.0.0
   - Target branch: master
-  - Release title: Release 1.0.1
+  - Release title: v1.0.0
   - Fill the release notes
-- Click on "Publish release"
+- Publish the release
 
 ## Using the GitHub release
 If you want to try a version of the package using a GitHub release:
