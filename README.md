@@ -1,5 +1,5 @@
 # Fake AP
-A fake AP module to help develop and test Atlassian Connect applications
+A fake AP module to help develop and test Atlassian Connect applications.
 
 [![version][version-badge]][package]
 [![license][license-badge]][license]
