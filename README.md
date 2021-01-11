@@ -13,7 +13,7 @@ A fake AP module to help develop and test Atlassian Connect applications.
   - [AP.dialog](#ap.dialog)
   - [AP.user.getLocale](#ap.user.getlocale)
   - [AP.request](#ap.request)
-  - [Not implemented methods](#not-implemented-methods)
+  - [Not implemented method](#not-implemented-method)
   - [Missing configuration](#missing-configuration)
   - [Disabling dialogs and flags](#disabling-dialogs-and-flags)
 - [Implemented methods](#missing-methods)
@@ -243,7 +243,7 @@ Here are the specifications for a custom adapter:
   }
   ```
 
-### Not implemented methods
+### Not implemented method
 
 It is possible to configure the behavior of AP methods that are not implemented in fake AP:
 
