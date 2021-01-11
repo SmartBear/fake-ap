@@ -1,7 +1,12 @@
 {
   "name": "@smartbear/fake-ap",
   "version": "0.0.0",
-  "description": "A fake AP module to help develop and test Atlassian Connect applications",
+  "description": "A fake AP module to help develop and test Atlassian Connect applications.",
+  "homepage": "https://github.com/SmartBear/fake-ap",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SmartBear/fake-ap"
+  },
   "main": "lib/index.js",
   "author": "SmartBear Software",
   "license": "MIT",
