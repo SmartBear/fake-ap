@@ -1,8 +1,10 @@
 # Fake AP
 A fake AP module to help develop and test Atlassian Connect applications.
 
-[![version][version-badge]][package]
-[![license][license-badge]][license]
+[![Version][version-badge]][package]
+[![CI][ci-badge]][ci]
+[![Dependencies][dependencies-badge]][dependencies]
+[![License][license-badge]][license]
 
 ## Contents
 - [Introduction](#introduction)
@@ -372,7 +374,11 @@ AP.navigator.go = async (target, context) => {
 }
 ```
 
-[version-badge]: https://img.shields.io/npm/v/@smartbear/fake-ap.svg
+[version-badge]: https://img.shields.io/npm/v/@smartbear/fake-ap
 [package]: https://www.npmjs.com/package/@smartbear/fake-ap
-[license-badge]: https://img.shields.io/npm/l/@smartbear/fake-ap.svg
+[ci-badge]: https://img.shields.io/github/workflow/status/smartbear/fake-ap/CI?logo=github
+[ci]: https://github.com/SmartBear/fake-ap/actions?query=workflow%3ACI
+[dependencies-badge]: https://img.shields.io/david/smartbear/fake-ap
+[dependencies]: https://david-dm.org/smartbear/fake-ap
+[license-badge]: https://img.shields.io/npm/l/@smartbear/fake-ap
 [license]: https://github.com/SmartBear/fake-ap/blob/master/LICENSE
