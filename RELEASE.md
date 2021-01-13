@@ -19,10 +19,10 @@
 ### GitHub release
 After executing the `yarn publish` command and pushing the commit, you can make a GitHub release.
 For instance with version `1.0.0`:
-- From the SmartBear/fake-ap repository in GitHub, go to releases, then draft a new release with the following information:
-  - Tag: v1.0.0
-  - Target branch: master
-  - Release title: v1.0.0
+- From the SmartBear/fake-ap repository in GitHub, go to releases, then to the tags section
+- Find the tag `v1.0.0`
+- Edit the tag:
+  - Release title: **v1.0.0**
   - Fill the release notes
 - Publish the release
 
