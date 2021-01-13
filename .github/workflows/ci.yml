@@ -1,0 +1,55 @@
+name: CI Node.js
+
+on: [push]
+
+jobs:
+  ci-node:
+    if: github.event_name == 'push' && contains(toJson(github.event.commits), '[skip ci]') == false && contains(toJson(github.event.commits), '[skip-ci]') == false
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Cache node modules
+      uses: actions/cache@v2
+      env:
+        cache-name: cache-node-modules
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-build-${{ env.cache-name }}-
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-
+
+    - name: Use Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12.18.x'
+
+    - name: Run yarn
+      run: yarn --frozen-lockfile
+
+    - name: Run yarn test
+      run: yarn test:ci
+      env:
+        CI: true
+        NODE_ENV: 'test'
+
+    - name: Publish frontend test report
+      uses: mikepenz/action-junit-report@v1
+      if: always()
+      with:
+        check_name: Frontend test report
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        report_paths: './test-reporter.xml'
+
+    - name: Slack Notification
+      uses: 8398a7/action-slack@v3
+      if: always()
+      with:
+        channel: '#cucumber4jira-ci'
+        status: ${{ job.status }}
+        fields: message,ref,workflow,took
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
