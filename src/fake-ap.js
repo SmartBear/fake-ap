@@ -12,6 +12,7 @@ import inlineDialog from 'modules/inline-dialog'
 import jira from 'modules/jira'
 import navigator from 'modules/navigator'
 import request from 'modules/request'
+import user from 'modules/user'
 import Dialogs from 'components/Dialogs'
 import Flags from 'components/Flags'
 import { mountComponentWhenDocumentIsReady } from 'utils/mount-component'
@@ -30,7 +31,7 @@ class AP {
   request = request.request
   resize = iframe.resize
   sizeToParent = iframe.sizeToParent
-  user = 'user'
+  user = user
 
   constructor(options = {}) {
     this.configure(options)
