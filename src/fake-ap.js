@@ -33,7 +33,7 @@ class AP {
   sizeToParent = iframe.sizeToParent
   user = user
 
-  constructor(options = {}) {
+  constructor(options = {}){
     this.configure(options)
 
     if (config.mountDialogs) {
