@@ -26,7 +26,7 @@
     "@babel/cli": "^7.12.13",
     "@babel/core": "^7.12.13",
     "@babel/eslint-parser": "^7.12.1",
-    "@babel/eslint-plugin": "^7.12.1",
+    "@babel/eslint-plugin": "^7.12.13",
     "@babel/preset-env": "^7.12.11",
     "@babel/preset-react": "^7.12.10",
     "@testing-library/jest-dom": "^5.11.9",
