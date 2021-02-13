@@ -256,7 +256,7 @@ AP.configure({
 ```
 
 When called, any method that is not implemented will call the `notImplementedAction` method with the method name and all the arguments.
-Using the above configuration, calling `AP.context.getContext('a', 'b')` will call `console.log('AP.context.getContext', 'a', 'b')`.
+Using the above configuration, calling `AP.resize('a', 'b')` will call `console.log('AP.resize', 'a', 'b')`.
 It is possible to have more advanced behaviors:
 
 ```javascript
@@ -331,10 +331,13 @@ No error will be raised, but nothing will happen since the components will not e
 }
 ```
 
+## Methods that needs a provided implementation
+
+- `AP.context.getContext`: Due to how this method natively work. We can't provide a defaut implementation, so this library will allow you to provide your custom implemntation instead.
+
 ## Not implemented methods
 
 Fake AP is still missing a lot of methods from the actual AP:
-- `AP.context.getContext`
 - `AP.cookie`
 - `AP.dialog`:
   - `getButton`

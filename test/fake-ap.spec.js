@@ -194,6 +194,17 @@ describe('context', () => {
       })
     })
   })
+
+  describe('getContext', () => {
+    it('delegates implementation to the configured function', () => {
+      const getContextAction = jest.fn()
+      AP.configure({ getContextAction: getContextAction })
+
+      AP.context.getContext('a', 'b', 'c')
+
+      expect(getContextAction).toHaveBeenCalledWith('a', 'b', 'c')
+    })
+  })
 })
 
 describe('dialog', () => {
@@ -653,7 +664,6 @@ describe('disabling Dialogs and Flags components', () => {
 })
 
 const notImplementedMethods = [
-  'context.getContext',
   'cookie.save',
   'cookie.read',
   'cookie.erase',

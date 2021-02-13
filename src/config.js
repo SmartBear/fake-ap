@@ -18,6 +18,10 @@ class Config {
       this.requestAdapter = config.requestAdapter
     }
 
+    if (typeof config.getContextAction === 'function') {
+      this.getContextAction = config.getContextAction
+    }
+
     this.clientKey = config.clientKey ?? this.clientKey
     this.sharedSecret = config.sharedSecret ?? this.sharedSecret
     this.userId = config.userId ?? this.userId
@@ -32,8 +36,11 @@ class Config {
     this.missingConfiguration = (method, configuration) => {
       throw new Error(`Missing configuration for ${method}: ${configuration}`)
     }
+    this.getContextAction = () => {}
 
-    this.requestAdapter = new RequestAdapter((...args) => this.notImplemented('AP.request', ...args))
+    this.requestAdapter = new RequestAdapter((...args) =>
+      this.notImplemented('AP.request', ...args)
+    )
 
     this.clientKey = null
     this.sharedSecret = null

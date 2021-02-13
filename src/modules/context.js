@@ -33,7 +33,7 @@ class Context {
   }
 
   getContext = async (...args) => {
-    return config.notImplemented('AP.context.getContext', ...args)
+    return config.getContextAction(...args)
   }
 }
 

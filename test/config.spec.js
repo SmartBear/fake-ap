@@ -42,12 +42,14 @@ describe('default configuration', () => {
 describe('setConfig', () => {
   const notImplementedAction = jest.fn()
   const missingConfigurationAction = jest.fn()
+  const getContextAction = jest.fn()
   const requestAdapter = new RequestAdapter(notImplementedAction)
 
   beforeEach(() => {
     config.setConfig({
       notImplementedAction,
       missingConfigurationAction,
+      getContextAction,
       requestAdapter,
       clientKey: 'key',
       sharedSecret: 'secret',
@@ -62,6 +64,7 @@ describe('setConfig', () => {
 
     notImplementedAction.mockClear()
     missingConfigurationAction.mockClear()
+    getContextAction.mockClear()
   })
 
   describe('when a not implemented action is provided', () => {
@@ -84,6 +87,7 @@ describe('setConfig', () => {
       it('does not change other options', () => {
         expect(config.missingConfiguration).toBe(missingConfigurationAction)
         expect(config.requestAdapter).toBe(requestAdapter)
+        expect(config.getContextAction).toBe(getContextAction)
         expect(config.clientKey).toEqual('key')
         expect(config.sharedSecret).toEqual('secret')
         expect(config.userId).toEqual('user')
@@ -110,6 +114,7 @@ describe('setConfig', () => {
       it('does not change other options', () => {
         expect(config.missingConfiguration).toBe(missingConfigurationAction)
         expect(config.requestAdapter).toBe(requestAdapter)
+        expect(config.getContextAction).toBe(getContextAction)
         expect(config.clientKey).toEqual('key')
         expect(config.sharedSecret).toEqual('secret')
         expect(config.userId).toEqual('user')
@@ -141,6 +146,7 @@ describe('setConfig', () => {
       it('does not change other options', () => {
         expect(config.notImplemented).toBe(notImplementedAction)
         expect(config.requestAdapter).toBe(requestAdapter)
+        expect(config.getContextAction).toBe(getContextAction)
         expect(config.clientKey).toEqual('key')
         expect(config.sharedSecret).toEqual('secret')
         expect(config.userId).toEqual('user')
@@ -167,6 +173,7 @@ describe('setConfig', () => {
       it('does not change other options', () => {
         expect(config.notImplemented).toBe(notImplementedAction)
         expect(config.requestAdapter).toBe(requestAdapter)
+        expect(config.getContextAction).toBe(getContextAction)
         expect(config.clientKey).toEqual('key')
         expect(config.sharedSecret).toEqual('secret')
         expect(config.userId).toEqual('user')
@@ -193,6 +200,7 @@ describe('setConfig', () => {
       it('does not change other options', () => {
         expect(config.notImplemented).toBe(notImplementedAction)
         expect(config.missingConfiguration).toBe(missingConfigurationAction)
+        expect(config.getContextAction).toBe(getContextAction)
         expect(config.clientKey).toEqual('key')
         expect(config.sharedSecret).toEqual('secret')
         expect(config.userId).toEqual('user')
@@ -217,6 +225,59 @@ describe('setConfig', () => {
       it('does not change other options', () => {
         expect(config.notImplemented).toBe(notImplementedAction)
         expect(config.missingConfiguration).toBe(missingConfigurationAction)
+        expect(config.getContextAction).toBe(getContextAction)
+        expect(config.clientKey).toEqual('key')
+        expect(config.sharedSecret).toEqual('secret')
+        expect(config.userId).toEqual('user')
+        expect(config.dialogUrls).toEqual({ dialog: 'url' })
+        expect(config.locale).toEqual('en_US')
+        expect(config.mountDialogs).toEqual(false)
+        expect(config.mountFlags).toEqual(false)
+      })
+    })
+  })
+
+  describe('when a getContextAction is provided', () => {
+    describe('when the getContextAction has the correct type', () => {
+      const newGetContextAction = jest.fn()
+
+      beforeEach(() => {
+        config.setConfig({ getContextAction: newGetContextAction })
+      })
+
+      it('sets the getContextAction to the provided action', () => {
+        expect(config.getContextAction).toBe(newGetContextAction)
+      })
+
+      it('does not change other options', () => {
+        expect(config.notImplemented).toBe(notImplementedAction)
+        expect(config.missingConfiguration).toBe(missingConfigurationAction)
+        expect(config.requestAdapter).toBe(requestAdapter)
+        expect(config.clientKey).toEqual('key')
+        expect(config.sharedSecret).toEqual('secret')
+        expect(config.userId).toEqual('user')
+        expect(config.dialogUrls).toEqual({ dialog: 'url' })
+        expect(config.locale).toEqual('en_US')
+        expect(config.mountDialogs).toEqual(false)
+        expect(config.mountFlags).toEqual(false)
+      })
+    })
+
+    describe('when getContextAction does not have the correct type', () => {
+      const newGetContextAction = 'adapter'
+
+      beforeEach(() => {
+        config.setConfig({ getContextAction: newGetContextAction })
+      })
+
+      it('does not set getContextAction', () => {
+        expect(config.getContextAction).toBe(getContextAction)
+      })
+
+      it('does not change other options', () => {
+        expect(config.notImplemented).toBe(notImplementedAction)
+        expect(config.missingConfiguration).toBe(missingConfigurationAction)
+        expect(config.requestAdapter).toBe(requestAdapter)
         expect(config.clientKey).toEqual('key')
         expect(config.sharedSecret).toEqual('secret')
         expect(config.userId).toEqual('user')
