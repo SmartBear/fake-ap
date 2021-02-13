@@ -97,18 +97,19 @@ AP.configure({
 
 Here is a list of all available configuration (refer to their own section for details):
 
-| Configuration                | Default value       | Description                                                   |
-| ---------------------------- | ------------------- | ------------------------------------------------------------- |
-| `clientKey`                  | `null`              | The client key for `AP.context.getToken`                      |
-| `sharedSecret`               | `null`              | The shared secret for `AP.context.getToken`                   |
-| `userId`                     | `null`              | The user ID for `AP.context.getToken`                         |
-| `dialogUrls`                 | `{}`                | URLs to call when using `AP.dialog.create`                    |
-| `locale`                     | `en_US`             | The user locale for `AP.user.getLocale`                       |
-| `requestAdapter`             | `RequestAdapter`    | The request adapter for `AP.request`                          |
-| `notImplementedAction`       | `() => {}`          | The method called when using a method that is not implemented |
-| `missingConfigurationAction` | `throw new Error()` | The method called when a configuration is missing             |
-| `mountDialogs`               | `true`              | `false` to prevent mounting the React component for dialogs   |
-| `mountFlags`                 | `true`              | `false` to prevent mounting the React component for flags     |
+| Configuration                | Default value       | Description                                                                  |
+| ---------------------------- | ------------------- | -----------------------------------------------------------------------------|
+| `clientKey`                  | `null`              | The client key for `AP.context.getToken`                                     |
+| `sharedSecret`               | `null`              | The shared secret for `AP.context.getToken`                                  |
+| `userId`                     | `null`              | The user ID for `AP.context.getToken`                                        |
+| `dialogUrls`                 | `{}`                | URLs to call when using `AP.dialog.create`                                   |
+| `locale`                     | `en_US`             | The user locale for `AP.user.getLocale`                                      |
+| `requestAdapter`             | `RequestAdapter`    | The request adapter for `AP.request`                                         |
+| `notImplementedAction`       | `() => {}`          | The method called when using a method that is not implemented                |
+| `missingConfigurationAction` | `throw new Error()` | The method called when a configuration is missing                            |
+| `mountDialogs`               | `true`              | `false` to prevent mounting the React component for dialogs                  |
+| `mountFlags`                 | `true`              | `false` to prevent mounting the React component for flags                    |
+| `getContextAction`           | `() => {}`          | The function that will be called when calling `AP.context.getContext`        |
 
 **Note:** when using `AP.configure`, all previous configuration is kept, only conflicting configuration is replaced. All new configuration is added.
 
@@ -333,7 +334,7 @@ No error will be raised, but nothing will happen since the components will not e
 
 ## Methods that needs a provided implementation
 
-- `AP.context.getContext`: Due to how this method natively work. We can't provide a defaut implementation, so this library will allow you to provide your custom implemntation instead.
+- `AP.context.getContext`: Due to how this method natively work. We can't provide a defaut behaviour, so this library will allow you to provide your custom implementation instead.
 
 ## Not implemented methods
 
