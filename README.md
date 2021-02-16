@@ -20,7 +20,7 @@ A fake AP module to help develop and test Atlassian Connect applications.
   - [Disabling dialogs and flags](#disabling-dialogs-and-flags)
 - [Implemented methods](#missing-methods)
 - [Not implemented methods](#not-implemented-methods)
-- [Custom methods](#custom-methods)
+- [Custom implementations](#custom-implementations)
 
 ## Introduction
 
@@ -41,6 +41,8 @@ This package provides a way to make a fake AP that can be used instead of the re
 - History
 - Request
 - User locale
+
+**Note: This package should never be used on a production environment.**
 
 ## Installation
 
@@ -357,7 +359,7 @@ Fake AP is still missing a lot of methods from the actual AP:
 
 Some methods like `AP.resize` do not really make sense in a development or testing environment, so they may not be implemented before a long time.
 
-## Custom methods
+## Custom implementations
 
 Once Fake AP is created, it is possible to add any custom implementation that is specific to your application.
 
