@@ -23,7 +23,7 @@
     "postpublish": "echo The new package has been released! Run \\\"yarn push\\\" to push the release commit and tag."
   },
   "devDependencies": {
-    "@babel/cli": "^7.12.17",
+    "@babel/cli": "^7.13.0",
     "@babel/core": "^7.12.17",
     "@babel/eslint-parser": "^7.13.0",
     "@babel/eslint-plugin": "^7.12.13",
