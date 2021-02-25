@@ -52,7 +52,7 @@
     "react-is": "^17.0.1",
     "stream-browserify": "^3.0.0",
     "styled-components": "^5.2.1",
-    "webpack": "^5.24.1",
+    "webpack": "^5.24.2",
     "webpack-cli": "^4.5.0",
     "webpack-dev-server": "^3.11.2"
   },
