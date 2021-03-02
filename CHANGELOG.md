@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [1.0.2]
+
 - Setup a new package release process that will also release on GitHub Packages
 
 ## [1.0.1]
