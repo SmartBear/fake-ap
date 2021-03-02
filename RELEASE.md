@@ -1,34 +1,35 @@
 # How to release a new version
 
-## Requirements
-- GitHub SmartBear/fake-ap repository access
-- NPM user account with SmartBear organization access
+## Keep a changelog
+
+As you add features or fix bugs, keep the `CHANGELOG.md` file up to date.
+Add any new information in the **Unreleased** section.
+
+**Do not put the new information in a new section with your future version number.**
+The release script will take care of that.
+
+If you have pending changes to the changelog file, no need to commit it, the release script will include these changes.
 
 ## Release a new version
 
-### Create a release and publish
-- Run `yarn publish`
-- Enter the new version when asked
-- Enter your NPM account password when asked
+- Ensure the `CHANGELOG.md` file has the new content in the **Unreleased** section, **these will become the release notes**
+- Run `yarn release` to create a new version with the correct release type: `yarn release --major`, `yarn release --minor` or `yarn release --patch`
 - If the operation is a success, a new commit and tag will be created for the new version
 - Push the commit and the tag using `yarn push` (or `git push --follow-tags`)
-- Make a release on GitHub using the new tag
 
-**Note:** you can skip entering the new version by using `yarn publish --major`, `yarn publish --minor` or `yarn publish --patch`. This will generate a new version based on the current version.
+That's it. A GitHub action will make the GitHub release and publish automatically.
 
-### GitHub release
-After executing the `yarn publish` command and pushing the commit, you can make a GitHub release.
-For instance with version `1.0.0`:
-- From the SmartBear/fake-ap repository in GitHub, go to releases, then to the tags section
-- Find the tag `v1.0.0`
-- Edit the tag:
-  - Release title: **v1.0.0**
-  - Fill the release notes
-- Publish the release
+## Release process information
 
-## Using the GitHub release
-If you want to try a version of the package using a GitHub release:
-- Download the source code of the release and extract it
-- Run `yarn` to install dependencies
-- Run `yarn pack` to create a package file
-- Use that package file as the source in your `package.json` file
+The release process is automated using a release script then a GitHub action:
+- The `yarn release` script will:
+  - Move content in the changelog from **Unreleased** to a new section, then add the file to the future commit
+  - Use `yarn version` to bump the version in `package.json`, create a release commit and tag
+- The `yarn push` script will use `git push --follow-tags` to push the commit
+- A `release` GitHub action will make the release and publish the package:
+  - The action is triggered if a push includes a tag that starts as `v*`
+  - It runs all tests before the release
+  - It creates a GitHub release, settings the release notes based on the changelog
+  - It publishes the package to both npm and GitHub Packages
+
+You can check the release script in the `scripts/release.js` file and the GitHub action in the `.github/workflows/release.yml` file to see how they work.

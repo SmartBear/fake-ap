@@ -17,10 +17,10 @@
     "start": "webpack serve --client-log-level silent",
     "lint": "eslint --ext js,jsx .",
     "test": "jest",
+    "release": "node scripts/release.js",
     "prepack": "rm -rf lib && babel src --out-dir lib",
     "postpack": "rm -rf lib",
-    "push": "git push --follow-tags",
-    "postpublish": "echo The new package has been released! Run \\\"yarn push\\\" to push the release commit and tag."
+    "push": "git push --follow-tags"
   },
   "devDependencies": {
     "@babel/cli": "^7.13.0",
