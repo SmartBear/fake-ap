@@ -3,10 +3,17 @@
 version: 2
 updates:
   - package-ecosystem: npm
-    directory: "/"
+    directory: '/'
     schedule:
-      interval: "daily"
-      time: "09:00"
-      timezone: "Europe/Paris"
+      interval: 'daily'
+      time: '09:00'
+      timezone: 'Europe/Paris'
     open-pull-requests-limit: 10
     versioning-strategy: increase
+  - package-ecosystem: github-actions
+    directory: '/'
+    schedule:
+      interval: 'daily'
+      time: '09:00'
+      timezone: 'Europe/Paris'
+    open-pull-requests-limit: 10
