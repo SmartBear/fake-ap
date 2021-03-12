@@ -16,7 +16,7 @@ jobs:
         node-version: '12.18.x'
 
     - name: Cache node modules
-      uses: actions/cache@v2
+      uses: actions/cache@v2.1.4
       with:
         path: node_modules
         key: ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock') }}
