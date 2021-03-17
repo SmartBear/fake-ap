@@ -9,7 +9,7 @@ const exec = command => {
   try {
     command()
   } catch (error) {
-    console.log(`ERROR: ${error}`)
+    console.log(`Error: ${error.message}`)
     process.exitCode = 1
   }
 }
