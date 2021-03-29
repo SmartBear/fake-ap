@@ -6,22 +6,6 @@ A fake AP module to help develop and test Atlassian Connect applications.
 [![Dependencies][dependencies-badge]][dependencies]
 [![License][license-badge]][license]
 
-## Contents
-- [Introduction](#introduction)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Configuration](#configuration)
-  - [AP.context.getToken](#ap.context.gettoken)
-  - [AP.dialog](#ap.dialog)
-  - [AP.user.getLocale](#ap.user.getlocale)
-  - [AP.request](#ap.request)
-  - [Not implemented method](#not-implemented-method)
-  - [Missing configuration](#missing-configuration)
-  - [Disabling dialogs and flags](#disabling-dialogs-and-flags)
-- [Implemented methods](#missing-methods)
-- [Not implemented methods](#not-implemented-methods)
-- [Custom implementations](#custom-implementations)
-
 ## Introduction
 
 Atlassian Connect apps often use the [Atlassian Connect JavaScript API](https://developer.atlassian.com/cloud/jira/software/about-the-javascript-api/), also called **AP**, to overcome the limitations due to the app existing in an iframe from an Atlassian page.
