@@ -21,6 +21,7 @@ class Context {
     const payload = {
       iss: config.clientKey,
       sub: config.userId,
+      qsh: 'context-qsh',
       iat: now.unix(),
       exp: now.add(5, 'minutes').unix()
     }

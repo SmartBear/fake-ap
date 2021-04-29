@@ -41,13 +41,14 @@ describe('context', () => {
         expect(callback).toHaveBeenCalledWith(token)
       })
 
-      it('includes the client key and user ID', async () => {
+      it('includes the client key, user ID and QSH', async () => {
         const token = await AP.context.getToken()
 
         const payload = jwt.decode(token, null, true)
 
         expect(payload).toHaveProperty('iss', clientKey)
         expect(payload).toHaveProperty('sub', userId)
+        expect(payload).toHaveProperty('qsh', 'context-qsh')
       })
 
       it('is valid for 5 minutes', async () => {
