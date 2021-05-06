@@ -44,7 +44,7 @@ describe('context', () => {
       it('includes the client key, user ID and QSH', async () => {
         const token = await AP.context.getToken()
 
-        const payload = jwt.decode(token, null, true)
+        const payload = jwt.decodeSymmetric(token, null, 'HS256', true)
 
         expect(payload).toHaveProperty('iss', clientKey)
         expect(payload).toHaveProperty('sub', userId)
@@ -56,7 +56,7 @@ describe('context', () => {
 
         const token = await AP.context.getToken()
 
-        const payload = jwt.decode(token, null, true)
+        const payload = jwt.decodeSymmetric(token, null, 'HS256', true)
 
         expect(payload).toHaveProperty('iat', now.unix())
         expect(payload).toHaveProperty('exp', now.add(5, 'minutes').unix())
@@ -65,7 +65,7 @@ describe('context', () => {
       it('is signed using the shared secret', async () => {
         const token = await AP.context.getToken()
 
-        expect(() => jwt.decode(token, sharedSecret)).not.toThrow()
+        expect(() => jwt.decodeSymmetric(token, sharedSecret, 'HS256')).not.toThrow()
       })
     })
 
