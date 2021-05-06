@@ -26,7 +26,7 @@ class Context {
       exp: now.add(5, 'minutes').unix()
     }
 
-    const token = jwt.encode(payload, config.sharedSecret)
+    const token = jwt.encodeSymmetric(payload, config.sharedSecret)
 
     callback(token)
 
