@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- Upgrade dependencies
+
 ## [1.1.0]
 
 - Add QSH to AP.context.getToken
