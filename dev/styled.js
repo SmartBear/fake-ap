@@ -43,11 +43,6 @@ export const SectionName = styled.div`
   margin: 0 auto;
 `
 
-export const MethodName = styled.button`
-  font-family: monospace;
-  font-size: 16px;
-`
-
 export const OptionsName = styled.div`
   font-family: monospace;
   font-size: 16px;
@@ -58,12 +53,18 @@ export const OptionsContent = styled.div`
   margin-top: 20px;
 `
 
+export const MethodName = styled.button`
+  font-family: monospace;
+  font-size: 16px;
+`
+
 export const MethodContent = styled.div`
   flex-grow: 1;
   margin-top: 20px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  overflow-y: auto;
 
   & > :not(:first-child) {
     margin-top: 10px;
@@ -125,7 +126,6 @@ export const Code = styled.div`
   width: 100%;
   height: ${props => props.codeHeight ?? '100%'};
   padding: 10px;
-  overflow-y: auto;
 `
 
 export const DialogStyle = createGlobalStyle`
