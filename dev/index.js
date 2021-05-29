@@ -5,8 +5,8 @@ import {
   Section,
   SectionName,
   OptionsName,
-  MethodName,
   OptionsContent,
+  MethodName,
   MethodContent,
   FormContainer,
   Form,
@@ -15,6 +15,7 @@ import {
   Code
 } from './styled'
 import FakeAP from 'fake-ap'
+import * as jwt from 'atlassian-jwt'
 import { mountComponentWhenDocumentIsReady } from 'utils/mount-component'
 import BackendRequestAdapter from 'request-adapter/backend'
 
@@ -22,6 +23,10 @@ const defaultOptions = {
   clientKey: 'key',
   sharedSecret: 'secret',
   userId: 'user',
+  contextJiraProjectId: '10000',
+  contextJiraProjectKey: 'PRO-1',
+  contextJiraIssueId: '10001',
+  contextJiraIssueKey: 'ISS-1',
   locale: 'en_US'
 }
 
@@ -68,7 +73,7 @@ const Method = ({ name, onClick, children }) => (
 
 const TestPage = () => {
   const [options, setOptions] = useState(defaultOptions)
-  const [token, setToken] = useState('')
+  const [tokenAndPayload, setTokenAndPayload] = useState('')
   const [customData, setCustomData] = useState('')
   const [lastDialogClose, setLastDialogClose] = useState({})
   const [flagOptions, setFlagOptions] = useState(defaultFlagOptions)
@@ -142,7 +147,10 @@ const TestPage = () => {
   }
 
   const getToken = async () => {
-    setToken(await AP.context.getToken())
+    const token = await AP.context.getToken()
+    const payload = jwt.decodeSymmetric(token, null, 'HS256', true)
+
+    setTokenAndPayload(`Token:\n${token}\n\nPayload:\n${JSON.stringify(payload, null, 2)}`)
   }
 
   const createDialog = () => {
@@ -235,7 +243,7 @@ const TestPage = () => {
       </Options>
 
       <Method name='AP.context.getToken' onClick={getToken}>
-        <Code>{token}</Code>
+        <Code>{tokenAndPayload}</Code>
       </Method>
 
       <Method name='AP.dialog.create' onClick={createDialog}>
@@ -315,7 +323,7 @@ const TestPage = () => {
             <button onClick={() => setRequestPath('failure')}>Failure</button>
           </Form>
           <RequestResponse>
-            <Code codeHeight='136px'>{requestResponse}</Code>
+            <Code>{requestResponse}</Code>
           </RequestResponse>
         </FormContainer>
       </Method>

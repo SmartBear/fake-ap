@@ -15,6 +15,8 @@ class Context {
       return config.missingConfiguration('AP.context.getToken', 'userId')
     }
 
+    const context = await this.getContext()
+
     const iat = Math.trunc(Date.now() / 1000)
     const exp = iat + 300
 
@@ -22,6 +24,7 @@ class Context {
       iss: config.clientKey,
       sub: config.userId,
       qsh: 'context-qsh',
+      context,
       iat,
       exp
     }
@@ -33,8 +36,41 @@ class Context {
     return token
   }
 
-  getContext = async (...args) => {
-    return config.notImplemented('AP.context.getContext', ...args)
+  getContext = async (callback = () => {}) => {
+    const context = {}
+    const jira = {}
+
+    if (config.contextJiraProjectId || config.contextJiraProjectKey) {
+      jira.project = {}
+
+      if (config.contextJiraProjectId) {
+        jira.project.id = config.contextJiraProjectId
+      }
+
+      if (config.contextJiraProjectKey) {
+        jira.project.key = config.contextJiraProjectKey
+      }
+    }
+
+    if (config.contextJiraIssueId || config.contextJiraIssueKey) {
+      jira.issue = {}
+
+      if (config.contextJiraIssueId) {
+        jira.issue.id = config.contextJiraIssueId
+      }
+
+      if (config.contextJiraIssueKey) {
+        jira.issue.key = config.contextJiraIssueKey
+      }
+    }
+
+    if (jira.project || jira.issue) {
+      context.jira = jira
+    }
+
+    callback(context)
+
+    return context
   }
 }
 
