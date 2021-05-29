@@ -309,7 +309,9 @@ No error will be raised, but nothing will happen since the components will not e
 **Note: this can only be configured when creating the Fake AP. `AP.configure` will have no effect here since the components are already mounted.**
 
 ## Implemented methods
-- `AP.context.getToken`
+- `AP.context`:
+  - `getToken`
+  - `getContext`
 - `AP.dialog`:
   - `create`
   - `close`
@@ -341,7 +343,6 @@ No error will be raised, but nothing will happen since the components will not e
 ## Not implemented methods
 
 Fake AP is still missing a lot of methods from the actual AP:
-- `AP.context.getContext`
 - `AP.cookie`
 - `AP.dialog`:
   - `getButton`
