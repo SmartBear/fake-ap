@@ -124,8 +124,9 @@ export const Code = styled.div`
   white-space: pre-wrap;
   background-color: #EEEEEE;
   width: 100%;
-  height: ${props => props.codeHeight ?? '100%'};
+  height: 100%;
   padding: 10px;
+  overflow-y: auto;
 `
 
 export const DialogStyle = createGlobalStyle`
