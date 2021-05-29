@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+- Implement `AP.context.getContext`
+  - For now only Jira projects and issues are supported
+  - It is possible to configure the context returned by providing information to the Fake AP configuration
+- Update `AP.context.getToken` to include the context returned from `AP.context.getContext`
 - Remove the `moment` package dependency
 
 ## [1.1.1]
