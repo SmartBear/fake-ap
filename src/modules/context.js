@@ -1,5 +1,4 @@
 import * as jwt from 'atlassian-jwt'
-import moment from 'moment'
 import config from 'config'
 
 class Context {
@@ -16,14 +15,15 @@ class Context {
       return config.missingConfiguration('AP.context.getToken', 'userId')
     }
 
-    const now = moment().utc()
+    const iat = Math.trunc(Date.now() / 1000)
+    const exp = iat + 300
 
     const payload = {
       iss: config.clientKey,
       sub: config.userId,
       qsh: 'context-qsh',
-      iat: now.unix(),
-      exp: now.add(5, 'minutes').unix()
+      iat,
+      exp
     }
 
     const token = jwt.encodeSymmetric(payload, config.sharedSecret)

@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- Remove the `moment` package dependency
+
 ## [1.1.1]
 
 - Upgrade dependencies

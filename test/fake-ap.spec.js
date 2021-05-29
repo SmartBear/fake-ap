@@ -1,14 +1,13 @@
 import React from 'react'
 import { render, act, waitFor } from '@testing-library/react'
 import * as jwt from 'atlassian-jwt'
-import moment from 'moment'
 import _get from 'lodash/get'
 import config from 'config'
 import RequestAdapter from 'request-adapter'
 import FakeAP from 'fake-ap'
 
-const date = new Date()
-moment.now = () => date
+const now = Date.now()
+jest.spyOn(Date, 'now').mockReturnValue(now)
 
 let AP = null
 let options = null
@@ -52,14 +51,12 @@ describe('context', () => {
       })
 
       it('is valid for 5 minutes', async () => {
-        const now = moment().utc()
-
         const token = await AP.context.getToken()
 
         const payload = jwt.decodeSymmetric(token, null, 'HS256', true)
 
-        expect(payload).toHaveProperty('iat', now.unix())
-        expect(payload).toHaveProperty('exp', now.add(5, 'minutes').unix())
+        expect(payload).toHaveProperty('iat', Math.trunc(now / 1000))
+        expect(payload).toHaveProperty('exp', Math.trunc(now / 1000) + 300)
       })
 
       it('is signed using the shared secret', async () => {
