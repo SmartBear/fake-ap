@@ -22,6 +22,16 @@ describe('default configuration', () => {
     expect(config.userId).toBeNull()
   })
 
+  it('sets the context Jira project ID and key to null', () => {
+    expect(config.contextJiraProjectId).toBeNull()
+    expect(config.contextJiraProjectKey).toBeNull()
+  })
+
+  it('sets the context Jira issue ID and key to null', () => {
+    expect(config.contextJiraIssueId).toBeNull()
+    expect(config.contextJiraIssueKey).toBeNull()
+  })
+
   it('sets the dialog URLs to an empty object', () => {
     expect(config.dialogUrls).toEqual({})
   })
@@ -52,6 +62,10 @@ describe('setConfig', () => {
       clientKey: 'key',
       sharedSecret: 'secret',
       userId: 'user',
+      contextJiraProjectId: '10000',
+      contextJiraProjectKey: 'PRO-1',
+      contextJiraIssueId: '10001',
+      contextJiraIssueKey: 'ISS-1',
       dialogUrls: {
         dialog: 'url'
       },
@@ -81,12 +95,16 @@ describe('setConfig', () => {
         expect(notImplementedAction).not.toHaveBeenCalled()
       })
 
-      it('does not change other options', () => {
+      it('does not change the other options', () => {
         expect(config.missingConfiguration).toBe(missingConfigurationAction)
         expect(config.requestAdapter).toBe(requestAdapter)
         expect(config.clientKey).toEqual('key')
         expect(config.sharedSecret).toEqual('secret')
         expect(config.userId).toEqual('user')
+        expect(config.contextJiraProjectId).toEqual('10000')
+        expect(config.contextJiraProjectKey).toEqual('PRO-1')
+        expect(config.contextJiraIssueId).toEqual('10001')
+        expect(config.contextJiraIssueKey).toEqual('ISS-1')
         expect(config.dialogUrls).toEqual({ dialog: 'url' })
         expect(config.locale).toEqual('en_US')
         expect(config.mountDialogs).toEqual(false)
@@ -107,12 +125,16 @@ describe('setConfig', () => {
         expect(notImplementedAction).toHaveBeenCalled()
       })
 
-      it('does not change other options', () => {
+      it('does not change the other options', () => {
         expect(config.missingConfiguration).toBe(missingConfigurationAction)
         expect(config.requestAdapter).toBe(requestAdapter)
         expect(config.clientKey).toEqual('key')
         expect(config.sharedSecret).toEqual('secret')
         expect(config.userId).toEqual('user')
+        expect(config.contextJiraProjectId).toEqual('10000')
+        expect(config.contextJiraProjectKey).toEqual('PRO-1')
+        expect(config.contextJiraIssueId).toEqual('10001')
+        expect(config.contextJiraIssueKey).toEqual('ISS-1')
         expect(config.dialogUrls).toEqual({ dialog: 'url' })
         expect(config.locale).toEqual('en_US')
         expect(config.mountDialogs).toEqual(false)
@@ -138,12 +160,16 @@ describe('setConfig', () => {
         expect(missingConfigurationAction).not.toHaveBeenCalled()
       })
 
-      it('does not change other options', () => {
+      it('does not change the other options', () => {
         expect(config.notImplemented).toBe(notImplementedAction)
         expect(config.requestAdapter).toBe(requestAdapter)
         expect(config.clientKey).toEqual('key')
         expect(config.sharedSecret).toEqual('secret')
         expect(config.userId).toEqual('user')
+        expect(config.contextJiraProjectId).toEqual('10000')
+        expect(config.contextJiraProjectKey).toEqual('PRO-1')
+        expect(config.contextJiraIssueId).toEqual('10001')
+        expect(config.contextJiraIssueKey).toEqual('ISS-1')
         expect(config.dialogUrls).toEqual({ dialog: 'url' })
         expect(config.locale).toEqual('en_US')
         expect(config.mountDialogs).toEqual(false)
@@ -158,18 +184,22 @@ describe('setConfig', () => {
         config.setConfig({ missingConfigurationAction: newMissingConfigurationAction })
       })
 
-      it('sets the missing configuration action to the provided action', () => {
+      it('does not set the missing configuration action to the provided action', () => {
         config.missingConfiguration('method', 'option')
 
         expect(missingConfigurationAction).toHaveBeenCalled()
       })
 
-      it('does not change other options', () => {
+      it('does not change the other options', () => {
         expect(config.notImplemented).toBe(notImplementedAction)
         expect(config.requestAdapter).toBe(requestAdapter)
         expect(config.clientKey).toEqual('key')
         expect(config.sharedSecret).toEqual('secret')
         expect(config.userId).toEqual('user')
+        expect(config.contextJiraProjectId).toEqual('10000')
+        expect(config.contextJiraProjectKey).toEqual('PRO-1')
+        expect(config.contextJiraIssueId).toEqual('10001')
+        expect(config.contextJiraIssueKey).toEqual('ISS-1')
         expect(config.dialogUrls).toEqual({ dialog: 'url' })
         expect(config.locale).toEqual('en_US')
         expect(config.mountDialogs).toEqual(false)
@@ -190,12 +220,16 @@ describe('setConfig', () => {
         expect(config.requestAdapter).toBe(newRequestAdapter)
       })
 
-      it('does not change other options', () => {
+      it('does not change the other options', () => {
         expect(config.notImplemented).toBe(notImplementedAction)
         expect(config.missingConfiguration).toBe(missingConfigurationAction)
         expect(config.clientKey).toEqual('key')
         expect(config.sharedSecret).toEqual('secret')
         expect(config.userId).toEqual('user')
+        expect(config.contextJiraProjectId).toEqual('10000')
+        expect(config.contextJiraProjectKey).toEqual('PRO-1')
+        expect(config.contextJiraIssueId).toEqual('10001')
+        expect(config.contextJiraIssueKey).toEqual('ISS-1')
         expect(config.dialogUrls).toEqual({ dialog: 'url' })
         expect(config.locale).toEqual('en_US')
         expect(config.mountDialogs).toEqual(false)
@@ -214,12 +248,16 @@ describe('setConfig', () => {
         expect(config.requestAdapter).toBe(requestAdapter)
       })
 
-      it('does not change other options', () => {
+      it('does not change the other options', () => {
         expect(config.notImplemented).toBe(notImplementedAction)
         expect(config.missingConfiguration).toBe(missingConfigurationAction)
         expect(config.clientKey).toEqual('key')
         expect(config.sharedSecret).toEqual('secret')
         expect(config.userId).toEqual('user')
+        expect(config.contextJiraProjectId).toEqual('10000')
+        expect(config.contextJiraProjectKey).toEqual('PRO-1')
+        expect(config.contextJiraIssueId).toEqual('10001')
+        expect(config.contextJiraIssueKey).toEqual('ISS-1')
         expect(config.dialogUrls).toEqual({ dialog: 'url' })
         expect(config.locale).toEqual('en_US')
         expect(config.mountDialogs).toEqual(false)
@@ -238,12 +276,16 @@ describe('setConfig', () => {
         expect(config.clientKey).toEqual('new key')
       })
 
-      it('does not change other options', () => {
+      it('does not change the other options', () => {
         expect(config.notImplemented).toBe(notImplementedAction)
         expect(config.missingConfiguration).toBe(missingConfigurationAction)
         expect(config.requestAdapter).toBe(requestAdapter)
         expect(config.sharedSecret).toEqual('secret')
         expect(config.userId).toEqual('user')
+        expect(config.contextJiraProjectId).toEqual('10000')
+        expect(config.contextJiraProjectKey).toEqual('PRO-1')
+        expect(config.contextJiraIssueId).toEqual('10001')
+        expect(config.contextJiraIssueKey).toEqual('ISS-1')
         expect(config.dialogUrls).toEqual({ dialog: 'url' })
         expect(config.locale).toEqual('en_US')
         expect(config.mountDialogs).toEqual(false)
@@ -260,12 +302,16 @@ describe('setConfig', () => {
         expect(config.clientKey).toEqual('')
       })
 
-      it('does not change other options', () => {
+      it('does not change the other options', () => {
         expect(config.notImplemented).toBe(notImplementedAction)
         expect(config.missingConfiguration).toBe(missingConfigurationAction)
         expect(config.requestAdapter).toBe(requestAdapter)
         expect(config.sharedSecret).toEqual('secret')
         expect(config.userId).toEqual('user')
+        expect(config.contextJiraProjectId).toEqual('10000')
+        expect(config.contextJiraProjectKey).toEqual('PRO-1')
+        expect(config.contextJiraIssueId).toEqual('10001')
+        expect(config.contextJiraIssueKey).toEqual('ISS-1')
         expect(config.dialogUrls).toEqual({ dialog: 'url' })
         expect(config.locale).toEqual('en_US')
         expect(config.mountDialogs).toEqual(false)
@@ -284,12 +330,16 @@ describe('setConfig', () => {
         expect(config.sharedSecret).toEqual('new secret')
       })
 
-      it('does not change other options', () => {
+      it('does not change the other options', () => {
         expect(config.notImplemented).toBe(notImplementedAction)
         expect(config.missingConfiguration).toBe(missingConfigurationAction)
         expect(config.requestAdapter).toBe(requestAdapter)
         expect(config.clientKey).toEqual('key')
         expect(config.userId).toEqual('user')
+        expect(config.contextJiraProjectId).toEqual('10000')
+        expect(config.contextJiraProjectKey).toEqual('PRO-1')
+        expect(config.contextJiraIssueId).toEqual('10001')
+        expect(config.contextJiraIssueKey).toEqual('ISS-1')
         expect(config.dialogUrls).toEqual({ dialog: 'url' })
         expect(config.locale).toEqual('en_US')
         expect(config.mountDialogs).toEqual(false)
@@ -306,12 +356,16 @@ describe('setConfig', () => {
         expect(config.sharedSecret).toEqual('')
       })
 
-      it('does not change other options', () => {
+      it('does not change the other options', () => {
         expect(config.notImplemented).toBe(notImplementedAction)
         expect(config.missingConfiguration).toBe(missingConfigurationAction)
         expect(config.requestAdapter).toBe(requestAdapter)
         expect(config.clientKey).toEqual('key')
         expect(config.userId).toEqual('user')
+        expect(config.contextJiraProjectId).toEqual('10000')
+        expect(config.contextJiraProjectKey).toEqual('PRO-1')
+        expect(config.contextJiraIssueId).toEqual('10001')
+        expect(config.contextJiraIssueKey).toEqual('ISS-1')
         expect(config.dialogUrls).toEqual({ dialog: 'url' })
         expect(config.locale).toEqual('en_US')
         expect(config.mountDialogs).toEqual(false)
@@ -330,12 +384,16 @@ describe('setConfig', () => {
         expect(config.userId).toEqual('new user')
       })
 
-      it('does not change other options', () => {
+      it('does not change the other options', () => {
         expect(config.notImplemented).toBe(notImplementedAction)
         expect(config.missingConfiguration).toBe(missingConfigurationAction)
         expect(config.requestAdapter).toBe(requestAdapter)
         expect(config.clientKey).toEqual('key')
         expect(config.sharedSecret).toEqual('secret')
+        expect(config.contextJiraProjectId).toEqual('10000')
+        expect(config.contextJiraProjectKey).toEqual('PRO-1')
+        expect(config.contextJiraIssueId).toEqual('10001')
+        expect(config.contextJiraIssueKey).toEqual('ISS-1')
         expect(config.dialogUrls).toEqual({ dialog: 'url' })
         expect(config.locale).toEqual('en_US')
         expect(config.mountDialogs).toEqual(false)
@@ -352,12 +410,232 @@ describe('setConfig', () => {
         expect(config.userId).toEqual('')
       })
 
-      it('does not change other options', () => {
+      it('does not change the other options', () => {
         expect(config.notImplemented).toBe(notImplementedAction)
         expect(config.missingConfiguration).toBe(missingConfigurationAction)
         expect(config.requestAdapter).toBe(requestAdapter)
         expect(config.clientKey).toEqual('key')
         expect(config.sharedSecret).toEqual('secret')
+        expect(config.contextJiraProjectId).toEqual('10000')
+        expect(config.contextJiraProjectKey).toEqual('PRO-1')
+        expect(config.contextJiraIssueId).toEqual('10001')
+        expect(config.contextJiraIssueKey).toEqual('ISS-1')
+        expect(config.dialogUrls).toEqual({ dialog: 'url' })
+        expect(config.locale).toEqual('en_US')
+        expect(config.mountDialogs).toEqual(false)
+        expect(config.mountFlags).toEqual(false)
+      })
+    })
+  })
+
+  describe('when a context Jira project ID is provided', () => {
+    describe('when the context Jira project ID is not empty', () => {
+      beforeEach(() => {
+        config.setConfig({ contextJiraProjectId: '10010' })
+      })
+
+      it('sets the context Jira project ID to the provided context Jira project ID', () => {
+        expect(config.contextJiraProjectId).toEqual('10010')
+      })
+
+      it('does not change the other options', () => {
+        expect(config.notImplemented).toBe(notImplementedAction)
+        expect(config.missingConfiguration).toBe(missingConfigurationAction)
+        expect(config.requestAdapter).toBe(requestAdapter)
+        expect(config.clientKey).toEqual('key')
+        expect(config.sharedSecret).toEqual('secret')
+        expect(config.userId).toEqual('user')
+        expect(config.contextJiraProjectKey).toEqual('PRO-1')
+        expect(config.contextJiraIssueId).toEqual('10001')
+        expect(config.contextJiraIssueKey).toEqual('ISS-1')
+        expect(config.dialogUrls).toEqual({ dialog: 'url' })
+        expect(config.locale).toEqual('en_US')
+        expect(config.mountDialogs).toEqual(false)
+        expect(config.mountFlags).toEqual(false)
+      })
+    })
+
+    describe('when the context Jira project ID is empty', () => {
+      beforeEach(() => {
+        config.setConfig({ contextJiraProjectId: '' })
+      })
+
+      it('sets the context Jira project ID to the provided context Jira project ID', () => {
+        expect(config.contextJiraProjectId).toEqual('')
+      })
+
+      it('does not change the other options', () => {
+        expect(config.notImplemented).toBe(notImplementedAction)
+        expect(config.missingConfiguration).toBe(missingConfigurationAction)
+        expect(config.requestAdapter).toBe(requestAdapter)
+        expect(config.clientKey).toEqual('key')
+        expect(config.sharedSecret).toEqual('secret')
+        expect(config.userId).toEqual('user')
+        expect(config.contextJiraProjectKey).toEqual('PRO-1')
+        expect(config.contextJiraIssueId).toEqual('10001')
+        expect(config.contextJiraIssueKey).toEqual('ISS-1')
+        expect(config.dialogUrls).toEqual({ dialog: 'url' })
+        expect(config.locale).toEqual('en_US')
+        expect(config.mountDialogs).toEqual(false)
+        expect(config.mountFlags).toEqual(false)
+      })
+    })
+  })
+
+  describe('when a context Jira project key is provided', () => {
+    describe('when the context Jira project key is not empty', () => {
+      beforeEach(() => {
+        config.setConfig({ contextJiraProjectKey: 'PRO-2' })
+      })
+
+      it('sets the context Jira project key to the provided context Jira project key', () => {
+        expect(config.contextJiraProjectKey).toEqual('PRO-2')
+      })
+
+      it('does not change the other options', () => {
+        expect(config.notImplemented).toBe(notImplementedAction)
+        expect(config.missingConfiguration).toBe(missingConfigurationAction)
+        expect(config.requestAdapter).toBe(requestAdapter)
+        expect(config.clientKey).toEqual('key')
+        expect(config.sharedSecret).toEqual('secret')
+        expect(config.userId).toEqual('user')
+        expect(config.contextJiraProjectId).toEqual('10000')
+        expect(config.contextJiraIssueId).toEqual('10001')
+        expect(config.contextJiraIssueKey).toEqual('ISS-1')
+        expect(config.dialogUrls).toEqual({ dialog: 'url' })
+        expect(config.locale).toEqual('en_US')
+        expect(config.mountDialogs).toEqual(false)
+        expect(config.mountFlags).toEqual(false)
+      })
+    })
+
+    describe('when the context Jira project key is empty', () => {
+      beforeEach(() => {
+        config.setConfig({ contextJiraProjectKey: '' })
+      })
+
+      it('sets the context Jira project key to the provided context Jira project key', () => {
+        expect(config.contextJiraProjectKey).toEqual('')
+      })
+
+      it('does not change the other options', () => {
+        expect(config.notImplemented).toBe(notImplementedAction)
+        expect(config.missingConfiguration).toBe(missingConfigurationAction)
+        expect(config.requestAdapter).toBe(requestAdapter)
+        expect(config.clientKey).toEqual('key')
+        expect(config.sharedSecret).toEqual('secret')
+        expect(config.userId).toEqual('user')
+        expect(config.contextJiraProjectId).toEqual('10000')
+        expect(config.contextJiraIssueId).toEqual('10001')
+        expect(config.contextJiraIssueKey).toEqual('ISS-1')
+        expect(config.dialogUrls).toEqual({ dialog: 'url' })
+        expect(config.locale).toEqual('en_US')
+        expect(config.mountDialogs).toEqual(false)
+        expect(config.mountFlags).toEqual(false)
+      })
+    })
+  })
+
+  describe('when a context Jira issue ID is provided', () => {
+    describe('when the context Jira issue ID is not empty', () => {
+      beforeEach(() => {
+        config.setConfig({ contextJiraIssueId: '10011' })
+      })
+
+      it('sets the context Jira issue ID to the provided context Jira issue ID', () => {
+        expect(config.contextJiraIssueId).toEqual('10011')
+      })
+
+      it('does not change the other options', () => {
+        expect(config.notImplemented).toBe(notImplementedAction)
+        expect(config.missingConfiguration).toBe(missingConfigurationAction)
+        expect(config.requestAdapter).toBe(requestAdapter)
+        expect(config.clientKey).toEqual('key')
+        expect(config.sharedSecret).toEqual('secret')
+        expect(config.userId).toEqual('user')
+        expect(config.contextJiraProjectId).toEqual('10000')
+        expect(config.contextJiraProjectKey).toEqual('PRO-1')
+        expect(config.contextJiraIssueKey).toEqual('ISS-1')
+        expect(config.dialogUrls).toEqual({ dialog: 'url' })
+        expect(config.locale).toEqual('en_US')
+        expect(config.mountDialogs).toEqual(false)
+        expect(config.mountFlags).toEqual(false)
+      })
+    })
+
+    describe('when the context Jira issue ID is empty', () => {
+      beforeEach(() => {
+        config.setConfig({ contextJiraIssueId: '' })
+      })
+
+      it('sets the context Jira issue ID to the provided context Jira issue ID', () => {
+        expect(config.contextJiraIssueId).toEqual('')
+      })
+
+      it('does not change the other options', () => {
+        expect(config.notImplemented).toBe(notImplementedAction)
+        expect(config.missingConfiguration).toBe(missingConfigurationAction)
+        expect(config.requestAdapter).toBe(requestAdapter)
+        expect(config.clientKey).toEqual('key')
+        expect(config.sharedSecret).toEqual('secret')
+        expect(config.userId).toEqual('user')
+        expect(config.contextJiraProjectId).toEqual('10000')
+        expect(config.contextJiraProjectKey).toEqual('PRO-1')
+        expect(config.contextJiraIssueKey).toEqual('ISS-1')
+        expect(config.dialogUrls).toEqual({ dialog: 'url' })
+        expect(config.locale).toEqual('en_US')
+        expect(config.mountDialogs).toEqual(false)
+        expect(config.mountFlags).toEqual(false)
+      })
+    })
+  })
+
+  describe('when a context Jira issue key is provided', () => {
+    describe('when the context Jira issue key is not empty', () => {
+      beforeEach(() => {
+        config.setConfig({ contextJiraIssueKey: 'ISS-2' })
+      })
+
+      it('sets the context Jira issue key to the provided context Jira issue key', () => {
+        expect(config.contextJiraIssueKey).toEqual('ISS-2')
+      })
+
+      it('does not change the other options', () => {
+        expect(config.notImplemented).toBe(notImplementedAction)
+        expect(config.missingConfiguration).toBe(missingConfigurationAction)
+        expect(config.requestAdapter).toBe(requestAdapter)
+        expect(config.clientKey).toEqual('key')
+        expect(config.sharedSecret).toEqual('secret')
+        expect(config.userId).toEqual('user')
+        expect(config.contextJiraProjectId).toEqual('10000')
+        expect(config.contextJiraProjectKey).toEqual('PRO-1')
+        expect(config.contextJiraIssueId).toEqual('10001')
+        expect(config.dialogUrls).toEqual({ dialog: 'url' })
+        expect(config.locale).toEqual('en_US')
+        expect(config.mountDialogs).toEqual(false)
+        expect(config.mountFlags).toEqual(false)
+      })
+    })
+
+    describe('when the context Jira issue key is empty', () => {
+      beforeEach(() => {
+        config.setConfig({ contextJiraIssueKey: '' })
+      })
+
+      it('sets the context Jira issue key to the provided context Jira issue key', () => {
+        expect(config.contextJiraIssueKey).toEqual('')
+      })
+
+      it('does not change the other options', () => {
+        expect(config.notImplemented).toBe(notImplementedAction)
+        expect(config.missingConfiguration).toBe(missingConfigurationAction)
+        expect(config.requestAdapter).toBe(requestAdapter)
+        expect(config.clientKey).toEqual('key')
+        expect(config.sharedSecret).toEqual('secret')
+        expect(config.userId).toEqual('user')
+        expect(config.contextJiraProjectId).toEqual('10000')
+        expect(config.contextJiraProjectKey).toEqual('PRO-1')
+        expect(config.contextJiraIssueId).toEqual('10001')
         expect(config.dialogUrls).toEqual({ dialog: 'url' })
         expect(config.locale).toEqual('en_US')
         expect(config.mountDialogs).toEqual(false)
@@ -376,13 +654,17 @@ describe('setConfig', () => {
         expect(config.dialogUrls).toEqual({ otherDialog: 'other url' })
       })
 
-      it('does not change other options', () => {
+      it('does not change the other options', () => {
         expect(config.notImplemented).toBe(notImplementedAction)
         expect(config.missingConfiguration).toBe(missingConfigurationAction)
         expect(config.requestAdapter).toBe(requestAdapter)
         expect(config.clientKey).toEqual('key')
         expect(config.sharedSecret).toEqual('secret')
         expect(config.userId).toEqual('user')
+        expect(config.contextJiraProjectId).toEqual('10000')
+        expect(config.contextJiraProjectKey).toEqual('PRO-1')
+        expect(config.contextJiraIssueId).toEqual('10001')
+        expect(config.contextJiraIssueKey).toEqual('ISS-1')
         expect(config.locale).toEqual('en_US')
         expect(config.mountDialogs).toEqual(false)
         expect(config.mountFlags).toEqual(false)
@@ -398,13 +680,17 @@ describe('setConfig', () => {
         expect(config.dialogUrls).toEqual({})
       })
 
-      it('does not change other options', () => {
+      it('does not change the other options', () => {
         expect(config.notImplemented).toBe(notImplementedAction)
         expect(config.missingConfiguration).toBe(missingConfigurationAction)
         expect(config.requestAdapter).toBe(requestAdapter)
         expect(config.clientKey).toEqual('key')
         expect(config.sharedSecret).toEqual('secret')
         expect(config.userId).toEqual('user')
+        expect(config.contextJiraProjectId).toEqual('10000')
+        expect(config.contextJiraProjectKey).toEqual('PRO-1')
+        expect(config.contextJiraIssueId).toEqual('10001')
+        expect(config.contextJiraIssueKey).toEqual('ISS-1')
         expect(config.locale).toEqual('en_US')
         expect(config.mountDialogs).toEqual(false)
         expect(config.mountFlags).toEqual(false)
@@ -422,13 +708,17 @@ describe('setConfig', () => {
         expect(config.locale).toEqual('fr_FR')
       })
 
-      it('does not change other options', () => {
+      it('does not change the other options', () => {
         expect(config.notImplemented).toBe(notImplementedAction)
         expect(config.missingConfiguration).toBe(missingConfigurationAction)
         expect(config.requestAdapter).toBe(requestAdapter)
         expect(config.clientKey).toEqual('key')
         expect(config.sharedSecret).toEqual('secret')
         expect(config.userId).toEqual('user')
+        expect(config.contextJiraProjectId).toEqual('10000')
+        expect(config.contextJiraProjectKey).toEqual('PRO-1')
+        expect(config.contextJiraIssueId).toEqual('10001')
+        expect(config.contextJiraIssueKey).toEqual('ISS-1')
         expect(config.dialogUrls).toEqual({ dialog: 'url' })
         expect(config.mountDialogs).toEqual(false)
         expect(config.mountFlags).toEqual(false)
@@ -444,13 +734,17 @@ describe('setConfig', () => {
         expect(config.locale).toEqual('')
       })
 
-      it('does not change other options', () => {
+      it('does not change the other options', () => {
         expect(config.notImplemented).toBe(notImplementedAction)
         expect(config.missingConfiguration).toBe(missingConfigurationAction)
         expect(config.requestAdapter).toBe(requestAdapter)
         expect(config.clientKey).toEqual('key')
         expect(config.sharedSecret).toEqual('secret')
         expect(config.userId).toEqual('user')
+        expect(config.contextJiraProjectId).toEqual('10000')
+        expect(config.contextJiraProjectKey).toEqual('PRO-1')
+        expect(config.contextJiraIssueId).toEqual('10001')
+        expect(config.contextJiraIssueKey).toEqual('ISS-1')
         expect(config.dialogUrls).toEqual({ dialog: 'url' })
         expect(config.mountDialogs).toEqual(false)
         expect(config.mountFlags).toEqual(false)
@@ -463,6 +757,7 @@ describe('setConfig', () => {
       config.setConfig({
         clientKey: 'new key',
         sharedSecret: 'new secret',
+        contextJiraProjectId: '10010',
         dialogUrls: {
           other_dialog: 'other url'
         },
@@ -473,15 +768,19 @@ describe('setConfig', () => {
     it('sets the provided options', () => {
       expect(config.clientKey).toEqual('new key')
       expect(config.sharedSecret).toEqual('new secret')
+      expect(config.contextJiraProjectId).toEqual('10010')
       expect(config.dialogUrls).toEqual({ other_dialog: 'other url' })
       expect(config.mountDialogs).toEqual(true)
     })
 
-    it('does not change other options', () => {
+    it('does not change the other options', () => {
       expect(config.notImplemented).toBe(notImplementedAction)
       expect(config.missingConfiguration).toBe(missingConfigurationAction)
       expect(config.requestAdapter).toBe(requestAdapter)
       expect(config.userId).toEqual('user')
+      expect(config.contextJiraProjectKey).toEqual('PRO-1')
+      expect(config.contextJiraIssueId).toEqual('10001')
+      expect(config.contextJiraIssueKey).toEqual('ISS-1')
       expect(config.locale).toEqual('en_US')
       expect(config.mountFlags).toEqual(false)
     })
@@ -500,6 +799,10 @@ describe('resetConfig', () => {
       clientKey: 'key',
       sharedSecret: 'secret',
       userId: 'user',
+      contextJiraProjectId: '10000',
+      contextJiraProjectKey: 'PRO-1',
+      contextJiraIssueId: '10001',
+      contextJiraIssueKey: 'ISS-1',
       dialogUrls: {
         dialog: 'url'
       },
@@ -540,6 +843,16 @@ describe('resetConfig', () => {
 
   it('sets the user ID to null', () => {
     expect(config.userId).toBeNull()
+  })
+
+  it('sets the context Jira project ID and key to null', () => {
+    expect(config.contextJiraProjectId).toBeNull()
+    expect(config.contextJiraProjectKey).toBeNull()
+  })
+
+  it('sets the context Jira issue ID and key to null', () => {
+    expect(config.contextJiraIssueId).toBeNull()
+    expect(config.contextJiraIssueKey).toBeNull()
   })
 
   it('sets the dialog URLs to an empty object', () => {

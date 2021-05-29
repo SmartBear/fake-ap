@@ -21,6 +21,10 @@ class Config {
     this.clientKey = config.clientKey ?? this.clientKey
     this.sharedSecret = config.sharedSecret ?? this.sharedSecret
     this.userId = config.userId ?? this.userId
+    this.contextJiraProjectId = config.contextJiraProjectId ?? this.contextJiraProjectId
+    this.contextJiraProjectKey = config.contextJiraProjectKey ?? this.contextJiraProjectKey
+    this.contextJiraIssueId = config.contextJiraIssueId ?? this.contextJiraIssueId
+    this.contextJiraIssueKey = config.contextJiraIssueKey ?? this.contextJiraIssueKey
     this.dialogUrls = config.dialogUrls ?? this.dialogUrls
     this.locale = config.locale ?? this.locale
     this.mountDialogs = config.mountDialogs ?? this.mountDialogs
@@ -38,6 +42,10 @@ class Config {
     this.clientKey = null
     this.sharedSecret = null
     this.userId = null
+    this.contextJiraProjectId = null
+    this.contextJiraProjectKey = null
+    this.contextJiraIssueId = null
+    this.contextJiraIssueKey = null
     this.dialogUrls = {}
     this.locale = null
     this.mountDialogs = true
