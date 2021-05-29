@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [1.2.0]
+
 - Implement `AP.context.getContext`
   - For now only Jira projects and issues are supported
   - It is possible to configure the context returned by providing information to the Fake AP configuration
