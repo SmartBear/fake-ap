@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [2.0.0]
+
 - Context is now configured by providing a context object directly instead of specific information
   - Any content is accepted for the context
   - This affects both `AP.context.getToken` and `AP.context.getContext`
