@@ -23,10 +23,9 @@ const defaultOptions = {
   clientKey: 'key',
   sharedSecret: 'secret',
   userId: 'user',
-  contextJiraProjectId: '10000',
-  contextJiraProjectKey: 'PRO-1',
-  contextJiraIssueId: '10001',
-  contextJiraIssueKey: 'ISS-1',
+  context: {
+    key: 'value'
+  },
   locale: 'en_US'
 }
 

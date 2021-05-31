@@ -65,97 +65,21 @@ describe('context', () => {
         expect(() => jwt.decodeSymmetric(token, sharedSecret, 'HS256')).not.toThrow()
       })
 
-      describe('when a context Jira project ID is provided', () => {
+      describe('when a context is provided', () => {
         beforeEach(() => {
-          AP.configure({ contextJiraProjectId: '10000' })
+          AP.configure({ context: { key: 'value' } })
         })
 
-        it('includes a context with the Jira project ID', async () => {
+        it('includes the context', async () => {
           const token = await AP.context.getToken()
 
           const payload = jwt.decodeSymmetric(token, null, 'HS256', true)
 
-          expect(payload).toHaveProperty('context.jira.project.id', '10000')
-          expect(payload).not.toHaveProperty('context.jira.project.key')
-          expect(payload).not.toHaveProperty('context.jira.issue.id')
-          expect(payload).not.toHaveProperty('context.jira.issue.key')
+          expect(payload).toHaveProperty('context', { key: 'value' })
         })
       })
 
-      describe('when a context Jira project key is provided', () => {
-        beforeEach(() => {
-          AP.configure({ contextJiraProjectKey: 'PRO-1' })
-        })
-
-        it('includes a context with the Jira project key', async () => {
-          const token = await AP.context.getToken()
-
-          const payload = jwt.decodeSymmetric(token, null, 'HS256', true)
-
-          expect(payload).not.toHaveProperty('context.jira.project.id')
-          expect(payload).toHaveProperty('context.jira.project.key', 'PRO-1')
-          expect(payload).not.toHaveProperty('context.jira.issue.id')
-          expect(payload).not.toHaveProperty('context.jira.issue.key')
-        })
-      })
-
-      describe('when a context Jira issue ID is provided', () => {
-        beforeEach(() => {
-          AP.configure({ contextJiraIssueId: '10001' })
-        })
-
-        it('includes a context with the Jira issue ID', async () => {
-          const token = await AP.context.getToken()
-
-          const payload = jwt.decodeSymmetric(token, null, 'HS256', true)
-
-          expect(payload).not.toHaveProperty('context.jira.project.id')
-          expect(payload).not.toHaveProperty('context.jira.project.key')
-          expect(payload).toHaveProperty('context.jira.issue.id', '10001')
-          expect(payload).not.toHaveProperty('context.jira.issue.key')
-        })
-      })
-
-      describe('when a context Jira issue key is provided', () => {
-        beforeEach(() => {
-          AP.configure({ contextJiraIssueKey: 'ISS-1' })
-        })
-
-        it('includes a context with the Jira issue key', async () => {
-          const token = await AP.context.getToken()
-
-          const payload = jwt.decodeSymmetric(token, null, 'HS256', true)
-
-          expect(payload).not.toHaveProperty('context.jira.project.id')
-          expect(payload).not.toHaveProperty('context.jira.project.key')
-          expect(payload).not.toHaveProperty('context.jira.issue.id')
-          expect(payload).toHaveProperty('context.jira.issue.key', 'ISS-1')
-        })
-      })
-
-      describe('when a full context information is provided', () => {
-        beforeEach(() => {
-          AP.configure({
-            contextJiraProjectId: '10000',
-            contextJiraProjectKey: 'PRO-1',
-            contextJiraIssueId: '10001',
-            contextJiraIssueKey: 'ISS-1'
-          })
-        })
-
-        it('includes a context with all information', async () => {
-          const token = await AP.context.getToken()
-
-          const payload = jwt.decodeSymmetric(token, null, 'HS256', true)
-
-          expect(payload).toHaveProperty('context.jira.project.id', '10000')
-          expect(payload).toHaveProperty('context.jira.project.key', 'PRO-1')
-          expect(payload).toHaveProperty('context.jira.issue.id', '10001')
-          expect(payload).toHaveProperty('context.jira.issue.key', 'ISS-1')
-        })
-      })
-
-      describe('when no context information is provided', () => {
+      describe('when no context is provided', () => {
         it('includes an empty context', async () => {
           const token = await AP.context.getToken()
 
@@ -294,106 +218,39 @@ describe('context', () => {
   })
 
   describe('getContext', () => {
-    it('returns a context as a promise and calls the provided callback with the context', async () => {
-      const callback = jest.fn()
-
-      AP.configure({
-        contextJiraProjectId: '10000',
-        contextJiraProjectKey: 'PRO-1',
-        contextJiraIssueId: '10001',
-        contextJiraIssueKey: 'ISS-1'
-      })
-
-      const context = await AP.context.getContext(callback)
-
-      expect(callback).toHaveBeenCalledWith(context)
-    })
-
-    describe('when a context Jira project ID is provided', () => {
+    describe('when a context is provided', () => {
       beforeEach(() => {
-        AP.configure({ contextJiraProjectId: '10000' })
+        AP.configure({ context: { key: 'value' } })
       })
 
-      it('includes the Jira project ID', async () => {
+      it('returns the context as a promise', async () => {
         const context = await AP.context.getContext()
 
-        expect(context).toHaveProperty('jira.project.id', '10000')
-        expect(context).not.toHaveProperty('jira.project.key')
-        expect(context).not.toHaveProperty('jira.issue.id')
-        expect(context).not.toHaveProperty('jira.issue.key')
+        expect(context).toEqual({ key: 'value' })
+      })
+
+      it('calls the provided callback with the context', async () => {
+        const callback = jest.fn()
+
+        await AP.context.getContext(callback)
+
+        expect(callback).toHaveBeenCalledWith({ key: 'value' })
       })
     })
 
-    describe('when a context Jira project key is provided', () => {
-      beforeEach(() => {
-        AP.configure({ contextJiraProjectKey: 'PRO-1' })
-      })
-
-      it('includes the Jira project key', async () => {
-        const context = await AP.context.getContext()
-
-        expect(context).not.toHaveProperty('jira.project.id')
-        expect(context).toHaveProperty('jira.project.key', 'PRO-1')
-        expect(context).not.toHaveProperty('jira.issue.id')
-        expect(context).not.toHaveProperty('jira.issue.key')
-      })
-    })
-
-    describe('when a context Jira issue ID is provided', () => {
-      beforeEach(() => {
-        AP.configure({ contextJiraIssueId: '10001' })
-      })
-
-      it('includes the Jira issue ID', async () => {
-        const context = await AP.context.getContext()
-
-        expect(context).not.toHaveProperty('jira.project.id')
-        expect(context).not.toHaveProperty('jira.project.key')
-        expect(context).toHaveProperty('jira.issue.id', '10001')
-        expect(context).not.toHaveProperty('jira.issue.key')
-      })
-    })
-
-    describe('when a context Jira issue key is provided', () => {
-      beforeEach(() => {
-        AP.configure({ contextJiraIssueKey: 'ISS-1' })
-      })
-
-      it('includes the Jira issue key', async () => {
-        const context = await AP.context.getContext()
-
-        expect(context).not.toHaveProperty('jira.project.id')
-        expect(context).not.toHaveProperty('jira.project.key')
-        expect(context).not.toHaveProperty('jira.issue.id')
-        expect(context).toHaveProperty('jira.issue.key', 'ISS-1')
-      })
-    })
-
-    describe('when a full context information is provided', () => {
-      beforeEach(() => {
-        AP.configure({
-          contextJiraProjectId: '10000',
-          contextJiraProjectKey: 'PRO-1',
-          contextJiraIssueId: '10001',
-          contextJiraIssueKey: 'ISS-1'
-        })
-      })
-
-      it('includes all information', async () => {
-        const context = await AP.context.getContext()
-
-        expect(context).toHaveProperty('jira.project.id', '10000')
-        expect(context).toHaveProperty('jira.project.key', 'PRO-1')
-        expect(context).toHaveProperty('jira.issue.id', '10001')
-        expect(context).toHaveProperty('jira.issue.key', 'ISS-1')
-      })
-    })
-
-    describe('when no context information is provided', () => {
-      it('returns an empty context', async () => {
+    describe('when no context is provided', () => {
+      it('returns an empty context as a promise', async () => {
         const context = await AP.context.getContext()
 
         expect(context).toEqual({})
+      })
+
+      it('calls the provided callback with an empty context', async () => {
+        const callback = jest.fn()
+
+        await AP.context.getContext(callback)
+
+        expect(callback).toHaveBeenCalledWith({})
       })
     })
   })
