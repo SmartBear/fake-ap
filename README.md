@@ -83,22 +83,19 @@ AP.configure({
 
 Here is a list of all available configuration (refer to their own section for details):
 
-| Configuration                | Default value       | Description                                                   |
-| ---------------------------- | ------------------- | ------------------------------------------------------------- |
-| `clientKey`                  | `null`              | The client key for `AP.context.getToken`                      |
-| `sharedSecret`               | `null`              | The shared secret for `AP.context.getToken`                   |
-| `userId`                     | `null`              | The user ID for `AP.context.getToken`                         |
-| `contextJiraProjectId`       | `null`              | The project ID for `AP.context.getToken`                      |
-| `contextJiraProjectKey`      | `null`              | The project key for `AP.context.getToken`                     |
-| `contextJiraIssueId`         | `null`              | The issue ID for `AP.context.getToken`                        |
-| `contextJiraIssueKey`        | `null`              | The issue key for `AP.context.getToken`                       |
-| `dialogUrls`                 | `{}`                | URLs to call when using `AP.dialog.create`                    |
-| `locale`                     | `en_US`             | The user locale for `AP.user.getLocale`                       |
-| `requestAdapter`             | `RequestAdapter`    | The request adapter for `AP.request`                          |
-| `notImplementedAction`       | `() => {}`          | The method called when using a method that is not implemented |
-| `missingConfigurationAction` | `throw new Error()` | The method called when a configuration is missing             |
-| `mountDialogs`               | `true`              | `false` to prevent mounting the React component for dialogs   |
-| `mountFlags`                 | `true`              | `false` to prevent mounting the React component for flags     |
+| Configuration                | Default value       | Description                                                       |
+| ---------------------------- | ------------------- | ----------------------------------------------------------------- |
+| `clientKey`                  | `null`              | The client key for `AP.context.getToken`                          |
+| `sharedSecret`               | `null`              | The shared secret for `AP.context.getToken`                       |
+| `userId`                     | `null`              | The user ID for `AP.context.getToken`                             |
+| `context`                    | `null`              | The context for `AP.context.getToken` and `AP.context.getContext` |
+| `dialogUrls`                 | `{}`                | URLs to call when using `AP.dialog.create`                        |
+| `locale`                     | `en_US`             | The user locale for `AP.user.getLocale`                           |
+| `requestAdapter`             | `RequestAdapter`    | The request adapter for `AP.request`                              |
+| `notImplementedAction`       | `() => {}`          | The method called when using a method that is not implemented     |
+| `missingConfigurationAction` | `throw new Error()` | The method called when a configuration is missing                 |
+| `mountDialogs`               | `true`              | `false` to prevent mounting the React component for dialogs       |
+| `mountFlags`                 | `true`              | `false` to prevent mounting the React component for flags         |
 
 **Note:** when using `AP.configure`, all previous configuration is kept, only conflicting configuration is replaced. All new configuration is added.
 
@@ -114,22 +111,25 @@ AP.configure({
 })
 ```
 
-You can also configure context information for the Jira project and the Jira issue (see `AP.context.getContext`).
+You can also configure a context that will be added to the payload (see `AP.context.getContext`). By default that context is an empty object.
 
 ### `AP.context.getContext`
 
-To use `AP.context.getContext`, you can provide the ID and the key of a Jira project and of a Jira issue:
+To use `AP.context.getContext`, you can provide a context object to the configuration:
 
 ```javascript
 AP.configure({
-  contextJiraProjectId: '10000',
-  contextJiraProjectKey: 'PRO-1',
-  contextJiraIssueId: '10001',
-  contextJiraIssueKey: 'ISS-1'
+  context: {
+    jira: {
+      project: {
+        id: '10000'
+      }
+    }
+  }
 })
 ```
 
-Providing all information is not mandatory, you can configure only one or several fields (for instance only the project ID and the issue ID).
+By default the context is an empty object. The same context will also be added to the payload of `AP.context.getToken`.
 
 ### `AP.dialog`
 
