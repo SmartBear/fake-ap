@@ -2110,10 +2110,10 @@ asynckit@^0.4.0:
   resolved "https://registry.yarnpkg.com/asynckit/-/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
   integrity sha1-x57Zf380y48robyXkLzDZkdLS3k=
 
-atlassian-jwt@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/atlassian-jwt/-/atlassian-jwt-2.0.0.tgz#1bf0b96a6e58d2179c9856ea639ba9eaf87328a3"
-  integrity sha512-naIFzFJZDCioYnxxyi8MG4mf1eL1YZDyuej9VDLRQC81sxHUKivp14BhuVVinFjTO3cqSj3DPYRQnl3eVidkRQ==
+atlassian-jwt@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/atlassian-jwt/-/atlassian-jwt-2.0.1.tgz#74445b272a338a32a03435d17fba9de4998b5d31"
+  integrity sha512-OVKhNZNcwBxo3dNkcBNO2AlwqAFCemj1iNT1nuOQo8zApwyFY4YL4nr+7JkXHGPbROQPrzZqWMKbtplJ0B2F+g==
   dependencies:
     jsuri "^1.3.1"
     lodash "^4.17.11"
