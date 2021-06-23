@@ -11,6 +11,3 @@ global.mockPostMessage = (target, source) => {
     target.postMessage = postMessage
   }
 }
-
-global.setImmediate = () => {}
-global.clearImmediate = () => {}
