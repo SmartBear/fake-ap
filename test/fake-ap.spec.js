@@ -511,7 +511,7 @@ describe('history', () => {
 
   describe('initialState', () => {
     beforeEach(() => {
-      AP = new FakeAP({initialState: 'route=plop'})
+      AP = new FakeAP({ initialState: 'route=plop' })
     })
 
     it('is set to the location state', () => {
