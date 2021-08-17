@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## [2.1.0]
+
+- Allow to configure initial state for `AP.history`
+- Upgrade dependencies
+
 ## [2.0.0]
 
 - Context is now configured by providing a context object directly instead of specific information
