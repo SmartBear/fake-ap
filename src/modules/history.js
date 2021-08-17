@@ -2,7 +2,7 @@ import Signal from 'signals'
 import config from 'config'
 
 class History {
-  _state = ''
+  _state
   _stateSignal = new Signal()
 
   back = (...args) => {
@@ -18,7 +18,7 @@ class History {
   }
 
   getState = () => {
-    return this._state
+    return this._state ?? config.initialState
   }
 
   popState = callback => {

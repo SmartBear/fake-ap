@@ -41,6 +41,10 @@ describe('default configuration', () => {
   it('sets the mount flags option to true', () => {
     expect(config.mountFlags).toEqual(true)
   })
+
+  it('sets initial state option to empty string', () => {
+    expect(config.initialState).toEqual('')
+  })
 })
 
 describe('setConfig', () => {
@@ -62,7 +66,8 @@ describe('setConfig', () => {
       },
       locale: 'en_US',
       mountDialogs: false,
-      mountFlags: false
+      mountFlags: false,
+      initialState: 'plop'
     })
 
     notImplementedAction.mockClear()
@@ -97,6 +102,7 @@ describe('setConfig', () => {
         expect(config.locale).toEqual('en_US')
         expect(config.mountDialogs).toEqual(false)
         expect(config.mountFlags).toEqual(false)
+        expect(config.initialState).toEqual('plop')
       })
     })
 
@@ -124,6 +130,7 @@ describe('setConfig', () => {
         expect(config.locale).toEqual('en_US')
         expect(config.mountDialogs).toEqual(false)
         expect(config.mountFlags).toEqual(false)
+        expect(config.initialState).toEqual('plop')
       })
     })
   })
@@ -156,6 +163,7 @@ describe('setConfig', () => {
         expect(config.locale).toEqual('en_US')
         expect(config.mountDialogs).toEqual(false)
         expect(config.mountFlags).toEqual(false)
+        expect(config.initialState).toEqual('plop')
       })
     })
 
@@ -183,6 +191,7 @@ describe('setConfig', () => {
         expect(config.locale).toEqual('en_US')
         expect(config.mountDialogs).toEqual(false)
         expect(config.mountFlags).toEqual(false)
+        expect(config.initialState).toEqual('plop')
       })
     })
   })
@@ -210,6 +219,7 @@ describe('setConfig', () => {
         expect(config.locale).toEqual('en_US')
         expect(config.mountDialogs).toEqual(false)
         expect(config.mountFlags).toEqual(false)
+        expect(config.initialState).toEqual('plop')
       })
     })
 
@@ -235,6 +245,7 @@ describe('setConfig', () => {
         expect(config.locale).toEqual('en_US')
         expect(config.mountDialogs).toEqual(false)
         expect(config.mountFlags).toEqual(false)
+        expect(config.initialState).toEqual('plop')
       })
     })
   })
@@ -260,6 +271,7 @@ describe('setConfig', () => {
         expect(config.locale).toEqual('en_US')
         expect(config.mountDialogs).toEqual(false)
         expect(config.mountFlags).toEqual(false)
+        expect(config.initialState).toEqual('plop')
       })
     })
 
@@ -283,6 +295,7 @@ describe('setConfig', () => {
         expect(config.locale).toEqual('en_US')
         expect(config.mountDialogs).toEqual(false)
         expect(config.mountFlags).toEqual(false)
+        expect(config.initialState).toEqual('plop')
       })
     })
   })
@@ -308,6 +321,7 @@ describe('setConfig', () => {
         expect(config.locale).toEqual('en_US')
         expect(config.mountDialogs).toEqual(false)
         expect(config.mountFlags).toEqual(false)
+        expect(config.initialState).toEqual('plop')
       })
     })
 
@@ -331,6 +345,7 @@ describe('setConfig', () => {
         expect(config.locale).toEqual('en_US')
         expect(config.mountDialogs).toEqual(false)
         expect(config.mountFlags).toEqual(false)
+        expect(config.initialState).toEqual('plop')
       })
     })
   })
@@ -356,6 +371,7 @@ describe('setConfig', () => {
         expect(config.locale).toEqual('en_US')
         expect(config.mountDialogs).toEqual(false)
         expect(config.mountFlags).toEqual(false)
+        expect(config.initialState).toEqual('plop')
       })
     })
 
@@ -379,6 +395,7 @@ describe('setConfig', () => {
         expect(config.locale).toEqual('en_US')
         expect(config.mountDialogs).toEqual(false)
         expect(config.mountFlags).toEqual(false)
+        expect(config.initialState).toEqual('plop')
       })
     })
   })
@@ -403,6 +420,7 @@ describe('setConfig', () => {
       expect(config.locale).toEqual('en_US')
       expect(config.mountDialogs).toEqual(false)
       expect(config.mountFlags).toEqual(false)
+      expect(config.initialState).toEqual('plop')
     })
   })
 
@@ -427,6 +445,7 @@ describe('setConfig', () => {
         expect(config.locale).toEqual('en_US')
         expect(config.mountDialogs).toEqual(false)
         expect(config.mountFlags).toEqual(false)
+        expect(config.initialState).toEqual('plop')
       })
     })
 
@@ -450,6 +469,7 @@ describe('setConfig', () => {
         expect(config.locale).toEqual('en_US')
         expect(config.mountDialogs).toEqual(false)
         expect(config.mountFlags).toEqual(false)
+        expect(config.initialState).toEqual('plop')
       })
     })
   })
@@ -475,6 +495,7 @@ describe('setConfig', () => {
         expect(config.dialogUrls).toEqual({ dialog: 'url' })
         expect(config.mountDialogs).toEqual(false)
         expect(config.mountFlags).toEqual(false)
+        expect(config.initialState).toEqual('plop')
       })
     })
 
@@ -498,6 +519,57 @@ describe('setConfig', () => {
         expect(config.dialogUrls).toEqual({ dialog: 'url' })
         expect(config.mountDialogs).toEqual(false)
         expect(config.mountFlags).toEqual(false)
+        expect(config.initialState).toEqual('plop')
+      })
+    })
+  })
+
+  describe('when an initialState is provided', () => {
+    describe('when the initialState is not empty', () => {
+      beforeEach(() => {
+        config.setConfig({ initialState: 'idou' })
+      })
+
+      it('sets the initialState to the provided initialState', () => {
+        expect(config.initialState).toEqual('idou')
+      })
+
+      it('does not change the other options', () => {
+        expect(config.notImplemented).toBe(notImplementedAction)
+        expect(config.missingConfiguration).toBe(missingConfigurationAction)
+        expect(config.requestAdapter).toBe(requestAdapter)
+        expect(config.clientKey).toEqual('key')
+        expect(config.sharedSecret).toEqual('secret')
+        expect(config.userId).toEqual('user')
+        expect(config.context).toEqual({ key: 'value' })
+        expect(config.dialogUrls).toEqual({ dialog: 'url' })
+        expect(config.mountDialogs).toEqual(false)
+        expect(config.mountFlags).toEqual(false)
+        expect(config.locale).toEqual('en_US')
+      })
+    })
+
+    describe('when the initialState is empty', () => {
+      beforeEach(() => {
+        config.setConfig({ initialState: '' })
+      })
+
+      it('sets the initialState to the provided initialState', () => {
+        expect(config.initialState).toEqual('')
+      })
+
+      it('does not change the other options', () => {
+        expect(config.notImplemented).toBe(notImplementedAction)
+        expect(config.missingConfiguration).toBe(missingConfigurationAction)
+        expect(config.requestAdapter).toBe(requestAdapter)
+        expect(config.clientKey).toEqual('key')
+        expect(config.sharedSecret).toEqual('secret')
+        expect(config.userId).toEqual('user')
+        expect(config.context).toEqual({ key: 'value' })
+        expect(config.dialogUrls).toEqual({ dialog: 'url' })
+        expect(config.mountDialogs).toEqual(false)
+        expect(config.mountFlags).toEqual(false)
+        expect(config.locale).toEqual('en_US')
       })
     })
   })
@@ -530,6 +602,7 @@ describe('setConfig', () => {
       expect(config.userId).toEqual('user')
       expect(config.locale).toEqual('en_US')
       expect(config.mountFlags).toEqual(false)
+      expect(config.initialState).toEqual('plop')
     })
   })
 })
@@ -610,5 +683,9 @@ describe('resetConfig', () => {
 
   it('sets the mount flags option to true', () => {
     expect(config.mountFlags).toEqual(true)
+  })
+
+  it('sets the initial state option to empty string', () => {
+    expect(config.initialState).toEqual('')
   })
 })

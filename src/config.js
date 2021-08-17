@@ -26,6 +26,7 @@ class Config {
     this.locale = config.locale ?? this.locale
     this.mountDialogs = config.mountDialogs ?? this.mountDialogs
     this.mountFlags = config.mountFlags ?? this.mountFlags
+    this.initialState = config.initialState ?? this.initialState
   }
 
   resetConfig = () => {
@@ -44,6 +45,7 @@ class Config {
     this.locale = null
     this.mountDialogs = true
     this.mountFlags = true
+    this.initialState = ''
   }
 }
 

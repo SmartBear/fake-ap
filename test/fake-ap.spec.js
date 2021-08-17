@@ -509,6 +509,16 @@ describe('history', () => {
     window.location.hash = ''
   })
 
+  describe('initialState', () => {
+    beforeEach(() => {
+      AP = new FakeAP({initialState: 'route=plop'})
+    })
+
+    it('is set to the location state', () => {
+      expect(AP.history.getState()).toEqual('route=plop')
+    })
+  })
+
   describe('getState', () => {
     it('returns the current state', () => {
       expect(AP.history.getState()).toEqual('')
