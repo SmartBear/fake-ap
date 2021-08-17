@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [2.1.1]
+
+- Fix lint
+
 ## [2.1.0]
 
 - Allow to configure initial state for `AP.history`
