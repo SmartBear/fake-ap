@@ -12,16 +12,22 @@ module.exports = {
     dialog: './dialog.js'
   },
   devServer: {
-    publicPath: '/',
+    host: 'localhost',
     port: 5000,
-    stats: {
-      preset: 'minimal',
-      colors: true
+    devMiddleware: {
+      publicPath: '/',
+      stats: {
+        preset: 'minimal',
+        colors: true
+      },
     },
-    before: app => {
-      app.use(express.json())
+    client: {
+      logging: 'none'
+    },
+    onBeforeSetupMiddleware: devServer => {
+      devServer.app.use(express.json())
 
-      app.post('/rest/api/request', (request, response) => {
+      devServer.app.post('/rest/api/request', (request, response) => {
         const status = request.body.path === 'failure' ? 400 : 200
 
         response.json({
