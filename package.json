@@ -14,7 +14,7 @@
     "lib"
   ],
   "scripts": {
-    "start": "webpack serve --client-log-level silent",
+    "start": "webpack serve",
     "lint": "eslint --ext js,jsx .",
     "test": "jest",
     "release": "node scripts/release.js",
