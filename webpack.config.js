@@ -19,7 +19,7 @@ module.exports = {
       stats: {
         preset: 'minimal',
         colors: true
-      },
+      }
     },
     client: {
       logging: 'none'
