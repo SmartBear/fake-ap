@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [2.1.2]
+
 - Upgrade dependencies
 
 ## [2.1.1]
