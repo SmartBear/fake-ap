@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- Upgrade dependencies
+
 ## [2.1.1]
 
 - Fix lint
