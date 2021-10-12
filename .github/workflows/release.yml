@@ -17,7 +17,7 @@ jobs:
     - name: Setup Node.js to publish to npm
       uses: actions/setup-node@v2.4.1
       with:
-        node-version: '12.x'
+        node-version: '14.x'
         registry-url: 'https://registry.npmjs.com'
 
     - name: Cache node modules
@@ -52,7 +52,7 @@ jobs:
     - name: Setup Node.js to publish to GitHub Packages
       uses: actions/setup-node@v2.4.1
       with:
-        node-version: '12.x'
+        node-version: '14.x'
         registry-url: 'https://npm.pkg.github.com'
         scope: '@smartbear'
 
