@@ -41,7 +41,7 @@
     "eslint-plugin-jest": "^25.2.4",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.1.1",
-    "eslint-plugin-react": "^7.27.0",
+    "eslint-plugin-react": "^7.27.1",
     "html-webpack-plugin": "^5.5.0",
     "jest": "^27.3.1",
     "lodash": "^4.17.21",
