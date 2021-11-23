@@ -4,6 +4,7 @@ export const FlagsContainer = styled.div`
   position: fixed;
   top: 0;
   right: 30px;
+  z-index: 1000;
 `
 
 export const FlagContainer = styled.div`

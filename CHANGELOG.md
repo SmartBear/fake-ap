@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+- Fix flag position not being on top of some elements
+- Upgrade dependencies
+
 ## [2.1.2]
 
 - Upgrade dependencies
