@@ -54,7 +54,7 @@
     "styled-components": "^5.3.3",
     "webpack": "^5.64.3",
     "webpack-cli": "^4.9.1",
-    "webpack-dev-server": "^4.5.0"
+    "webpack-dev-server": "^4.6.0"
   },
   "dependencies": {
     "atlassian-jwt": "^2.0.2",
