@@ -25,7 +25,7 @@ module.exports = {
     client: {
       logging: 'none'
     },
-    onBeforeSetupMiddleware: devServer => {
+    setupMiddlewares: (middlewares, devServer) => {
       devServer.app.use(express.json())
 
       devServer.app.post('/rest/api/request', (request, response) => {
@@ -36,6 +36,8 @@ module.exports = {
           body: request.body
         })
       })
+
+      return middlewares
     }
   },
   module: {
