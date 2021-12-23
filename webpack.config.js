@@ -56,7 +56,8 @@ module.exports = {
     modules: [path.resolve(__dirname, 'src'), 'node_modules'],
     fallback: {
       crypto: require.resolve('crypto-browserify'),
-      stream: require.resolve('stream-browserify')
+      stream: require.resolve('stream-browserify'),
+      url: require.resolve('url')
     }
   },
   optimization: {
