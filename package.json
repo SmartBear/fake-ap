@@ -23,7 +23,7 @@
     "push": "git push --follow-tags"
   },
   "devDependencies": {
-    "@babel/cli": "^7.16.8",
+    "@babel/cli": "^7.17.0",
     "@babel/core": "^7.17.0",
     "@babel/eslint-parser": "^7.17.0",
     "@babel/eslint-plugin": "^7.16.5",
