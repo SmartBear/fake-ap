@@ -34,16 +34,10 @@ const mountComponent = (component, id) => {
   root.render(component)
 }
 
-const createRoot = () => {
-  if (typeof ReactDOM.createRoot === 'function') {
-    return ReactDOM.createRoot
-  }
-
-  return container => ({
-    render: component => ReactDOM.render(component, container),
-    unmount: () => ReactDOM.unmountComponentAtNode(container)
-  })
-}
+const createRoot = typeof ReactDOM.createRoot === 'function' ? ReactDOM.createRoot : container => ({
+  render: component => ReactDOM.render(component, container),
+  unmount: () => ReactDOM.unmountComponentAtNode(container)
+})
 
 const unmountComponent = id => {
   roots[id]?.unmount()
