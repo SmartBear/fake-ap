@@ -6,6 +6,11 @@ const mountComponentWhenDocumentIsReady = (component, id) => {
   onDocumentReady(() => mountComponent(component, id))
 }
 
+const unmountComponent = id => {
+  roots[id]?.unmount()
+  roots[id] = null
+}
+
 const onDocumentReady = callback => {
   if (document.readyState !== 'loading') {
     callback()
@@ -16,8 +21,7 @@ const onDocumentReady = callback => {
 
 const mountComponent = (component, id) => {
   if (roots[id]) {
-    roots[id].unmount()
-    roots[id] = null
+    unmountComponent(id)
   }
 
   let container = document.getElementById(id)
@@ -36,5 +40,6 @@ const mountComponent = (component, id) => {
 }
 
 export {
-  mountComponentWhenDocumentIsReady
+  mountComponentWhenDocumentIsReady,
+  unmountComponent
 }

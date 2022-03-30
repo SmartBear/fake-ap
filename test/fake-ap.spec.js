@@ -1,4 +1,3 @@
-import React from 'react'
 import { act, waitFor, within } from '@testing-library/react'
 import * as jwt from 'atlassian-jwt'
 import _get from 'lodash/get'

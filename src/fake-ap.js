@@ -15,7 +15,7 @@ import request from 'modules/request'
 import user from 'modules/user'
 import Dialogs from 'components/Dialogs'
 import Flags from 'components/Flags'
-import { mountComponentWhenDocumentIsReady } from 'utils/mount-component'
+import { mountComponentWhenDocumentIsReady, unmountComponent } from 'utils/mount-component'
 
 class AP {
   context = context
@@ -47,6 +47,11 @@ class AP {
 
   configure(options) {
     config.setConfig(options)
+  }
+
+  unmount() {
+    unmountComponent('ap_dialogs')
+    unmountComponent('ap_flags')
   }
 }
 
