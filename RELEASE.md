@@ -14,8 +14,7 @@ If you have pending changes to the changelog file, no need to commit it, the rel
 
 - Ensure the `CHANGELOG.md` file has the new content in the **Unreleased** section, **these will become the release notes**
 - Run `yarn release` to create a new version with the correct release type: `yarn release --major`, `yarn release --minor` or `yarn release --patch`
-- If the operation is a success, a new commit and tag will be created for the new version
-- Push the commit and the tag using `yarn push` (or `git push --follow-tags`)
+- If the operation is a success, a new commit and tag will be created and pushed for the new version
 
 That's it. A GitHub action will make the GitHub release and publish automatically.
 
