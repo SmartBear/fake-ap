@@ -23,6 +23,8 @@ describe('Dialogs', () => {
       component = mountComponentWhenDocumentIsReady(<Dialogs />, 'ap_dialogs')
     })
 
+    console.log({ component })
+
     dialogs = document.getElementById('ap_dialogs')
 
     windowMessageListener.mockClear()
