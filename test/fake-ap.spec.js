@@ -20,10 +20,6 @@ beforeEach(async () => {
   config.resetConfig()
 })
 
-afterEach(() => {
-  AP.unmount()
-})
-
 describe('context', () => {
   describe('getToken', () => {
     const clientKey = 'key'

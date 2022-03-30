@@ -6,11 +6,6 @@ const mountComponentWhenDocumentIsReady = (component, id) => {
   onDocumentReady(() => mountComponent(component, id))
 }
 
-const unmountComponent = id => {
-  roots[id]?.unmount()
-  roots[id] = null
-}
-
 const onDocumentReady = callback => {
   if (document.readyState !== 'loading') {
     callback()

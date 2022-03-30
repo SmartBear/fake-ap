@@ -1,7 +1,6 @@
 import React from 'react'
 import { act, waitFor } from '@testing-library/react'
 import events from 'modules/events'
-import { mountComponentWhenDocumentIsReady } from 'utils/mount-component'
 import Dialogs from 'components/Dialogs'
 
 describe('Dialogs', () => {
@@ -18,11 +17,7 @@ describe('Dialogs', () => {
   })
 
   beforeEach(async () => {
-    await act(async () => {
-      mountComponentWhenDocumentIsReady(<Dialogs />, 'ap_dialogs')
-    })
-
-    dialogs = document.getElementById('ap_dialogs')
+    dialogs = await renderComponent(<Dialogs />, 'ap_dialogs')
 
     windowMessageListener.mockClear()
     dialogMessageListener.mockClear()

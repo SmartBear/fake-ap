@@ -2,7 +2,6 @@ import React from 'react'
 import { fireEvent, act, within } from '@testing-library/react'
 import events from 'modules/events'
 import { InfoIcon, SuccessIcon, WarningIcon, ErrorIcon } from 'components/Flags/icons'
-import { mountComponentWhenDocumentIsReady } from 'utils/mount-component'
 import Flags from 'components/Flags'
 
 jest.useFakeTimers()
@@ -11,11 +10,7 @@ describe('Flags', () => {
   let flags = null
 
   beforeEach(async () => {
-    await act(async () => {
-      mountComponentWhenDocumentIsReady(<Flags />, 'ap_flags')
-    })
-
-    flags = within(document.getElementById('ap_flags'))
+    flags = within(await renderComponent(<Flags />, 'ap_flags'))
   })
 
   it('renders an empty container at the top right corner', () => {
@@ -54,38 +49,38 @@ describe('Flags', () => {
   })
 
   describe('flag type', () => {
-    it('can display an info flag', () => {
+    it('can display an info flag', async () => {
       const options = { type: 'info' }
 
       act(() => {
         events.emit('flag.create', { id: 1, options })
       })
 
-      const infoIcon = render(<InfoIcon />).container
+      const infoIcon = await renderComponent(<InfoIcon />, 'info_icon')
 
       expect(flags.getByTestId('ap-flag-type').innerHTML).toEqual(infoIcon.innerHTML)
     })
 
-    it('can display a success flag', () => {
+    it('can display a success flag', async () => {
       const options = { type: 'success' }
 
       act(() => {
         events.emit('flag.create', { id: 1, options })
       })
 
-      const successIcon = render(<SuccessIcon />).container
+      const successIcon = await renderComponent(<SuccessIcon />, 'success_icon')
 
       expect(flags.getByTestId('ap-flag-type').innerHTML).toEqual(successIcon.innerHTML)
     })
 
-    it('can display a warning flag', () => {
+    it('can display a warning flag', async () => {
       const options = { type: 'warning' }
 
       act(() => {
         events.emit('flag.create', { id: 1, options })
       })
 
-      const warningIcon = render(<WarningIcon />).container
+      const warningIcon = await renderComponent(<WarningIcon />, 'warning_icon')
 
       expect(flags.getByTestId('ap-flag-type').innerHTML).toEqual(warningIcon.innerHTML)
     })
@@ -97,19 +92,19 @@ describe('Flags', () => {
         events.emit('flag.create', { id: 1, options })
       })
 
-      const errorIcon = render(<ErrorIcon />).container
+      const errorIcon = await renderComponent(<ErrorIcon />, 'error_icon')
 
       expect(flags.getByTestId('ap-flag-type').innerHTML).toEqual(errorIcon.innerHTML)
     })
 
-    it('defaults to an info flag', () => {
+    it('defaults to an info flag', async () => {
       const options = {}
 
       act(() => {
         events.emit('flag.create', { id: 1, options })
       })
 
-      const infoIcon = render(<InfoIcon />).container
+      const infoIcon = await renderComponent(<InfoIcon />, 'info_icon')
 
       expect(flags.getByTestId('ap-flag-type').innerHTML).toEqual(infoIcon.innerHTML)
     })
