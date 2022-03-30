@@ -30,7 +30,7 @@ const release = () => {
 
   createVersion(releaseType)
 
-  console.log('Release done! Run "yarn push" to push the new release and let GitHub publish it.')
+  console.log('Release done! GitHub will publish it.')
 }
 
 const computeReleaseType = () => {
