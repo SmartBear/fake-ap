@@ -22,7 +22,10 @@ const mountComponent = (component, id) => {
     document.body.appendChild(container)
   }
 
-  ReactDOM.createRoot(container).render(component)
+  const root = ReactDOM.createRoot(container)
+  root.render(component)
+
+  return root
 }
 
 export {

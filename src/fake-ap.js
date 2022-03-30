@@ -37,16 +37,21 @@ class AP {
     this.configure(options)
 
     if (config.mountDialogs) {
-      mountComponentWhenDocumentIsReady(<Dialogs />, 'ap_dialogs')
+      this._dialogsRoot = mountComponentWhenDocumentIsReady(<Dialogs />, 'ap_dialogs')
     }
 
     if (config.mountFlags) {
-      mountComponentWhenDocumentIsReady(<Flags />, 'ap_flags')
+      this._flagsRoot = mountComponentWhenDocumentIsReady(<Flags />, 'ap_flags')
     }
   }
 
   configure(options) {
     config.setConfig(options)
+  }
+
+  unmount() {
+    this._dialogsRoot?.unmount()
+    this._flagsRoot?.unmount()
   }
 }
 
