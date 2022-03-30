@@ -36,6 +36,5 @@ const mountComponent = (component, id) => {
 }
 
 export {
-  mountComponentWhenDocumentIsReady,
-  unmountComponent
+  mountComponentWhenDocumentIsReady
 }
