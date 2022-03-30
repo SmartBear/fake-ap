@@ -10,7 +10,7 @@ import {
   DialogButtons
 } from './styled'
 import FakeAP from 'fake-ap'
-import { mountComponentWhenDocumentIsReady } from 'utils/mount-component'
+import { mountComponentWhenDocumentIsReady } from './mount-component'
 
 const AP = new FakeAP({
   notImplementedAction: console.log

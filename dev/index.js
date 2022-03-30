@@ -16,7 +16,7 @@ import {
 } from './styled'
 import FakeAP from 'fake-ap'
 import * as jwt from 'atlassian-jwt'
-import { mountComponentWhenDocumentIsReady } from 'utils/mount-component'
+import { mountComponentWhenDocumentIsReady } from './mount-component'
 import BackendRequestAdapter from 'request-adapter/backend'
 
 const defaultOptions = {
