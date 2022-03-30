@@ -85,7 +85,7 @@ describe('Flags', () => {
       expect(flags.getByTestId('ap-flag-type').innerHTML).toEqual(warningIcon.innerHTML)
     })
 
-    it('can display an error flag', () => {
+    it('can display an error flag', async () => {
       const options = { type: 'error' }
 
       act(() => {
