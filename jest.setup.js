@@ -1,5 +1,7 @@
 import '@testing-library/jest-dom'
 
+globalThis.IS_REACT_ACT_ENVIRONMENT = true
+
 global.mockPostMessage = (target, source) => {
   const postMessage = target.postMessage
 
