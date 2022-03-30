@@ -1,7 +1,7 @@
 import React from 'react'
 import { act, waitFor } from '@testing-library/react'
 import events from 'modules/events'
-import { mountComponentWhenDocumentIsReady, unmountComponent } from 'utils/mount-component'
+import { mountComponentWhenDocumentIsReady } from 'utils/mount-component'
 import Dialogs from 'components/Dialogs'
 
 describe('Dialogs', () => {
@@ -26,10 +26,6 @@ describe('Dialogs', () => {
 
     windowMessageListener.mockClear()
     dialogMessageListener.mockClear()
-  })
-
-  afterEach(() => {
-    unmountComponent('ap_dialogs')
   })
 
   describe('when no dialog is set', () => {
