@@ -496,8 +496,8 @@ describe('flag', () => {
         AP.flag.create({ title: 'Flag 2' })
       })
 
-      expect(within(document.body.querySelectorAll('#ap_flags')).queryByText('Flag 1')).toBeInTheDocument()
-      expect(within(document.body.querySelectorAll('#ap_flags')).queryByText('Flag 2')).toBeInTheDocument()
+      expect(within(document.getElementById('ap_flags')).queryByText('Flag 1')).toBeInTheDocument()
+      expect(within(document.getElementById('ap_flags')).queryByText('Flag 2')).toBeInTheDocument()
     })
 
     it('returns an object with a close method that closes the flag', () => {
@@ -508,8 +508,8 @@ describe('flag', () => {
         flag.close()
       })
 
-      expect(within(document.body.querySelectorAll('#ap_flags')).queryByText('Flag 1')).not.toBeInTheDocument()
-      expect(within(document.body.querySelectorAll('#ap_flags')).queryByText('Flag 2')).toBeInTheDocument()
+      expect(within(document.getElementById('ap_flags')).queryByText('Flag 1')).not.toBeInTheDocument()
+      expect(within(document.getElementById('ap_flags')).queryByText('Flag 2')).toBeInTheDocument()
     })
   })
 })

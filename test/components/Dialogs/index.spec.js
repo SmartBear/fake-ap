@@ -1,11 +1,13 @@
 import React from 'react'
-import { render, act, waitFor } from '@testing-library/react'
+import { act, waitFor, within } from '@testing-library/react'
 import events from 'modules/events'
+import { mountComponentWhenDocumentIsReady } from 'utils/mount-component'
 import Dialogs from 'components/Dialogs'
 
 describe('Dialogs', () => {
   const windowMessageListener = jest.fn()
   const dialogMessageListener = jest.fn()
+  let component = null
   let dialogs = null
 
   beforeAll(() => {
@@ -17,10 +19,15 @@ describe('Dialogs', () => {
   })
 
   beforeEach(() => {
-    dialogs = render(<Dialogs />)
+    component = mountComponentWhenDocumentIsReady(<Dialogs />, 'ap_dialogs')
+    dialogs = within(document.getElementById('ap_dialogs'))
 
     windowMessageListener.mockClear()
     dialogMessageListener.mockClear()
+  })
+
+  afterEach(() => {
+    component.unmount()
   })
 
   describe('when no dialog is set', () => {
