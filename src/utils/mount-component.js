@@ -1,4 +1,4 @@
-import ReactDOM from 'react-dom'
+import ReactDOM from 'react-dom/client'
 
 const mountComponentWhenDocumentIsReady = (component, id) => {
   onDocumentReady(() => mountComponent(component, id))
@@ -22,7 +22,7 @@ const mountComponent = (component, id) => {
     document.body.appendChild(container)
   }
 
-  ReactDOM.render(component, container)
+  ReactDOM.createRoot(container).render(component)
 }
 
 export {
