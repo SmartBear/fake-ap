@@ -15,7 +15,7 @@ import request from 'modules/request'
 import user from 'modules/user'
 import Dialogs from 'components/Dialogs'
 import Flags from 'components/Flags'
-import { mountComponentWhenDocumentIsReady } from 'utils/mount-component'
+import { mountComponentWhenDocumentIsReady, unmountComponent } from 'utils/mount-component'
 
 class AP {
   context = context
@@ -37,11 +37,11 @@ class AP {
     this.configure(options)
 
     if (config.mountDialogs) {
-      this._dialogsRoot = mountComponentWhenDocumentIsReady(<Dialogs />, 'ap_dialogs')
+      mountComponentWhenDocumentIsReady(<Dialogs />, 'ap_dialogs')
     }
 
     if (config.mountFlags) {
-      this._flagsRoot = mountComponentWhenDocumentIsReady(<Flags />, 'ap_flags')
+      mountComponentWhenDocumentIsReady(<Flags />, 'ap_flags')
     }
   }
 
@@ -50,8 +50,8 @@ class AP {
   }
 
   unmount() {
-    this._dialogsRoot?.unmount()
-    this._flagsRoot?.unmount()
+    unmountComponent('ap_dialogs')
+    unmountComponent('ap_flags')
   }
 }
 

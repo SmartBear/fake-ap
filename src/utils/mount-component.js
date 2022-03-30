@@ -6,6 +6,10 @@ const mountComponentWhenDocumentIsReady = (component, id) => {
   onDocumentReady(() => mountComponent(component, id))
 }
 
+const unmountComponent = id => {
+  roots[id]?.unmount()
+}
+
 const onDocumentReady = callback => {
   if (document.readyState !== 'loading') {
     callback()
@@ -34,10 +38,9 @@ const mountComponent = (component, id) => {
   const root = roots[id] || createRoot(id)
 
   root.render(component)
-
-  return root
 }
 
 export {
-  mountComponentWhenDocumentIsReady
+  mountComponentWhenDocumentIsReady,
+  unmountComponent
 }

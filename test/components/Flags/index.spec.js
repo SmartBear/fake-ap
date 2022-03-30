@@ -2,25 +2,24 @@ import React from 'react'
 import { fireEvent, act, within } from '@testing-library/react'
 import events from 'modules/events'
 import { InfoIcon, SuccessIcon, WarningIcon, ErrorIcon } from 'components/Flags/icons'
-import { mountComponentWhenDocumentIsReady } from 'utils/mount-component'
+import { mountComponentWhenDocumentIsReady, unmountComponent } from 'utils/mount-component'
 import Flags from 'components/Flags'
 
 jest.useFakeTimers()
 
 describe('Flags', () => {
-  let component = null
   let flags = null
 
   beforeEach(async () => {
     await act(async () => {
-      component = mountComponentWhenDocumentIsReady(<Flags />, 'ap_flags')
+      mountComponentWhenDocumentIsReady(<Flags />, 'ap_flags')
     })
 
     flags = within(document.getElementById('ap_flags'))
   })
 
   afterEach(() => {
-    component.unmount()
+    unmountComponent('ap_flags')
   })
 
   it('renders an empty container at the top right corner', () => {
