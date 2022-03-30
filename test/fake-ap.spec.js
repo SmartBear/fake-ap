@@ -1,10 +1,11 @@
 import React from 'react'
-import { render, act, waitFor } from '@testing-library/react'
+import { act, waitFor } from '@testing-library/react'
 import * as jwt from 'atlassian-jwt'
 import _get from 'lodash/get'
 import config from 'config'
 import RequestAdapter from 'request-adapter'
 import FakeAP from 'fake-ap'
+import { mountComponentWhenDocumentIsReady } from 'utils/mount-component'
 
 const now = Date.now()
 jest.spyOn(Date, 'now').mockReturnValue(now)
@@ -12,8 +13,8 @@ jest.spyOn(Date, 'now').mockReturnValue(now)
 let AP = null
 let options = null
 
-beforeEach(() => {
-  act(() => {
+beforeEach(async () => {
+  await act(async () => {
     AP = new FakeAP()
   })
 
@@ -265,7 +266,6 @@ describe('context', () => {
 
 describe('dialog', () => {
   const windowListener = jest.fn()
-  let component = null
 
   beforeAll(() => {
     window.addEventListener('message', windowListener)
@@ -276,8 +276,6 @@ describe('dialog', () => {
   })
 
   beforeEach(() => {
-    component = render(<div />)
-
     AP.configure({ dialogUrls: { dialog: 'localhost' } })
 
     windowListener.mockClear()
@@ -296,8 +294,12 @@ describe('dialog', () => {
   })
 
   describe('when the Dialogs component is not already mounted', () => {
+    beforeEach(() => {
+      AP.unmount()
+    })
+
     it('mounts a Dialogs component to display flags', () => {
-      expect(component.baseElement.querySelectorAll('#ap_dialogs')).toHaveLength(1)
+      expect(document.body.querySelectorAll('#ap_dialogs')).toHaveLength(1)
     })
   })
 
@@ -308,7 +310,7 @@ describe('dialog', () => {
     })
 
     it('does not mount another Dialogs component', () => {
-      expect(component.baseElement.querySelectorAll('#ap_dialogs')).toHaveLength(1)
+      expect(document.body.querySelectorAll('#ap_dialogs')).toHaveLength(1)
     })
   })
 
@@ -455,15 +457,13 @@ describe('events', () => {
 })
 
 describe('flag', () => {
-  let component = null
-
-  beforeEach(() => {
-    component = render(<div />)
-  })
-
   describe('when the Flags component is not already mounted', () => {
+    beforeEach(() => {
+      AP.unmount()
+    })
+
     it('mounts a Flags component to display flags', () => {
-      expect(component.baseElement.querySelectorAll('#ap_flags')).toHaveLength(1)
+      expect(document.body.querySelectorAll('#ap_flags')).toHaveLength(1)
     })
   })
 
@@ -474,7 +474,7 @@ describe('flag', () => {
     })
 
     it('does not mount another Flags component', () => {
-      expect(component.baseElement.querySelectorAll('#ap_flags')).toHaveLength(1)
+      expect(document.body.querySelectorAll('#ap_flags')).toHaveLength(1)
     })
   })
 
