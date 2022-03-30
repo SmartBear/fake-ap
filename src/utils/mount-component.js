@@ -18,7 +18,12 @@ const onDocumentReady = callback => {
   }
 }
 
-const createRoot = id => {
+const mountComponent = (component, id) => {
+  if (roots[id]) {
+    roots[id].unmount()
+    roots[id] = null
+  }
+
   let container = document.getElementById(id)
 
   if (!container) {
@@ -30,12 +35,6 @@ const createRoot = id => {
 
   const root = ReactDOM.createRoot(container)
   roots[id] = root
-
-  return root
-}
-
-const mountComponent = (component, id) => {
-  const root = roots[id] || createRoot(id)
 
   root.render(component)
 }
