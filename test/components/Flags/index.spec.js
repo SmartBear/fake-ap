@@ -20,7 +20,7 @@ describe('Flags', () => {
   })
 
   afterEach(() => {
-    component?.unmount()
+    component.unmount()
   })
 
   it('renders an empty container at the top right corner', () => {

@@ -30,7 +30,7 @@ describe('Dialogs', () => {
   })
 
   afterEach(() => {
-    component?.unmount()
+    component.unmount()
   })
 
   describe('when no dialog is set', () => {
