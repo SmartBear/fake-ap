@@ -11,8 +11,11 @@ describe('Flags', () => {
   let component = null
   let flags = null
 
-  beforeEach(() => {
-    component = mountComponentWhenDocumentIsReady(<Flags />, 'ap_flags')
+  beforeEach(async () => {
+    await act(async () => {
+      component = mountComponentWhenDocumentIsReady(<Flags />, 'ap_flags')
+    })
+
     flags = within(document.getElementById('ap_flags'))
   })
 

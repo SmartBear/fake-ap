@@ -18,8 +18,11 @@ describe('Dialogs', () => {
     window.removeEventListener('message', windowMessageListener)
   })
 
-  beforeEach(() => {
-    component = mountComponentWhenDocumentIsReady(<Dialogs />, 'ap_dialogs')
+  beforeEach(async () => {
+    await act(async () => {
+      component = mountComponentWhenDocumentIsReady(<Dialogs />, 'ap_dialogs')
+    })
+
     dialogs = document.getElementById('ap_dialogs')
 
     windowMessageListener.mockClear()
