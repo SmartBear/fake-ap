@@ -5,7 +5,6 @@ import _get from 'lodash/get'
 import config from 'config'
 import RequestAdapter from 'request-adapter'
 import FakeAP from 'fake-ap'
-import { mountComponentWhenDocumentIsReady } from 'utils/mount-component'
 
 const now = Date.now()
 jest.spyOn(Date, 'now').mockReturnValue(now)
@@ -305,8 +304,10 @@ describe('dialog', () => {
 
   describe('when the Dialogs component is already mounted', () => {
     beforeEach(() => {
-      // eslint-disable-next-line no-new
-      new FakeAP()
+      act(() => {
+        // eslint-disable-next-line no-new
+        new FakeAP()
+      })
     })
 
     it('does not mount another Dialogs component', () => {
@@ -320,7 +321,7 @@ describe('dialog', () => {
         AP.dialog.create({ key: 'dialog' })
       })
 
-      expect(component.baseElement.querySelector('iframe')).toBeInTheDocument()
+      expect(document.body.querySelector('iframe')).toBeInTheDocument()
     })
   })
 
@@ -335,7 +336,7 @@ describe('dialog', () => {
         expect(windowListener).toHaveBeenCalled()
       })
 
-      expect(component.baseElement.querySelector('iframe')).not.toBeInTheDocument()
+      expect(document.body.querySelector('iframe')).not.toBeInTheDocument()
     })
   })
 
@@ -469,8 +470,10 @@ describe('flag', () => {
 
   describe('when the Flags component is already mounted', () => {
     beforeEach(() => {
-      // eslint-disable-next-line no-new
-      new FakeAP()
+      act(() => {
+        // eslint-disable-next-line no-new
+        new FakeAP()
+      })
     })
 
     it('does not mount another Flags component', () => {
@@ -518,7 +521,9 @@ describe('history', () => {
 
   describe('initialState', () => {
     beforeEach(() => {
-      AP = new FakeAP({ initialState: 'route=plop' })
+      act(() => {
+        AP = new FakeAP({ initialState: 'route=plop' })
+      })
     })
 
     it('is set to the location state', () => {
@@ -708,9 +713,11 @@ describe('disabling Dialogs and Flags components', () => {
 
   describe('when mountDialogs is set to false', () => {
     it('does not mount the Dialogs component', () => {
-      // eslint-disable-next-line no-new
-      new FakeAP({
-        mountDialogs: false
+      act(() => {
+        // eslint-disable-next-line no-new
+        new FakeAP({
+          mountDialogs: false
+        })
       })
 
       expect(document.querySelector('#ap_dialogs')).not.toBeInTheDocument()
@@ -719,9 +726,11 @@ describe('disabling Dialogs and Flags components', () => {
 
   describe('when mountFlags is set to false', () => {
     it('does not mount the Flags component', () => {
-      // eslint-disable-next-line no-new
-      new FakeAP({
-        mountFlags: false
+      act(() => {
+        // eslint-disable-next-line no-new
+        new FakeAP({
+          mountFlags: false
+        })
       })
 
       expect(document.querySelector('#ap_flags')).not.toBeInTheDocument()
