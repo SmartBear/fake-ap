@@ -13,7 +13,10 @@ let AP = null
 let options = null
 
 beforeEach(() => {
-  AP = new FakeAP()
+  act(() => {
+    AP = new FakeAP()
+  })
+
   config.resetConfig()
 })
 
