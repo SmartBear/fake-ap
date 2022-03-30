@@ -20,19 +20,19 @@ describe('Dialogs', () => {
 
   beforeEach(() => {
     component = mountComponentWhenDocumentIsReady(<Dialogs />, 'ap_dialogs')
-    dialogs = within(document.getElementById('ap_dialogs'))
+    dialogs = document.getElementById('ap_dialogs')
 
     windowMessageListener.mockClear()
     dialogMessageListener.mockClear()
   })
 
   afterEach(() => {
-    component.unmount()
+    component?.unmount()
   })
 
   describe('when no dialog is set', () => {
     it('renders nothing', () => {
-      expect(dialogs.container).toBeEmptyDOMElement()
+      expect(dialogs).toBeEmptyDOMElement()
     })
   })
 
@@ -80,7 +80,7 @@ describe('Dialogs', () => {
             events.emit('dialog.create', { url: 'localhost', customData: 'data' })
           })
 
-          iframe = dialogs.container.querySelector('iframe')
+          iframe = document.body.querySelector('iframe')
           iframe.contentWindow.addEventListener('message', dialogMessageListener)
 
           unmockWindowPostMessage = mockPostMessage(window, iframe.contentWindow)
@@ -143,7 +143,7 @@ describe('Dialogs', () => {
           })
 
           it('closes the dialog', () => {
-            expect(dialogs.container).toBeEmptyDOMElement()
+            expect(dialogs).toBeEmptyDOMElement()
           })
 
           it('emits a dialog.close event with the provided data', () => {
@@ -160,7 +160,7 @@ describe('Dialogs', () => {
         })
 
         it('renders nothing', () => {
-          expect(dialogs.container).toBeEmptyDOMElement()
+          expect(dialogs).toBeEmptyDOMElement()
         })
       })
 
@@ -172,7 +172,7 @@ describe('Dialogs', () => {
         })
 
         it('renders nothing', () => {
-          expect(dialogs.container).toBeEmptyDOMElement()
+          expect(dialogs).toBeEmptyDOMElement()
         })
       })
     })
