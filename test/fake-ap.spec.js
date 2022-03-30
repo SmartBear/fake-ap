@@ -1,5 +1,5 @@
 import React from 'react'
-import { act, waitFor } from '@testing-library/react'
+import { act, waitFor, within } from '@testing-library/react'
 import * as jwt from 'atlassian-jwt'
 import _get from 'lodash/get'
 import config from 'config'
@@ -303,8 +303,8 @@ describe('dialog', () => {
   })
 
   describe('when the Dialogs component is already mounted', () => {
-    beforeEach(() => {
-      act(() => {
+    beforeEach(async () => {
+      await act(async () => {
         // eslint-disable-next-line no-new
         new FakeAP()
       })
@@ -469,8 +469,8 @@ describe('flag', () => {
   })
 
   describe('when the Flags component is already mounted', () => {
-    beforeEach(() => {
-      act(() => {
+    beforeEach(async () => {
+      await act(async () => {
         // eslint-disable-next-line no-new
         new FakeAP()
       })
@@ -496,8 +496,8 @@ describe('flag', () => {
         AP.flag.create({ title: 'Flag 2' })
       })
 
-      expect(component.queryByText('Flag 1')).toBeInTheDocument()
-      expect(component.queryByText('Flag 2')).toBeInTheDocument()
+      expect(within(document.body.querySelectorAll('#ap_flags')).queryByText('Flag 1')).toBeInTheDocument()
+      expect(within(document.body.querySelectorAll('#ap_flags')).queryByText('Flag 2')).toBeInTheDocument()
     })
 
     it('returns an object with a close method that closes the flag', () => {
@@ -508,8 +508,8 @@ describe('flag', () => {
         flag.close()
       })
 
-      expect(component.queryByText('Flag 1')).not.toBeInTheDocument()
-      expect(component.queryByText('Flag 2')).toBeInTheDocument()
+      expect(within(document.body.querySelectorAll('#ap_flags')).queryByText('Flag 1')).not.toBeInTheDocument()
+      expect(within(document.body.querySelectorAll('#ap_flags')).queryByText('Flag 2')).toBeInTheDocument()
     })
   })
 })
@@ -520,8 +520,8 @@ describe('history', () => {
   })
 
   describe('initialState', () => {
-    beforeEach(() => {
-      act(() => {
+    beforeEach(async () => {
+      await act(async () => {
         AP = new FakeAP({ initialState: 'route=plop' })
       })
     })
@@ -712,8 +712,8 @@ describe('disabling Dialogs and Flags components', () => {
   })
 
   describe('when mountDialogs is set to false', () => {
-    it('does not mount the Dialogs component', () => {
-      act(() => {
+    it('does not mount the Dialogs component', async () => {
+      await act(async () => {
         // eslint-disable-next-line no-new
         new FakeAP({
           mountDialogs: false
@@ -725,8 +725,8 @@ describe('disabling Dialogs and Flags components', () => {
   })
 
   describe('when mountFlags is set to false', () => {
-    it('does not mount the Flags component', () => {
-      act(() => {
+    it('does not mount the Flags component', async () => {
+      await act(async () => {
         // eslint-disable-next-line no-new
         new FakeAP({
           mountFlags: false
