@@ -1,5 +1,7 @@
 import ReactDOM from 'react-dom/client'
 
+const roots = {}
+
 const mountComponentWhenDocumentIsReady = (component, id) => {
   onDocumentReady(() => mountComponent(component, id))
 }
@@ -12,7 +14,7 @@ const onDocumentReady = callback => {
   }
 }
 
-const mountComponent = (component, id) => {
+const createRoot = id => {
   let container = document.getElementById(id)
 
   if (!container) {
@@ -23,6 +25,14 @@ const mountComponent = (component, id) => {
   }
 
   const root = ReactDOM.createRoot(container)
+  roots[id] = root
+
+  return root
+}
+
+const mountComponent = (component, id) => {
+  const root = roots[id] || createRoot(id)
+
   root.render(component)
 
   return root
