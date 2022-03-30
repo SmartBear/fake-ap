@@ -288,8 +288,10 @@ describe('dialog', () => {
   })
 
   describe('when the Dialogs component is not already mounted', () => {
-    beforeEach(() => {
-      AP.unmount()
+    beforeEach(async () => {
+      await act(async () => {
+        AP.unmount()
+      })
     })
 
     it('mounts a Dialogs component to display flags', () => {
@@ -454,8 +456,10 @@ describe('events', () => {
 
 describe('flag', () => {
   describe('when the Flags component is not already mounted', () => {
-    beforeEach(() => {
-      AP.unmount()
+    beforeEach(async () => {
+      await act(async () => {
+        AP.unmount()
+      })
     })
 
     it('mounts a Flags component to display flags', () => {
