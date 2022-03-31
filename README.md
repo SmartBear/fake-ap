@@ -52,6 +52,51 @@ import FakeAP from '@smartbear/fake-ap'
 window.AP = new FakeAP()
 ```
 
+### Setup the dialogs and flags React components
+
+To display modal dialogs and flags (using `AP.dialog.create` and `AP.flag.create`), Fake AP provides two React components that you should mount or render.
+These components are React portals, which means you can safely insert them anywhere in your React component tree as they will be rendered in another element outside.
+
+For instance, given the following HTML:
+
+```html
+<body>
+  <div id="root" />
+</body>
+```
+
+You can mount a React component with Fake AP like this:
+
+```javascript
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import { APDialogs, APFlags } from '@smartbear/fake-ap'
+
+const root = ReactDOM.createRoot(document.getElementById('root'))
+
+root.render(
+  <div>
+    <APDialogs />
+    <APFlags />
+    <div>Some content</div>
+  </div>
+)
+```
+
+This will render the following document:
+
+```html
+<body>
+  <div id="root">
+    Some content
+  </div>
+  <div id="ap_dialogs" />
+  <div id="ap_flags" />
+</body>
+```
+
+The `ap_dialogs` and `ap_flags` element will contain the working Fake AP components.
+
 ### Use the fake AP
 
 The fake AP creation should be done in a script included instead of the real one.
@@ -94,8 +139,6 @@ Here is a list of all available configuration (refer to their own section for de
 | `requestAdapter`             | `RequestAdapter`    | The request adapter for `AP.request`                              |
 | `notImplementedAction`       | `() => {}`          | The method called when using a method that is not implemented     |
 | `missingConfigurationAction` | `throw new Error()` | The method called when a configuration is missing                 |
-| `mountDialogs`               | `true`              | `false` to prevent mounting the React component for dialogs       |
-| `mountFlags`                 | `true`              | `false` to prevent mounting the React component for flags         |
 
 **Note:** when using `AP.configure`, all previous configuration is kept, only conflicting configuration is replaced. All new configuration is added.
 
@@ -133,7 +176,7 @@ By default the context is an empty object. The same context will also be added t
 
 ### `AP.dialog`
 
-To use dialogs (`AP.context.create`), you need to provide the dialog keys and URLs as they are describe in the descriptor:
+To use dialogs (`AP.dialog.create`), you need to provide the dialog keys and URLs as they are describe in the descriptor:
 
 ```javascript
 AP.configure({
@@ -292,21 +335,6 @@ AP.configure({
 const callback = () => {}
 await AP.context.getToken(callback)
 ```
-
-### Disabling dialogs and flags
-
-To make dialogs and flags work, Fake AP will create and mount React components in the document body. If you do not want this to happen (to keep your DOM clean during unit tests for instance), you can disable dialogs and flags:
-
-```javascript
-const AP = new FakeAP({
-  mountDialogs: false,
-  mountFlags: false
-})
-```
-
-No error will be raised, but nothing will happen since the components will not exist.
-
-**Note: this can only be configured when creating the Fake AP. `AP.configure` will have no effect here since the components are already mounted.**
 
 ## Implemented methods
 - `AP.context`:

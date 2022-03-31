@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- **BREAKING CHANGE:** The Dialogs and Flags components are now provided by the package and need to be rendered in a React component
+
 ## [2.1.4]
 
 - Add support for React 18
