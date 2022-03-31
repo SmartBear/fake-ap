@@ -24,8 +24,6 @@ class Config {
     this.context = config.context ?? this.context
     this.dialogUrls = config.dialogUrls ?? this.dialogUrls
     this.locale = config.locale ?? this.locale
-    this.mountDialogs = config.mountDialogs ?? this.mountDialogs
-    this.mountFlags = config.mountFlags ?? this.mountFlags
     this.initialState = config.initialState ?? this.initialState
   }
 
@@ -43,8 +41,6 @@ class Config {
     this.context = {}
     this.dialogUrls = {}
     this.locale = null
-    this.mountDialogs = true
-    this.mountFlags = true
     this.initialState = ''
   }
 }
