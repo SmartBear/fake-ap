@@ -1,5 +1,5 @@
 import React from 'react'
-import { act, waitFor } from '@testing-library/react'
+import { render, act, waitFor } from '@testing-library/react'
 import events from 'modules/events'
 import Dialogs from 'components/Dialogs'
 
@@ -16,8 +16,8 @@ describe('Dialogs', () => {
     window.removeEventListener('message', windowMessageListener)
   })
 
-  beforeEach(async () => {
-    dialogs = await renderComponent(<Dialogs />, 'ap_dialogs')
+  beforeEach(() => {
+    dialogs = render(<Dialogs />)
 
     windowMessageListener.mockClear()
     dialogMessageListener.mockClear()
@@ -25,7 +25,7 @@ describe('Dialogs', () => {
 
   describe('when no dialog is set', () => {
     it('renders nothing', () => {
-      expect(dialogs).toBeEmptyDOMElement()
+      expect(dialogs.container).toBeEmptyDOMElement()
     })
   })
 
@@ -136,7 +136,7 @@ describe('Dialogs', () => {
           })
 
           it('closes the dialog', () => {
-            expect(dialogs).toBeEmptyDOMElement()
+            expect(dialogs.container).toBeEmptyDOMElement()
           })
 
           it('emits a dialog.close event with the provided data', () => {
@@ -153,7 +153,7 @@ describe('Dialogs', () => {
         })
 
         it('renders nothing', () => {
-          expect(dialogs).toBeEmptyDOMElement()
+          expect(dialogs.container).toBeEmptyDOMElement()
         })
       })
 
@@ -165,7 +165,7 @@ describe('Dialogs', () => {
         })
 
         it('renders nothing', () => {
-          expect(dialogs).toBeEmptyDOMElement()
+          expect(dialogs.container).toBeEmptyDOMElement()
         })
       })
     })

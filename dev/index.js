@@ -14,7 +14,7 @@ import {
   RequestResponse,
   Code
 } from './styled'
-import FakeAP from 'fake-ap'
+import FakeAP, { APDialogs, APFlags } from 'fake-ap'
 import * as jwt from 'atlassian-jwt'
 import { mountComponentWhenDocumentIsReady } from './mount-component'
 import BackendRequestAdapter from 'request-adapter/backend'
@@ -211,6 +211,8 @@ const TestPage = () => {
   return (
     <TestPageContainer>
       <GlobalStyle />
+      <APDialogs />
+      <APFlags />
 
       <Options>
         <Form>

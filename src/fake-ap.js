@@ -1,4 +1,3 @@
-import React from 'react'
 import config from 'config'
 import context from 'modules/context'
 import cookie from 'modules/cookie'
@@ -15,7 +14,6 @@ import request from 'modules/request'
 import user from 'modules/user'
 import Dialogs from 'components/Dialogs'
 import Flags from 'components/Flags'
-import { mountComponentWhenDocumentIsReady, unmountComponent } from 'utils/mount-component'
 
 class AP {
   context = context
@@ -35,24 +33,16 @@ class AP {
 
   constructor(options = {}) {
     this.configure(options)
-
-    if (config.mountDialogs) {
-      mountComponentWhenDocumentIsReady(<Dialogs />, 'ap_dialogs')
-    }
-
-    if (config.mountFlags) {
-      mountComponentWhenDocumentIsReady(<Flags />, 'ap_flags')
-    }
   }
 
   configure(options) {
     config.setConfig(options)
   }
-
-  unmount() {
-    unmountComponent('ap_dialogs')
-    unmountComponent('ap_flags')
-  }
 }
 
 export default AP
+
+export {
+  Dialogs as APDialogs,
+  Flags as APFlags
+}

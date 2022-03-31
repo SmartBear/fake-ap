@@ -18,7 +18,6 @@ module.exports = {
     sourceType: 'module'
   },
   globals: {
-    renderComponent: 'readonly',
     mockPostMessage: 'readonly'
   },
   plugins: ['@babel', 'react', 'jest'],

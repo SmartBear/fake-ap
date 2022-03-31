@@ -1,9 +1,10 @@
-import { act, waitFor, within } from '@testing-library/react'
+import React from 'react'
+import { render, act, waitFor } from '@testing-library/react'
 import * as jwt from 'atlassian-jwt'
 import _get from 'lodash/get'
 import config from 'config'
 import RequestAdapter from 'request-adapter'
-import FakeAP from 'fake-ap'
+import FakeAP, { APDialogs, APFlags } from 'fake-ap'
 
 const now = Date.now()
 jest.spyOn(Date, 'now').mockReturnValue(now)
@@ -287,43 +288,22 @@ describe('dialog', () => {
     })
   })
 
-  describe('when the Dialogs component is not already mounted', () => {
-    beforeEach(async () => {
-      await act(async () => {
-        AP.unmount()
-      })
-    })
-
-    it('mounts a Dialogs component to display flags', () => {
-      expect(document.body.querySelectorAll('#ap_dialogs')).toHaveLength(1)
-    })
-  })
-
-  describe('when the Dialogs component is already mounted', () => {
-    beforeEach(async () => {
-      await act(async () => {
-        // eslint-disable-next-line no-new
-        new FakeAP()
-      })
-    })
-
-    it('does not mount another Dialogs component', () => {
-      expect(document.body.querySelectorAll('#ap_dialogs')).toHaveLength(1)
-    })
-  })
-
   describe('create', () => {
     it('opens a dialog', () => {
+      const component = render(<APDialogs />)
+
       act(() => {
         AP.dialog.create({ key: 'dialog' })
       })
 
-      expect(document.body.querySelector('iframe')).toBeInTheDocument()
+      expect(component.baseElement.querySelector('iframe')).toBeInTheDocument()
     })
   })
 
   describe('close', () => {
     it('closes the current dialog', async () => {
+      const component = render(<APDialogs />)
+
       act(() => {
         AP.dialog.create({ key: 'dialog' })
         AP.dialog.close()
@@ -333,7 +313,7 @@ describe('dialog', () => {
         expect(windowListener).toHaveBeenCalled()
       })
 
-      expect(document.body.querySelector('iframe')).not.toBeInTheDocument()
+      expect(component.baseElement.querySelector('iframe')).not.toBeInTheDocument()
     })
   })
 
@@ -341,6 +321,8 @@ describe('dialog', () => {
     let unmockWindowPostMessage = null
 
     beforeEach(() => {
+      render(<APDialogs />)
+
       act(() => {
         AP.dialog.create({ key: 'dialog', customData: { name: 'value' } })
       })
@@ -455,32 +437,13 @@ describe('events', () => {
 })
 
 describe('flag', () => {
-  describe('when the Flags component is not already mounted', () => {
-    beforeEach(async () => {
-      await act(async () => {
-        AP.unmount()
-      })
-    })
-
-    it('mounts a Flags component to display flags', () => {
-      expect(document.body.querySelectorAll('#ap_flags')).toHaveLength(1)
-    })
-  })
-
-  describe('when the Flags component is already mounted', () => {
-    beforeEach(async () => {
-      await act(async () => {
-        // eslint-disable-next-line no-new
-        new FakeAP()
-      })
-    })
-
-    it('does not mount another Flags component', () => {
-      expect(document.body.querySelectorAll('#ap_flags')).toHaveLength(1)
-    })
-  })
-
   describe('create', () => {
+    let component = null
+
+    beforeEach(() => {
+      component = render(<APFlags />)
+    })
+
     afterEach(() => {
       act(() => {
         for (let id = 1; id <= AP.flag._nextId; id++) {
@@ -495,8 +458,8 @@ describe('flag', () => {
         AP.flag.create({ title: 'Flag 2' })
       })
 
-      expect(within(document.getElementById('ap_flags')).queryByText('Flag 1')).toBeInTheDocument()
-      expect(within(document.getElementById('ap_flags')).queryByText('Flag 2')).toBeInTheDocument()
+      expect(component.queryByText('Flag 1')).toBeInTheDocument()
+      expect(component.queryByText('Flag 2')).toBeInTheDocument()
     })
 
     it('returns an object with a close method that closes the flag', () => {
@@ -507,8 +470,8 @@ describe('flag', () => {
         flag.close()
       })
 
-      expect(within(document.getElementById('ap_flags')).queryByText('Flag 1')).not.toBeInTheDocument()
-      expect(within(document.getElementById('ap_flags')).queryByText('Flag 2')).toBeInTheDocument()
+      expect(component.queryByText('Flag 1')).not.toBeInTheDocument()
+      expect(component.queryByText('Flag 2')).toBeInTheDocument()
     })
   })
 })

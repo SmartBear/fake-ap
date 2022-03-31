@@ -9,6 +9,8 @@ const findOrCreateElement = id => {
 
     document.body.appendChild(element)
   }
+
+  return element
 }
 
 const createPortal = (component, id) => ReactDOM.createPortal(component, findOrCreateElement(id))

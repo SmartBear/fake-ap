@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import createPortal from 'utils/create-portal'
 import {
   InfoIcon,
   SuccessIcon,
@@ -69,10 +70,11 @@ const Flags = () => {
     events.emit('flag.close', id)
   }
 
-  return (
+  return createPortal(
     <FlagsContainer data-testid='ap-flags'>
       {flags.map(flag => <Flag key={flag.id} {...flag.options} closeFlag={() => closeFlag(flag.id)} />)}
-    </FlagsContainer>
+    </FlagsContainer>,
+    'ap_flags'
   )
 }
 

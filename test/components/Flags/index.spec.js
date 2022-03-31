@@ -1,5 +1,5 @@
 import React from 'react'
-import { fireEvent, act, within } from '@testing-library/react'
+import { render, fireEvent, act, within } from '@testing-library/react'
 import events from 'modules/events'
 import { InfoIcon, SuccessIcon, WarningIcon, ErrorIcon } from 'components/Flags/icons'
 import Flags from 'components/Flags'
@@ -10,7 +10,7 @@ describe('Flags', () => {
   let flags = null
 
   beforeEach(async () => {
-    flags = within(await renderComponent(<Flags />, 'ap_flags'))
+    flags = render(<Flags />)
   })
 
   it('renders an empty container at the top right corner', () => {
@@ -49,62 +49,62 @@ describe('Flags', () => {
   })
 
   describe('flag type', () => {
-    it('can display an info flag', async () => {
+    it('can display an info flag', () => {
       const options = { type: 'info' }
 
       act(() => {
         events.emit('flag.create', { id: 1, options })
       })
 
-      const infoIcon = await renderComponent(<InfoIcon />, 'info_icon')
+      const infoIcon = render(<InfoIcon />).container
 
       expect(flags.getByTestId('ap-flag-type').innerHTML).toEqual(infoIcon.innerHTML)
     })
 
-    it('can display a success flag', async () => {
+    it('can display a success flag', () => {
       const options = { type: 'success' }
 
       act(() => {
         events.emit('flag.create', { id: 1, options })
       })
 
-      const successIcon = await renderComponent(<SuccessIcon />, 'success_icon')
+      const successIcon = render(<SuccessIcon />).container
 
       expect(flags.getByTestId('ap-flag-type').innerHTML).toEqual(successIcon.innerHTML)
     })
 
-    it('can display a warning flag', async () => {
+    it('can display a warning flag', () => {
       const options = { type: 'warning' }
 
       act(() => {
         events.emit('flag.create', { id: 1, options })
       })
 
-      const warningIcon = await renderComponent(<WarningIcon />, 'warning_icon')
+      const warningIcon = render(<WarningIcon />).container
 
       expect(flags.getByTestId('ap-flag-type').innerHTML).toEqual(warningIcon.innerHTML)
     })
 
-    it('can display an error flag', async () => {
+    it('can display an error flag', () => {
       const options = { type: 'error' }
 
       act(() => {
         events.emit('flag.create', { id: 1, options })
       })
 
-      const errorIcon = await renderComponent(<ErrorIcon />, 'error_icon')
+      const errorIcon = render(<ErrorIcon />).container
 
       expect(flags.getByTestId('ap-flag-type').innerHTML).toEqual(errorIcon.innerHTML)
     })
 
-    it('defaults to an info flag', async () => {
+    it('defaults to an info flag', () => {
       const options = {}
 
       act(() => {
         events.emit('flag.create', { id: 1, options })
       })
 
-      const infoIcon = await renderComponent(<InfoIcon />, 'info_icon')
+      const infoIcon = render(<InfoIcon />).container
 
       expect(flags.getByTestId('ap-flag-type').innerHTML).toEqual(infoIcon.innerHTML)
     })

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
+import createPortal from 'utils/create-portal'
 import { DialogsContainer } from './styled'
 import events from 'modules/events'
 
@@ -74,19 +75,13 @@ const Dialogs = () => {
     events.emit('dialog.close', event.data.data)
   }
 
-  if (!dialog) {
-    return null
-  }
-
-  if (!dialog.url) {
-    return null
-  }
-
-  return (
+  const component = dialog?.url ? (
     <DialogsContainer>
       <iframe src={dialog.url} style={styles.iframe} ref={iframeRef} data-testid='ap-dialog' />
     </DialogsContainer>
-  )
+  ) : null
+
+  return createPortal(component, 'ap_dialogs')
 }
 
 export default Dialogs
