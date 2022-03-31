@@ -1,6 +1,6 @@
 {
   "name": "@smartbear/fake-ap",
-  "version": "2.1.4",
+  "version": "3.0.0",
   "description": "A fake AP module to help develop and test Atlassian Connect applications.",
   "homepage": "https://github.com/SmartBear/fake-ap",
   "repository": {
