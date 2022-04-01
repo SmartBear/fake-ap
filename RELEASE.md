@@ -24,7 +24,7 @@ The release process is automated using a release script then a GitHub action:
 - The `yarn release` script will:
   - Move content in the changelog from **Unreleased** to a new section, then add the file to the future commit
   - Use `yarn version` to bump the version in `package.json`, create a release commit and tag
-- The `yarn push` script will use `git push --follow-tags` to push the commit
+  - Use `git push --follow-tags` to push the commit
 - A `release` GitHub action will make the release and publish the package:
   - The action is triggered if a push includes a tag that starts as `v*`
   - It runs all tests before the release
