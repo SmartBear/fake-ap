@@ -1,0 +1,22 @@
+name: Dependabot Auto Merge
+
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+
+jobs:
+  auto-merge:
+    name: Auto merge
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Use auto merge action
+      uses: ahmadnassri/action-dependabot-auto-merge@v2
+      with:
+        github-token: ${{ secrets.PAT }}
