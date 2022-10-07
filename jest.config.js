@@ -3,5 +3,6 @@ module.exports = {
     './jest.setup.js'
   ],
   moduleDirectories: ['node_modules', 'src'],
-  testEnvironment: 'jsdom'
+  testEnvironment: 'jsdom',
+  transformIgnorePatterns: ['node_modules/(?!(.*axios)/)']
 }
