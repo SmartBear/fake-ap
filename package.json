@@ -29,7 +29,7 @@
     "@babel/eslint-plugin": "^7.25.1",
     "@babel/preset-env": "^7.21.5",
     "@babel/preset-react": "^7.24.7",
-    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/jest-dom": "^6.5.0",
     "@testing-library/react": "^14.3.0",
     "babel-loader": "^9.2.1",
     "babel-plugin-module-resolver": "^5.0.2",
