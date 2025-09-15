@@ -60,7 +60,7 @@
   },
   "dependencies": {
     "atlassian-jwt": "^2.0.3",
-    "axios": "^1.12.0",
+    "axios": "^1.12.2",
     "http-status-codes": "^2.3.0",
     "signals": "^1.0.0"
   },
