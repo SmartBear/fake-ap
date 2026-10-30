@@ -32,7 +32,7 @@
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^14.3.0",
     "babel-loader": "^9.2.1",
-    "babel-plugin-module-resolver": "^5.0.2",
+    "babel-plugin-module-resolver": "^5.0.3",
     "buffer": "^6.0.3",
     "crypto-browserify": "^3.12.1",
     "eslint": "^8.57.1",
